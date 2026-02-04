@@ -1,86 +1,681 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<title></title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<style type="text/css">
-      /* CLIENT-SPECIFIC STYLES */
-			body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-			table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
-			img { -ms-interpolation-mode: bicubic; }
-			
-			/* RESET STYLES */
-			img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
-			table { border-collapse: collapse !important; }
-			body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
-			
-			/* iOS BLUE LINKS */
-			a[x-apple-data-detectors] {
-			    color: inherit !important;
-			    text-decoration: none !important;
-			    font-size: inherit !important;
-			    font-family: inherit !important;
-			    font-weight: inherit !important;
-			    line-height: inherit !important;
-			}
-			
-			/* GMAIL BLUE LINKS */
-			u + #body a {
-			    color: inherit;
-			    text-decoration: none;
-			    font-size: inherit;
-			    font-family: inherit;
-			    font-weight: inherit;
-			    line-height: inherit;
-			}
-			
-			/* SAMSUNG MAIL BLUE LINKS */
-			#MessageViewBody a {
-			    color: inherit;
-			    text-decoration: none;
-			    font-size: inherit;
-			    font-family: inherit;
-			    font-weight: inherit;
-			    line-height: inherit;
-			}
+<html lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:v="urn:schemas-microsoft-com:vml"
+  xmlns:o="urn:schemas-microsoft-com:office:office">
 
-			/* Universal styles for links and stuff */
-		
+  <head>
+    <!--
+      This page is a *web preview* of an email campaign layout for a video game
+      review and resource site called "RageQuit Press". Many components
+      are previews or only somewhat operational, since the focus of this 
+      assignment was to use email-related HTML/CSS. 
+    -->
+    <title>RageQuit Press — Weekly Roast (Assignment 2)</title>
 
-			/* Responsive styles */
-	
-		</style>
-	</head>
-	<body id="body" style="margin: 0 !important; padding: 0 !important;">
+    <!-- Email-safe meta + mobile scaling -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
+    <style type="text/css">
+      /*
+        Compatibility layer:
+        These rules reduce layout inconsistencies across email clients.
+        Even though we’re running in a browser, we keep them because the assignment is “email campaign page”.
+      */
+      body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+      table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+      img { -ms-interpolation-mode: bicubic; }
 
+      /* Baseline reset to avoid unexpected spacing/underlines in email-like rendering */
+      img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+      table { border-collapse: collapse !important; }
+      body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
 
-	  <!-- Logo image -->
+      /*
+        “Blue link” overrides:
+        Some mobile/email clients auto-style phone numbers/addresses as blue links.
+        These rules keep typography consistent.
+      */
+      a[x-apple-data-detectors] {
+        color: inherit !important;
+        text-decoration: none !important;
+        font-size: inherit !important;
+        font-family: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+      }
+      u + #body a {
+        color: inherit;
+        text-decoration: none;
+        font-size: inherit;
+        font-family: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+      }
+      #MessageViewBody a {
+        color: inherit;
+        text-decoration: none;
+        font-size: inherit;
+        font-family: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+      }
 
-    
-    
-		<!-- Headline -->
+      /*
+        Minimal responsiveness:
+        Assignment prefers inline styles, but these small utilities help make the “email” readable on mobile.
+      */
+      @media screen and (max-width: 640px) {
+        .container { width: 100% !important; }
+        .px { padding-left: 16px !important; padding-right: 16px !important; }
+        .stack { display: block !important; width: 100% !important; }
+        .fluid-img { width: 100% !important; max-width: 100% !important; height: auto !important; }
+        .center { text-align: center !important; }
+      }
+    </style>
+  </head>
 
-    
-    
-		<!-- Hero Image -->
+  <body id="body" style="margin: 0 !important; padding: 0 !important; background-color: #f3f4f6;">
 
-    
+    <!--
+      Anchor targets:
+      Used for internal “jump links” like “View in browser”, “Unsubscribe”, etc.
+      Email templates often rely on these instead of advanced routing.
+    -->
+    <a id="top"></a>
 
-		<!-- Body copy -->
+    <!--
+      Preheader:
+      Hidden snippet text shown by many email clients in the inbox preview line.
+      Keep short and descriptive; it impacts open rates in real email campaigns.
+    -->
+    <div style="display:none; font-size:1px; color:#f3f4f6; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidden;">
+      This week: one AAA flop roasted, three indie games were overhyped, and a “patch notes apology tour.”
+    </div>
 
-    
+    <!--
+      Outer wrapper table:
+      Email-safe centering + background color block.
+      Tables were used to keep the layout consistent.
+    -->
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation" style="background-color:#f3f4f6;">
+      <tr>
+        <td align="center" style="padding: 20px 12px;">
 
-		<!-- Button -->
+          <!--
+            Inner container (600px):
+            Standard email width for readability on desktop clients.
+            If the width is changed here, key image widths have to be adjusted
+            (e.g., 544px) for alignment.
+          -->
+          <table border="0" cellpadding="0" cellspacing="0" width="600" class="container" role="presentation"
+            style="width:600px; max-width:600px; background-color:#ffffff; border:1px solid #e5e7eb;">
 
-    
-    
-		<!-- Footer information: Always include an unsubscribe link! -->
+            <!-- =========================
+                 HEADER / BRAND BLOCK
+                 Purpose:
+                 - Establish branding and “issue title” quickly.
+                 - Keep typography web-safe (Arial) per assignment (no web fonts).
+                 Edit points:
+                 - Swap logo file (images/logo.png)
+                 - Update issue title/subtitle copy
+                 ========================= -->
+            <tr>
+              <td class="px" style="padding: 22px 28px 10px 28px; font-family: Arial, Helvetica, sans-serif;">
+                <div style="text-align:center; margin:0 0 10px 0;">
+                  <img
+                    src="images/logo.png"
+                    width="84"
+                    height="84"
+                    alt="RageQuit Press logo"
+                    style="display:inline-block; border-radius:42px;"
+                  />
+                  <div style="font-size:12px; letter-spacing:1.2px; color:#6b7280; margin-top:10px;">
+                    RAGEQUIT PRESS • EMAIL CAMPAIGN PREVIEW
+                  </div>
+                </div>
 
+                <div style="text-align:center;">
+                  <h1 style="margin:8px 0 8px 0; font-size:30px; line-height:38px; color:#111827; font-weight:700;">
+                    The Week in Gaming, With Zero Mercy
+                  </h1>
+                  <p style="margin:0; font-size:14px; line-height:22px; color:#374151;">
+                    Issue #02 • Click any image to toggle “Evidence Mode.”
+                  </p>
+                </div>
+              </td>
+            </tr>
 
-		
+            <!-- =========================
+                 INTERACTIVE BANNER 
+                 Purpose:
+                 - Meant to be like a magazine/site header
+                 - Show brand identity 
+                 - Reusable interaction that can be swapped without extra JS.
+                 Edit points:
+                 - Replace images/banner-a.png and images/banner-b.png at some point
+                 - Keep width at 544px to match container padding for clean alignment
+                 ========================= -->
+            <tr>
+              <td align="center" class="px" style="padding: 12px 28px 0 28px;">
+                <div style="margin:0; padding:0; text-align:center;">
+                  <img
+                    id="bannerImg"
+                    src="images/banner-a.png"
+                    data-src-a="images/banner-a.png"
+                    data-src-b="images/banner-b.png"
+                    data-toggle="swap"
+                    tabindex="0"
+                    alt="RageQuit Press banner (click to toggle glitch mode)"
+                    width="544"
+                    style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb; cursor:pointer;"
+                    class="fluid-img"
+                  />
+                  <div style="margin-top:8px; font-family: Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#6b7280;">
+                    Click banner to toggle <strong>glitch mode</strong>.
+                  </div>
+                </div>
+              </td>
+            </tr>
 
-	</body>
+            <!-- =========================
+                 HERO IMAGE
+                 Purpose:
+                 - Grab reader attention (featured cover art and familiar mascots)
+                 - “Evidence mode” swap supports the site’s scathing-review theme.
+                 Edit points:
+                 - Update hero images: images/hero-a.png and images/hero-b.png for real 
+                 video games that are being reviewed (these were fakes made using an Generative LLM)
+                 - Caption text is dynamically updated in JS for hero only
+                 ========================= -->
+            <tr>
+              <td align="center" class="px" style="padding: 14px 28px 0 28px;">
+                <div style="margin:0; padding:0; text-align:center;">
+                  <img
+                    id="heroImg"
+                    src="images/hero-a.png"
+                    data-src-a="images/hero-a.png"
+                    data-src-b="images/hero-b.png"
+                    data-toggle="swap"
+                    tabindex="0"
+                    alt="Hero image: featured review cover art"
+                    width="544"
+                    style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb; cursor:pointer;"
+                    class="fluid-img"
+                  />
+                  <div id="heroCaption" style="margin-top:10px; font-family: Arial, Helvetica, sans-serif; font-size:13px; line-height:18px; color:#6b7280;">
+                    Cover shot (click to swap to “Evidence Mode”).
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- =========================
+                 CONTENT BODY
+                 - All sections (intro, feature, quick hits, CTA, forms).
+                 - Kept inside one <td> to preserve email-layout stability.
+                 Edit points:
+                 - Most styling and reactivity will need to be updated later, when
+                 new features are introduced in class (or if I'm allowed to include frameworks I want
+                 to experiment with)
+                 ========================= -->
+            <tr>
+              <td class="px" style="padding: 18px 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
+
+                <!-- Intro callout: quick context + tone setting -->
+                <div style="border-left:4px solid #111827; padding:12px 14px; background-color:#f9fafb;">
+                  <p style="margin:0; font-size:15px; line-height:24px; color:#111827;">
+                    Welcome to <strong>RageQuit Press</strong>, a video game journalism app that reviews games the way a 90’s magazine did:
+                    brutal honesty, no agreements with companies to play nice, and what not to do in game design.
+                  </p>
+                </div>
+
+                <p style="margin:14px 0 0 0; font-size:14px; line-height:22px; color:#374151;">
+                  This page is styled like an <strong>email campaign</strong> (inline CSS, table layout, unsubscribe footer),
+                  but also includes some basic interactivity (click-to-toggle images + simple JS objects).
+                </p>
+
+                <!-- =========================
+                     FEATURED ROAST SECTION
+                     Purpose:
+                     - Primary content module (what users should read first).
+                     - Uses a nested table for the 2-column layout (most email clients support this reliably).
+                     Edit points:
+                     - Replace feature images (feature1-a/b)
+                     - Update bullet points + copy
+                     ========================= -->
+                <div style="margin-top:18px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
+                  <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">
+                    Featured Roast: “Galaxy Grind VII”
+                  </h2>
+
+                  <p style="margin:0 0 10px 0; font-size:14px; line-height:22px; color:#374151;">
+                    Marketing promised “freedom.” The tutorial is 47 minutes long and I was actively rooting 
+                    against the people I played as.
+                  </p>
+
+                  <!-- 2-column block: image left, text right -->
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <td class="stack" width="48%" valign="top" style="padding: 0 8px 0 0;">
+                        <img
+                          src="images/feature1-a.png"
+                          data-src-a="images/feature1-a.png"
+                          data-src-b="images/feature1-b.png"
+                          data-toggle="swap"
+                          tabindex="0"
+                          alt="Screenshot: review highlight"
+                          width="250"
+                          style="display:block; width:250px; max-width:100%; height:auto; border:1px solid #e5e7eb; cursor:pointer;"
+                          class="fluid-img"
+                        />
+                        <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
+                          Click to toggle: “Trailer” ⇄ “In-game reality.”
+                        </div>
+                      </td>
+
+                      <td class="stack" width="52%" valign="top" style="padding: 0 0 0 8px;">
+                        <div style="padding:0; margin:0;">
+                          <ul style="margin:0; padding:0 0 0 18px; font-size:14px; line-height:22px; color:#374151;">
+                            <li><strong>UI:</strong> Designed by someone who hates eyes.</li>
+                            <li><strong>Combat:</strong> I wish I could beat up the person I'm playing as because he's so inept.</li>
+                            <li><strong>Story:</strong> A cutscene landfill.</li>
+                          </ul>
+
+                          <!-- Score copy remains for accessibility/SEO; badge adds visual “at-a-glance” score -->
+                          <p style="margin:10px 0 0 0; font-size:14px; line-height:22px; color:#374151;">
+                            Final score: <strong>3/10</strong> — “A masterpiece of ignoring user feedback.”
+                          </p>
+
+                          <!-- =========================
+                               SCORE BADGE (NEW)
+                               Purpose:
+                               - Converts the score into a scannable visual element 
+                               - Toggle demonstrates “state change” (roast vs praise) using the same swap handler.
+                               Edit points:
+                               - Swap images/score-03.png and images/score-09.png
+                               - Later: drive this from data (rating model) instead of manual swaps
+                               ========================= -->
+                          <div style="margin-top:12px;">
+                            <img
+                              id="scoreBadge"
+                              src="images/score-03.png"
+                              data-src-a="images/score-03.png"
+                              data-src-b="images/score-09.png"
+                              data-toggle="swap"
+                              tabindex="0"
+                              alt="Score badge (click to toggle score)"
+                              width="210"
+                              style="display:block; width:210px; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:10px; cursor:pointer;"
+                            />
+                            <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
+                              Click badge to toggle <strong>ROASTED</strong> ⇄ <strong>GODLIKE</strong> (web preview).
+                            </div>
+                          </div>
+
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <!-- =========================
+                     QUICK HITS
+                     Purpose:
+                     - Secondary content block.
+                     - Rendered from a JS object array to demonstrate basic data-driven DOM rendering.
+                     - Includes static fallback HTML so the section still works if JS is disabled.
+                     Edit points:
+                     - Change the hits array in renderQuickHits() in the script
+                     ========================= -->
+                <div style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
+                  <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">
+                    Quick Hits
+                  </h2>
+                  <p style="margin:0 0 10px 0; font-size:14px; line-height:22px; color:#374151;">
+                    Three headlines, one mood (this block is populated by a JS array of objects):
+                  </p>
+
+                  <div id="jsReviews" style="margin:0; padding:0;">
+                    <!-- Fallback content if JS is disabled -->
+                    <div style="margin: 0 0 10px 0;">
+                      <strong style="color:#111827;">Patch Notes Apology Tour</strong>
+                      <span style="color:#6b7280;">— “We fixed the bug where the game launched.”</span>
+                    </div>
+                    <div style="margin: 0 0 10px 0;">
+                      <strong style="color:#111827;">Indie Gem: “Wicker Dungeon”</strong>
+                      <span style="color:#6b7280;">— “Suspiciously fun.”</span>
+                    </div>
+                    <div style="margin: 0;">
+                      <strong style="color:#111827;">Sequel Syndrome</strong>
+                      <span style="color:#6b7280;">— “More of the same, priced like innovation.”</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- =========================
+                     PRIMARY CTA
+                     Purpose:
+                     - Clear conversion action (subscribe) in a campaign-style layout.
+                     - When this is made to work for real, this will go to an external landing page.
+                     Edit points:
+                     - Change href to a real route later (signup.html / React route / etc.)
+                     ========================= -->
+                <div style="margin-top:18px; text-align:center;">
+                  <a
+                    href="#subscribe"
+                    id="ctaSubscribe"
+                    style="display:inline-block; padding:12px 18px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:14px; line-height:14px; font-weight:700;">
+                    Subscribe for Roasts & Alerts
+                  </a>
+                  <div style="margin-top:10px; font-size:12px; line-height:18px; color:#6b7280;">
+                    (In a real email campaign, this would link to a signup page.)
+                  </div>
+                </div>
+
+                <!-- =========================
+                     SUBSCRIBE FORM (WEB PREVIEW)
+                     Purpose:
+                     - Data capture UI
+                     - JS provides lightweight validation + user feedback.
+                     Note:
+                     - This will need to be modified later with different frameworks.
+                     ========================= -->
+                <div id="subscribe" style="margin-top:18px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
+                  <h2 style="margin:0 0 10px 0; font-size:18px; line-height:24px; color:#111827;">
+                    Subscribe / Email Alerts / Newsletter
+                  </h2>
+
+                  <form id="subscribeForm" action="#" method="post" style="margin:0;">
+                    <label for="email" style="display:block; font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">
+                      Email address
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="you@example.com"
+                      required
+                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: Arial, Helvetica, sans-serif;"
+                    />
+
+                    <div style="margin-top:12px;">
+                      <div style="font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">
+                        What do you want delivered?
+                      </div>
+
+                      <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
+                        <input type="checkbox" name="prefs" value="alerts" style="vertical-align:middle;" />
+                        <span style="vertical-align:middle;">Instant alerts (launch train-wrecks)</span>
+                      </label>
+
+                      <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
+                        <input type="checkbox" name="prefs" value="newsletter" style="vertical-align:middle;" />
+                        <span style="vertical-align:middle;">Weekly newsletter (the polite yelling)</span>
+                      </label>
+
+                      <label style="display:block; margin-bottom:0; font-size:13px; line-height:18px; color:#374151;">
+                        <input type="checkbox" name="prefs" value="deals" style="vertical-align:middle;" />
+                        <span style="vertical-align:middle;">Deals & releases (so you can avoid them faster)</span>
+                      </label>
+                    </div>
+
+                    <button
+                      type="submit"
+                      style="margin-top:12px; padding:10px 12px; border:0; background-color:#0f766e; color:#ffffff; border-radius:6px; font-size:14px; font-weight:700; cursor:pointer; font-family: Arial, Helvetica, sans-serif;">
+                      Sign me up
+                    </button>
+
+                    <div id="subscribeMsg" style="margin-top:10px; font-size:13px; line-height:18px; color:#374151;">
+                      <!-- JS writes validation/success state here -->
+                    </div>
+                  </form>
+                </div>
+
+                <!-- =========================
+                     CONTACT FORM (WEB PREVIEW)
+                     Purpose:
+                     - Adds a “Contact the team” pathway, either for feedback or requests
+                     - JS simulates submission + feedback (no backend yet).
+                     Note:
+                     - Later on, if its allowed, I'd like to use DJango so the forms are operational, and connect to a database to 
+                     keep a record of all submissions.
+                     ========================= -->
+                <div style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
+                  <h2 style="margin:0 0 10px 0; font-size:18px; line-height:24px; color:#111827;">
+                    Contact the Team
+                  </h2>
+
+                  <form id="contactForm" action="#" method="post" style="margin:0;">
+                    <label for="name" style="display:block; font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">
+                      Name
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="Your name"
+                      required
+                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: Arial, Helvetica, sans-serif;"
+                    />
+
+                    <label for="contactEmail" style="display:block; font-size:13px; line-height:18px; color:#374151; margin:10px 0 6px 0;">
+                      Email
+                    </label>
+                    <input
+                      id="contactEmail"
+                      name="contactEmail"
+                      type="email"
+                      placeholder="you@example.com"
+                      required
+                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: Arial, Helvetica, sans-serif;"
+                    />
+
+                    <label for="message" style="display:block; font-size:13px; line-height:18px; color:#374151; margin:10px 0 6px 0;">
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows="4"
+                      placeholder="Pitch a review, report a bug, or demand justice for your favorite franchise."
+                      required
+                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: Arial, Helvetica, sans-serif; resize:vertical;"
+                    ></textarea>
+
+                    <button
+                      type="submit"
+                      style="margin-top:12px; padding:10px 12px; border:0; background-color:#2563eb; color:#ffffff; border-radius:6px; font-size:14px; font-weight:700; cursor:pointer; font-family: Arial, Helvetica, sans-serif;">
+                      Send
+                    </button>
+
+                    <div id="contactMsg" style="margin-top:10px; font-size:13px; line-height:18px; color:#374151;">
+                      <!-- JS writes “sent” confirmation here -->
+                    </div>
+                  </form>
+                </div>
+
+                <!-- Internal anchors used by footer links -->
+                <div id="preferences"></div>
+                <div id="unsubscribe"></div>
+
+              </td>
+            </tr>
+
+            <!-- =========================
+                 FOOTER / COMPLIANCE BLOCK
+                 Purpose:
+                 - A regular footer with info and unsubscribe links
+                 Edit points:
+                 - Address + legal text
+                 - Footer links (real site would go to hosted preference center)
+                 ========================= -->
+            <tr>
+              <td class="px" style="padding:22px 28px; font-family: Arial, Helvetica, sans-serif; background-color:#111827;">
+                <div style="color:#e5e7eb; font-size:12px; line-height:18px;">
+                  <strong style="color:#ffffff;">RageQuit Press</strong><br />
+                  1725 Slough Avenue, Scranton, PA 18503
+                </div>
+
+                <div style="margin-top:12px; font-size:12px; line-height:18px;">
+                  <a href="#unsubscribe" style="color:#93c5fd; text-decoration:underline;">Unsubscribe</a>
+                  <span style="color:#9ca3af;"> • </span>
+                  <a href="#preferences" style="color:#93c5fd; text-decoration:underline;">Update preferences</a>
+                  <span style="color:#9ca3af;"> • </span>
+                  <a href="#top" style="color:#93c5fd; text-decoration:underline;">View in browser</a>
+                </div>
+
+                <div style="margin-top:10px; color:#9ca3af; font-size:11px; line-height:16px;">
+                  Note: This file is a web preview that is styled like an email campaign for coursework.
+                </div>
+              </td>
+            </tr>
+
+          </table>
+          <!-- End inner container -->
+
+        </td>
+      </tr>
+    </table>
+
+    <!-- =========================
+         JAVASCRIPT (WEB PREVIEW ONLY)
+         Purpose:
+         - Provides basic interactivity (image swapping, object-based rendering, basic validation).
+         - Kept modular for easy replacements with real app logic later
+         ========================= -->
+    <script>
+      (function () {
+        "use strict";
+
+        /*
+          setupImageSwaps()
+          - Generic swap handler for any <img data-toggle="swap">.
+          - Uses data-src-a / data-src-b attributes to avoid hardcoding file paths in JS.
+          - Adds keyboard support (Enter / Space) for accessibility.
+        */
+        function setupImageSwaps() {
+          var imgs = document.querySelectorAll('img[data-toggle="swap"]');
+
+          for (var i = 0; i < imgs.length; i++) {
+            (function (img) {
+              img.setAttribute("role", "button");
+              img.setAttribute("aria-pressed", "false");
+
+              function toggle() {
+                var a = img.getAttribute("data-src-a");
+                var b = img.getAttribute("data-src-b");
+                if (!a || !b) return;
+
+                var isA = img.getAttribute("src") === a;
+                img.setAttribute("src", isA ? b : a);
+                img.setAttribute("aria-pressed", isA ? "true" : "false");
+
+                // Only the hero has a dynamic caption; other swaps are self-explanatory.
+                if (img.id === "heroImg") {
+                  var cap = document.getElementById("heroCaption");
+                  if (cap) cap.textContent = isA
+                    ? "Evidence mode (click to swap back)."
+                    : "Cover shot (click to swap to “Evidence Mode”).";
+                }
+              }
+
+              img.addEventListener("click", toggle);
+              img.addEventListener("keydown", function (e) {
+                var key = e.key || e.keyCode;
+                if (key === "Enter" || key === " " || key === 13 || key === 32) {
+                  e.preventDefault();
+                  toggle();
+                }
+              });
+            })(imgs[i]);
+          }
+        }
+
+        /*
+          renderQuickHits()
+          - Demonstrates a simple “content model” (array of objects) rendered into the DOM.
+          - Keeps fallback HTML in place for non-JS environments.
+        */
+        function renderQuickHits() {
+          var target = document.getElementById("jsReviews");
+          if (!target) return;
+
+          var hits = [
+            { title: "Patch Notes Apology Tour", line: "“We fixed the bug where the game launched.”" },
+            { title: "Indie Gem: “Wicker Dungeon”", line: "“Actually fun. Suspicious.”" },
+            { title: "Sequel Syndrome", line: "“More of the same, priced like innovation.”" }
+          ];
+
+          var html = "";
+          for (var i = 0; i < hits.length; i++) {
+            html +=
+              '<div style="margin: 0 0 ' + (i === hits.length - 1 ? "0" : "10px") + ' 0;">' +
+                '<strong style="color:#111827;">' + hits[i].title + '</strong> ' +
+                '<span style="color:#6b7280;">— ' + hits[i].line + '</span>' +
+              '</div>';
+          }
+
+          target.innerHTML = html;
+        }
+
+        /*
+          setupSubscribeForm()
+          - Lightweight web preview
+          - To do later: send to backend endpoint + show server response states.
+        */
+        function setupSubscribeForm() {
+          var form = document.getElementById("subscribeForm");
+          var msg = document.getElementById("subscribeMsg");
+          if (!form || !msg) return;
+
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            var email = (document.getElementById("email").value || "").trim();
+            var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+            if (!ok) {
+              msg.textContent = "That email looks suspicious. Try a valid address (e.g., you@example.com).";
+              msg.style.color = "#b91c1c";
+              return;
+            }
+
+            msg.textContent = "Subscribed! You’ll get the next issue (and the occasional digital side-eye).";
+            msg.style.color = "#065f46";
+
+            var cta = document.getElementById("ctaSubscribe");
+            if (cta) cta.textContent = "Subscribed ✓";
+          });
+        }
+
+        /*
+          setupContactForm()
+          - Simulates sending a message for demo purposes (no backend).
+          - Replace with fetch() to an API route for server-side email handling later
+        */
+        function setupContactForm() {
+          var form = document.getElementById("contactForm");
+          var msg = document.getElementById("contactMsg");
+          if (!form || !msg) return;
+
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            msg.textContent = "Message sent (pretend our editor isn’t crying in a corner right now).";
+            msg.style.color = "#1f2937";
+            form.reset();
+          });
+        }
+
+        // Boot sequence: to be expanded later
+        setupImageSwaps();
+        renderQuickHits();
+        setupSubscribeForm();
+        setupContactForm();
+      })();
+    </script>
+
+  </body>
 </html>
