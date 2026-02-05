@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:v="urn:schemas-microsoft-com:vml"
+  xmlns:o="urn:schemas-microsoft-com:office:office">
+  <head>
+    <!--
+      signup.html (WEB PREVIEW)
+      Purpose:
+      - Represents the landing page that a real email campaign CTA would link to.
+      - Keeps the same email-safe layout conventions (tables + inline CSS) to stay consistent with Assignment 2.
+      - No backend yet: JS simulates "account created" and "email alert preferences saved" states.
+      Edit points:
+      - Replace action="#" with real endpoints later (Django/React).
+      - Replace "Under Construction" copy once backend is implemented.
+    -->
+    <title>RageQuit Press — Signup (Under Construction)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <style type="text/css">
+      /* Compatibility layer (same philosophy as index.html) */
+      body, table, td, a { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+      table, td { mso-table-lspace:0pt; mso-table-rspace:0pt; }
+      img { -ms-interpolation-mode:bicubic; }
+
+      img { border:0; height:auto; line-height:100%; outline:none; text-decoration:none; }
+      table { border-collapse:collapse !important; }
+      body { height:100% !important; margin:0 !important; padding:0 !important; width:100% !important; }
+
+      a[x-apple-data-detectors] { color:inherit !important; text-decoration:none !important; font-size:inherit !important; font-family:inherit !important; font-weight:inherit !important; line-height:inherit !important; }
+      u + #body a { color:inherit; text-decoration:none; font-size:inherit; font-family:inherit; font-weight:inherit; line-height:inherit; }
+      #MessageViewBody a { color:inherit; text-decoration:none; font-size:inherit; font-family:inherit; font-weight:inherit; line-height:inherit; }
+
+      @media screen and (max-width: 640px) {
+        .container { width:100% !important; }
+        .px { padding-left:16px !important; padding-right:16px !important; }
+        .stack { display:block !important; width:100% !important; }
+        .fluid-img { width:100% !important; max-width:100% !important; height:auto !important; }
+        .center { text-align:center !important; }
+      }
+    </style>
+  </head>
+
+  <body id="body" style="margin:0 !important; padding:0 !important; background-color:#f3f4f6;">
+    <a id="top"></a>
+
+    <!-- Preheader (email-style) -->
+    <div style="display:none; font-size:1px; color:#f3f4f6; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidden;">
+      RageQuit Press signup — choose alerts, newsletters, and video upload notifications.
+    </div>
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation" style="background-color:#f3f4f6;">
+      <tr>
+        <td align="center" style="padding:20px 12px;">
+
+          <table border="0" cellpadding="0" cellspacing="0" width="600" class="container" role="presentation"
+            style="width:600px; max-width:600px; background-color:#ffffff; border:1px solid #e5e7eb;">
+
+            <!-- =========================
+                 HEADER / NAV
+                 Purpose:
+                 - Keeps branding consistent with index.html
+                 - Provides a safe "Back to campaign" navigation for the web preview
+                 ========================= -->
+            <tr>
+              <td class="px" style="padding:22px 28px 10px 28px; font-family: Arial, Helvetica, sans-serif;">
+                <div style="text-align:center; margin:0 0 10px 0;">
+                  <img
+                    src="images/logo.png"
+                    width="84"
+                    height="84"
+                    alt="RageQuit Press logo"
+                    style="display:inline-block; border-radius:42px;"
+                  />
+                  <div style="font-size:12px; letter-spacing:1.2px; color:#6b7280; margin-top:10px;">
+                    RAGEQUIT PRESS • SIGNUP (WEB PREVIEW)
+                  </div>
+                </div>
+
+                <div style="text-align:center;">
+                  <h1 style="margin:8px 0 8px 0; font-size:28px; line-height:36px; color:#111827; font-weight:700;">
+                    Create Your RageQuit Press Alerts
+                  </h1>
+                  <p style="margin:0; font-size:14px; line-height:22px; color:#374151;">
+                    This page is <strong>under construction</strong>. The UI is real; the backend will come later.
+                  </p>
+
+                  <div style="margin-top:12px;">
+                    <a href="index.html"
+                      style="display:inline-block; padding:10px 12px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:13px; font-weight:700;">
+                      ← Back to Weekly Roast
+                    </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+
+            <!-- =========================
+                 BRAND BANNER + HERO (INTERACTIVE SWAP)
+                 Purpose:
+                 - Reuses the same “Evidence Mode” interaction pattern from index.html to keep the experience consistent.
+                 - Email-campaign friendly markup: simple images + captions; JS is web-preview only.
+                 Edit points:
+                 - Swap image assets under /images/banner-*.png and /images/hero-*.png as needed.
+                 ========================= -->
+            <tr>
+              <td align="center" class="px" style="padding: 6px 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
+                <div style="margin:0; padding:0; text-align:center;">
+
+                  <!-- Banner: click to toggle "glitch mode" -->
+                  <img
+                    id="bannerImg"
+                    src="images/banner-a.png"
+                    data-src-a="images/banner-a.png"
+                    data-src-b="images/banner-b.png"
+                    data-toggle="swap"
+                    tabindex="0"
+                    alt="RageQuit Press banner (click to toggle glitch mode)"
+                    width="544"
+                    style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb; cursor:pointer;"
+                    class="fluid-img"
+                  />
+                  <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
+                    Click banner to toggle <strong>glitch mode</strong>.
+                  </div>
+
+                  <!-- Hero: click to toggle cover vs evidence mode -->
+                  <div style="margin-top:14px;">
+                    <img
+                      id="heroImg"
+                      src="images/hero-a.png"
+                      data-src-a="images/hero-a.png"
+                      data-src-b="images/hero-b.png"
+                      data-toggle="swap"
+                      tabindex="0"
+                      alt="Featured cover art (click to toggle evidence mode)"
+                      width="544"
+                      style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb; cursor:pointer;"
+                      class="fluid-img"
+                    />
+                    <div id="heroCaption" style="margin-top:10px; font-size:12px; line-height:18px; color:#6b7280;">
+                      Cover shot (click to swap to “Evidence Mode”).
+                    </div>
+                  </div>
+
+                </div>
+              </td>
+            </tr>
+
+</tr>
+
+            <!-- =========================
+                 UNDER CONSTRUCTION CALLOUT
+                 Purpose:
+                 - Sets expectations: this is frontend-only for the assignment
+                 - Provides roadmap for production version
+                 ========================= -->
+            <tr>
+              <td class="px" style="padding: 0 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
+                <div style="margin-top:10px; padding:12px 14px; border-left:4px solid #7c3aed; background-color:#f9fafb;">
+                  <p style="margin:0; font-size:14px; line-height:22px; color:#111827;">
+                    <strong>Under construction:</strong> When we add a backend (Django), this page will:
+                    (1) create a subscriber profile, (2) store preferences, and (3) trigger email notifications
+                    for newsletters and new cross-media uploads.
+                  </p>
+                </div>
+              </td>
+            </tr>
+
+
+            <!-- =========================
+                 MOCK METRICS (WIP)
+                 Purpose:
+                 - "product analytics" placeholder for future backend work (readers, alerts, views, likes).
+                 - No real tracking yet - all placeholders
+                 - Later: wire to Django endpoints + database; for now, this is static UI.
+                 ========================= -->
+            <tr>
+              <td class="px" style="padding:18px 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
+                <div style="padding:12px 14px; border:1px solid #e5e7eb; background-color:#f9fafb;">
+                  <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
+                    Mock Metrics (Work in Progress)
+                  </div>
+
+                  <!-- Simple 2x2 stat grid using email-safe table -->
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <td class="stack" width="50%" valign="top" style="padding: 6px 8px 6px 0;">
+                        <div style="border:1px solid #e5e7eb; background-color:#ffffff; border-radius:8px; padding:10px;">
+                          <div style="font-size:11px; letter-spacing:0.8px; color:#6b7280;">READERS</div>
+                          <div style="font-size:20px; line-height:26px; font-weight:700; color:#111827;">12,480</div>
+                          <div style="font-size:12px; line-height:18px; color:#6b7280;">Newsletter list size (mock)</div>
+                        </div>
+                      </td>
+
+                      <td class="stack" width="50%" valign="top" style="padding: 6px 0 6px 8px;">
+                        <div style="border:1px solid #e5e7eb; background-color:#ffffff; border-radius:8px; padding:10px;">
+                          <div style="font-size:11px; letter-spacing:0.8px; color:#6b7280;">VIDEO ALERTS</div>
+                          <div style="font-size:20px; line-height:26px; font-weight:700; color:#111827;">3,104</div>
+                          <div style="font-size:12px; line-height:18px; color:#6b7280;">Opted into uploads (mock)</div>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td class="stack" width="50%" valign="top" style="padding: 6px 8px 0 0;">
+                        <div style="border:1px solid #e5e7eb; background-color:#ffffff; border-radius:8px; padding:10px;">
+                          <div style="font-size:11px; letter-spacing:0.8px; color:#6b7280;">VIEWS</div>
+                          <div style="font-size:20px; line-height:26px; font-weight:700; color:#111827;">98,775</div>
+                          <div style="font-size:12px; line-height:18px; color:#6b7280;">Across channels (mock)</div>
+                        </div>
+                      </td>
+
+                      <td class="stack" width="50%" valign="top" style="padding: 6px 0 0 8px;">
+                        <div style="border:1px solid #e5e7eb; background-color:#ffffff; border-radius:8px; padding:10px;">
+                          <div style="font-size:11px; letter-spacing:0.8px; color:#6b7280;">LIKES</div>
+                          <div style="font-size:20px; line-height:26px; font-weight:700; color:#111827;">21,460</div>
+                          <div style="font-size:12px; line-height:18px; color:#6b7280;">Engagement (mock)</div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <div style="margin-top:10px; font-size:11px; line-height:16px; color:#9ca3af;">
+                    WIP note: These numbers are placeholders for future analytics (not real tracking yet).
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- =========================
+                 NEWSLETTER PREVIEW (CURRENT ISSUE)
+                 Purpose:
+                 - Shows prospective subscribers what the written newsletter looks like (reduces signup friction).
+                 - Email-friendly presentation: a compact "issue card" with headline, excerpt, and highlights.
+                 ========================= -->
+            <tr>
+              <td class="px" style="padding:16px 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
+                <div style="padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
+                  <h2 style="margin:0 0 8px 0; font-size:18px; line-height:24px; color:#111827;">
+                    Newsletter Preview: “The Open-World Overflow”
+                  </h2>
+
+                  <div style="font-size:12px; line-height:18px; color:#6b7280; margin-bottom:10px;">
+                    Issue #02 • Preview excerpt (mock content)
+                  </div>
+
+                  <p style="margin:0 0 10px 0; font-size:14px; line-height:22px; color:#374151;">
+                    We don’t hate open worlds. We hate <strong>mandatory sprawl</strong>—the kind that turns every game into a
+                    checklist simulator with 900 icons and 4 meaningful quests. Not every story needs a map the size of a small country.
+                  </p>
+
+                  <ul style="margin:0; padding:0 0 0 18px; font-size:14px; line-height:22px; color:#374151;">
+                    <li><strong>Design smell:</strong> “More space” used as a substitute for “more depth.”</li>
+                    <li><strong>Content bloat:</strong> 40 hours of errands disguising 8 hours of narrative.</li>
+                    <li><strong>Fix:</strong> Smaller zones, tighter loops, and side quests that matter.</li>
+                  </ul>
+
+                  <div style="margin-top:12px; padding:10px 12px; background-color:#f9fafb; border:1px solid #e5e7eb;">
+                    <div style="font-size:12px; line-height:18px; color:#111827; font-weight:700;">
+                      Cross-media tie-in
+                    </div>
+                    <div style="margin-top:4px; font-size:12px; line-height:18px; color:#6b7280;">
+                      The written issue is measured. The video version shows the “receipts” (bugs, exploits, and design failures) on stream.
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- =========================
+                 ROADMAP / THINGS TO COME (PREVIEW)
+                 Purpose:
+                 - Indicate that this site will later give viewers a preview of their content
+                 -When in production mode, it offers users something to write feedback on, or even make suggestions
+                 ========================= -->
+            <tr>
+              <td class="px" style="padding:16px 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
+                <div style="padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
+                  <h2 style="margin:0 0 8px 0; font-size:18px; line-height:24px; color:#111827;">
+                    Things to Come (Roadmap Preview)
+                  </h2>
+
+                  <div style="margin:0; font-size:14px; line-height:22px; color:#374151;">
+                    <div style="margin:0 0 8px 0;"><strong>Patch Parade Tracker:</strong> games “shipping on time” but finishing in public.</div>
+                    <div style="margin:0 0 8px 0;"><strong>Platformer State Report:</strong> the one company everyone knows should expect competition soon.</div>
+                    <div style="margin:0 0 8px 0;"><strong>Open-World Budget Audit:</strong> how much of the map is actual game vs. scenic commute.</div>
+                    <div style="margin:0;"><strong>Receipts Archive:</strong> curated clips from YouTube/TikTok/Twitch tied to each written review.</div>
+                  </div>
+
+                  <div style="margin-top:10px; font-size:11px; line-height:16px; color:#9ca3af;">
+                    Roadmap note: These features are planned; UI placeholders help validate layout and information architecture now.
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- =========================
+                 SAMPLE ALERT EMAIL (SIMULATED)
+                 Purpose:
+                 - Demo how email subscribers would be notified of new video uploads.
+                 - Uses JS to generate a "preview email" block (web-only; email clients won't run JS).
+                 ========================= -->
+            <tr>
+              <td class="px" style="padding:16px 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
+                <div style="padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
+                  <h2 style="margin:0 0 8px 0; font-size:18px; line-height:24px; color:#111827;">
+                    Sample Upload Alert Email (Preview)
+                  </h2>
+
+                  <p style="margin:0 0 10px 0; font-size:14px; line-height:22px; color:#374151;">
+                    Click the button to generate a mock “new upload” alert. In production, this would be sent automatically
+                    to subscribers who opted into <strong>Video upload alerts</strong>.
+                  </p>
+
+                  <button
+                    id="previewAlertBtn"
+                    type="button"
+                    style="padding:10px 12px; border:0; background-color:#2563eb; color:#ffffff; border-radius:6px; font-size:13px; font-weight:700; cursor:pointer; font-family: Arial, Helvetica, sans-serif;"
+                  >
+                    Preview an alert email
+                  </button>
+
+                  <div id="alertEmailPreview" style="display:none; margin-top:12px; border:1px solid #e5e7eb; background-color:#f9fafb; padding:12px;">
+                    <div style="font-size:12px; letter-spacing:1px; color:#6b7280; margin-bottom:6px;">
+                      RAGEQUIT PRESS • VIDEO ALERT (MOCK)
+                    </div>
+                    <div id="alertEmailBody" style="font-size:13px; line-height:20px; color:#111827;">
+                      <!-- JS injects preview content here -->
+                    </div>
+                    <div style="margin-top:10px; font-size:11px; line-height:16px; color:#9ca3af;">
+                      Preview only — no emails are actually sent.
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+
+            <!-- =========================
+                 SIGNUP FORM (FRONTEND)
+                 Purpose:
+                 - Email campaign landing page form:
+                   collects email + preferences + optional username for personalization.
+                 - Uses inline CSS that's copied from index.html
+                 - JS simulates success state + shows a "receipt" summary.
+                 ========================= -->
+            <tr>
+              <td class="px" style="padding:18px 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
+                <div style="padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
+                  <h2 style="margin:0 0 10px 0; font-size:18px; line-height:24px; color:#111827;">
+                    Signup Details
+                  </h2>
+
+                  <form id="signupForm" action="#" method="post" style="margin:0;">
+                    <label for="signupEmail" style="display:block; font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">
+                      Email address
+                    </label>
+                    <input
+                      id="signupEmail"
+                      name="email"
+                      type="email"
+                      placeholder="you@example.com"
+                      required
+                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: Arial, Helvetica, sans-serif;"
+                    />
+
+                    <label for="displayName" style="display:block; font-size:13px; line-height:18px; color:#374151; margin:10px 0 6px 0;">
+                      Display name <span style="color:#6b7280;">(optional)</span>
+                    </label>
+                    <input
+                      id="displayName"
+                      name="displayName"
+                      type="text"
+                      placeholder="e.g., Captain Backlog"
+                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: Arial, Helvetica, sans-serif;"
+                    />
+
+                    <div style="margin-top:12px;">
+                      <div style="font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">
+                        Email preferences
+                      </div>
+
+                      <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
+                        <input type="checkbox" name="prefs" value="newsletter" style="vertical-align:middle;" />
+                        <span style="vertical-align:middle;">Weekly newsletter (the polite yelling)</span>
+                      </label>
+
+                      <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
+                        <input type="checkbox" name="prefs" value="alerts" style="vertical-align:middle;" />
+                        <span style="vertical-align:middle;">Instant alerts (launch train-wrecks)</span>
+                      </label>
+
+                      <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
+                        <input type="checkbox" name="prefs" value="video_alerts" style="vertical-align:middle;" />
+                        <span style="vertical-align:middle;">Video upload alerts (YouTube/TikTok/Twitch)</span>
+                      </label>
+
+                      <label style="display:block; margin-bottom:0; font-size:13px; line-height:18px; color:#374151;">
+                        <input type="checkbox" name="prefs" value="deals" style="vertical-align:middle;" />
+                        <span style="vertical-align:middle;">Deals & releases (so you can avoid them faster)</span>
+                      </label>
+                    </div>
+
+                    <!-- “Channel focus” is optional personalization; safe as a <select> -->
+                    <div style="margin-top:12px;">
+                      <label for="channelFocus" style="display:block; font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">
+                        Preferred channel for video alerts <span style="color:#6b7280;">(optional)</span>
+                      </label>
+                      <select
+                        id="channelFocus"
+                        name="channelFocus"
+                        style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: Arial, Helvetica, sans-serif; background-color:#ffffff;"
+                      >
+                        <option value="">No preference</option>
+                        <option value="youtube">YouTube (full reviews)</option>
+                        <option value="tiktok">TikTok (short clips)</option>
+                        <option value="twitch">Twitch (live break tests)</option>
+                      </select>
+                    </div>
+
+                    <button
+                      type="submit"
+                      style="margin-top:14px; padding:10px 12px; border:0; background-color:#0f766e; color:#ffffff; border-radius:6px; font-size:14px; font-weight:700; cursor:pointer; font-family: Arial, Helvetica, sans-serif;">
+                      Create my alerts
+                    </button>
+                    <div style="margin-top:10px; font-size:11px; line-height:16px; color:#6b7280;">
+                      Cadence (planned): newsletter Fridays • instant alerts as needed • unsubscribe anytime.
+                    </div>
+
+
+                    <div id="signupMsg" style="margin-top:10px; font-size:13px; line-height:18px; color:#374151;">
+                      <!-- JS writes validation/success + “receipt summary” here -->
+                    </div>
+                  </form>
+                </div>
+
+                <!-- =========================
+                     “RECEIPT” SUMMARY (JS POPULATED)
+                     Purpose:
+                     - Dummy post-submit confirmation UI.
+                     - eventually, the frontend will flow with the backend this way
+                     ========================= -->
+                <div id="receipt" style="display:none; margin-top:14px; padding:14px; border:1px solid #e5e7eb; background-color:#f9fafb;">
+                  <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
+                    Preferences saved (preview)
+                  </div>
+                  <div id="receiptBody" style="font-size:13px; line-height:20px; color:#374151;"></div>
+                </div>
+
+              </td>
+            </tr>
+
+            <!-- =========================
+                 FOOTER / COMPLIANCE
+                 Purpose:
+                 - presenation stays consistent across pages
+                 - Includes basic disclaimer about preview behavior
+                 ========================= -->
+            <tr>
+              <td class="px" style="padding:22px 28px; font-family: Arial, Helvetica, sans-serif; background-color:#111827;">
+                <div style="color:#e5e7eb; font-size:12px; line-height:18px;">
+                  <strong style="color:#ffffff;">RageQuit Press</strong><br />
+                  Signup page preview • No real emails are sent yet
+                </div>
+
+                <div style="margin-top:10px; color:#9ca3af; font-size:11px; line-height:16px;">
+                  Note: This is frontend-only for coursework. Forms and JavaScript do not run inside real email clients;
+                  this is the landing page a campaign CTA would point to.
+                </div>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <!-- =========================
+         JAVASCRIPT 
+         Purpose:
+         - Same basic interactivity as index.html
+         ========================= -->
+    <script>
+      (function () {
+        "use strict";
+
+        function $(id) { return document.getElementById(id); }
+
+
+        /*
+          setupImageSwaps()
+          - Reused from index.html: enables click/keyboard image toggles using data-src-a / data-src-b.
+        */
+        function setupImageSwaps() {
+          var imgs = document.querySelectorAll('img[data-toggle="swap"]');
+
+          for (var i = 0; i < imgs.length; i++) {
+            (function (img) {
+              img.setAttribute("role", "button");
+              img.setAttribute("aria-pressed", "false");
+
+              function toggle() {
+                var a = img.getAttribute("data-src-a");
+                var b = img.getAttribute("data-src-b");
+                if (!a || !b) return;
+
+                var isA = img.getAttribute("src") === a;
+                img.setAttribute("src", isA ? b : a);
+                img.setAttribute("aria-pressed", isA ? "true" : "false");
+
+                // Update hero caption only (banner doesn't need extra text)
+                if (img.id === "heroImg") {
+                  var cap = $("heroCaption");
+                  if (cap) cap.textContent = isA
+                    ? "Evidence mode (click to swap back)."
+                    : "Cover shot (click to swap to “Evidence Mode”).";
+                }
+              }
+
+              img.addEventListener("click", toggle);
+              img.addEventListener("keydown", function (e) {
+                var key = e.key || e.keyCode;
+                if (key === "Enter" || key === " " || key === 13 || key === 32) {
+                  e.preventDefault();
+                  toggle();
+                }
+              });
+            })(imgs[i]);
+          }
+        }
+
+
+        /*
+          setupAlertEmailPreview()
+          - Generates a mock “upload alert email” preview in-page.
+          - This is purely for demonstrating the email funnel UX without a backend.
+          */
+        function setupAlertEmailPreview() {
+          var btn = $("previewAlertBtn");
+          var box = $("alertEmailPreview");
+          var body = $("alertEmailBody");
+          if (!btn || !box || !body) return;
+
+          var samples = [
+            { channel: "YouTube", title: "Galaxy Grind VII — Boss AI Faceplant Compilation", cta: "Watch the full roast" },
+            { channel: "TikTok", title: "Physics Glitch: Car Turns Into Helicopter (0:12)", cta: "See the clip" },
+            { channel: "Twitch", title: "LIVE: “Unpatched Softlock Any%” Challenge Run", cta: "Join the stream" }
+          ];
+
+          btn.addEventListener("click", function () {
+            var event = samples[Math.floor(Math.random() * samples.length)];
+
+            // Determine whether the user opted into video alerts (after form submit).
+            var enabled = false;
+            var form = $("signupForm");
+            if (form) {
+              // If the form was submitted, receipt will be visible
+              // also check checkboxes directly as a fallback
+              var checked = form.querySelectorAll('input[type="checkbox"][name="prefs"][value="video_alerts"]:checked');
+              enabled = checked && checked.length > 0;
+            }
+
+            var header = "New " + event.channel + " upload is live";
+            var intro = enabled
+              ? "You’re receiving this because you enabled video upload alerts."
+              : "Tip: enable video upload alerts on the form above to receive these automatically.";
+
+            body.innerHTML =
+              '<div style="font-weight:700; margin:0 0 6px 0;">' + header + '</div>' +
+              '<div style="color:#374151; margin:0 0 8px 0;">' + intro + '</div>' +
+              '<div style="margin:0 0 10px 0;"><strong>Title:</strong> ' + event.title + '</div>' +
+              '<div><a href="#" style="display:inline-block; padding:8px 10px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:12px; font-weight:700;">' +
+                event.cta +
+              '</a></div>';
+
+            box.style.display = "block";
+          });
+        }
+
+
+        function setupSignupForm() {
+          var form = $("signupForm");
+          var msg = $("signupMsg");
+          var receipt = $("receipt");
+          var receiptBody = $("receiptBody");
+          if (!form || !msg || !receipt || !receiptBody) return;
+
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            var email = (($("signupEmail").value || "").trim());
+            var name = (($("displayName").value || "").trim());
+            var focus = $("channelFocus").value || "";
+
+            var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            if (!ok) {
+              msg.textContent = "That email looks suspicious. Try a valid address (e.g., you@example.com).";
+              msg.style.color = "#b91c1c";
+              receipt.style.display = "none";
+              return;
+            }
+
+            var checked = form.querySelectorAll('input[type="checkbox"][name="prefs"]:checked');
+            var prefs = [];
+            for (var i = 0; i < checked.length; i++) prefs.push(checked[i].value);
+
+            if (prefs.length === 0) {
+              msg.textContent = "Pick at least one preference so we know what to send you.";
+              msg.style.color = "#b45309";
+              receipt.style.display = "none";
+              return;
+            }
+
+            // Success state (preview)
+            msg.textContent = "Success (preview): your preferences have been saved. No real emails are sent yet.";
+            msg.style.color = "#065f46";
+
+            // Build “receipt” summary for clarity + demo value
+            var pretty = {
+              newsletter: "Weekly newsletter",
+              alerts: "Instant alerts",
+              video_alerts: "Video upload alerts",
+              deals: "Deals & releases"
+            };
+
+            var lines = [];
+            lines.push("<strong>Email:</strong> " + email);
+            if (name) lines.push("<strong>Name:</strong> " + name);
+
+            var list = [];
+            for (var j = 0; j < prefs.length; j++) list.push(pretty[prefs[j]] || prefs[j]);
+            lines.push("<strong>Enabled:</strong> " + list.join(", "));
+
+            if (focus) {
+              var focusPretty = (focus === "youtube") ? "YouTube" : (focus === "tiktok") ? "TikTok" : "Twitch";
+              lines.push("<strong>Video focus:</strong> " + focusPretty);
+            }
+
+            receiptBody.innerHTML = '<div style="margin:0 0 6px 0;">' + lines.join("</div><div style=\"margin:0 0 6px 0;\">") + "</div>";
+            receipt.style.display = "block";
+          });
+        }
+
+        setupImageSwaps();
+        setupSignupForm();
+        setupAlertEmailPreview();
+      })();
+    </script>
+  </body>
+</html>

@@ -22,8 +22,7 @@
       /*
         Compatibility layer:
         These rules reduce layout inconsistencies across email clients.
-        Even though we’re running in a browser, we keep them because the assignment is “email campaign page”.
-      */
+         */
       body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
       table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
       img { -ms-interpolation-mode: bicubic; }
@@ -115,11 +114,9 @@
 
             <!-- =========================
                  HEADER / BRAND BLOCK
-                 Purpose:
                  - Establish branding and “issue title” quickly.
                  - Keep typography web-safe (Arial) per assignment (no web fonts).
                  Edit points:
-                 - Swap logo file (images/logo.png)
                  - Update issue title/subtitle copy
                  ========================= -->
             <tr>
@@ -184,7 +181,7 @@
                  HERO IMAGE
                  Purpose:
                  - Grab reader attention (featured cover art and familiar mascots)
-                 - “Evidence mode” swap supports the site’s scathing-review theme.
+                 - “Evidence mode” swap supports the site’s theme
                  Edit points:
                  - Update hero images: images/hero-a.png and images/hero-b.png for real 
                  video games that are being reviewed (these were fakes made using an Generative LLM)
@@ -240,8 +237,8 @@
                 <!-- =========================
                      FEATURED ROAST SECTION
                      Purpose:
-                     - Primary content module (what users should read first).
-                     - Uses a nested table for the 2-column layout (most email clients support this reliably).
+                     - Primary content module (what users should read first)
+                     - Uses a nested table for the 2-column layout
                      Edit points:
                      - Replace feature images (feature1-a/b)
                      - Update bullet points + copy
@@ -290,7 +287,7 @@
                           </p>
 
                           <!-- =========================
-                               SCORE BADGE (NEW)
+                               SCORE BADGE
                                Purpose:
                                - Converts the score into a scannable visual element 
                                - Toggle demonstrates “state change” (roast vs praise) using the same swap handler.
@@ -355,6 +352,162 @@
                   </div>
                 </div>
 
+
+                <!-- =========================
+                     BROADCAST / CROSS-MEDIA HUB
+                     Purpose:
+                     - Mirrors modern games media
+                     - Email-campaign compatible pattern: thumbnails + CTA links (no embeds), which matches how
+                       real newsletters promote cross-platform content.
+                     - Designed for reuse: each channel card follows the same structure and the "Latest Drops"
+                       list is populated from JS objects (with HTML fallback).
+                     Edit points:
+                     - Replace /images/media-*-a.png and /images/media-*-b.png with real thumbnails later.
+                     - Replace href="#" with real channel URLs
+                     - The simulator button is web-preview only; a real implementation would be server-driven.
+                     ========================= -->
+                <div id="media" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
+                  <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">
+                    Broadcast Channels: Reviews, Shorts, and Live “Game Breaking”
+                  </h2>
+
+                  <p style="margin:0 0 12px 0; font-size:14px; line-height:22px; color:#374151;">
+                    Written reviews stay mostly polite. The <strong>real roasting</strong> happens on video—where we can show the bugs,
+                    the jank, and the “feature-not-a-bug” moments in real time. Subscribers can opt in to <strong>email alerts</strong>
+                    when new uploads go live on any channel.
+                  </p>
+
+                  <!-- Channel cards: table layout keeps this block email-template-friendly -->
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <!-- YouTube card -->
+                      <td class="stack" width="33.33%" valign="top" style="padding: 0 8px 0 0;">
+                        <div style="border:1px solid #e5e7eb; border-radius:8px; padding:10px; background-color:#f9fafb;">
+                          <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
+                            YouTube • Full Reviews
+                          </div>
+
+                          <img
+                            src="images/media-youtube-a.png"
+                            data-src-a="images/media-youtube-a.png"
+                            data-src-b="images/media-youtube-b.png"
+                            data-toggle="swap"
+                            tabindex="0"
+                            alt="YouTube review thumbnail (click to toggle)"
+                            style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px; cursor:pointer;"
+                          />
+
+                          <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
+                            Latest: <strong>“Galaxy Grind VII — Controller Funeral”</strong>
+                          </div>
+
+                          <div style="margin-top:10px;">
+                            <a href="#" style="display:inline-block; padding:8px 10px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:12px; font-weight:700;">
+                              Watch on YouTube
+                            </a>
+                          </div>
+                        </div>
+                      </td>
+
+                      <!-- TikTok card -->
+                      <td class="stack" width="33.33%" valign="top" style="padding: 0 8px;">
+                        <div style="border:1px solid #e5e7eb; border-radius:8px; padding:10px; background-color:#f9fafb;">
+                          <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
+                            TikTok • “Bug Clips”
+                          </div>
+
+                          <img
+                            src="images/media-tiktok-a.png"
+                            data-src-a="images/media-tiktok-a.png"
+                            data-src-b="images/media-tiktok-b.png"
+                            data-toggle="swap"
+                            tabindex="0"
+                            alt="TikTok short thumbnail (click to toggle)"
+                            style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px; cursor:pointer;"
+                          />
+
+                          <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
+                            Latest: <strong>“NPC Launches Into Orbit (Any% Speedrun)”</strong>
+                          </div>
+
+                          <div style="margin-top:10px;">
+                            <a href="#" style="display:inline-block; padding:8px 10px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:12px; font-weight:700;">
+                              Watch on TikTok
+                            </a>
+                          </div>
+                        </div>
+                      </td>
+
+                      <!-- Twitch card -->
+                      <td class="stack" width="33.33%" valign="top" style="padding: 0 0 0 8px;">
+                        <div style="border:1px solid #e5e7eb; border-radius:8px; padding:10px; background-color:#f9fafb;">
+                          <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
+                            Twitch • Live “Break Tests”
+                          </div>
+
+                          <img
+                            src="images/media-twitch-a.png"
+                            data-src-a="images/media-twitch-a.png"
+                            data-src-b="images/media-twitch-b.png"
+                            data-toggle="swap"
+                            tabindex="0"
+                            alt="Twitch stream thumbnail (click to toggle)"
+                            style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px; cursor:pointer;"
+                          />
+
+                          <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
+                            Tonight: <strong>“Patch 1.02 — Will It Crash Less?”</strong>
+                          </div>
+
+                          <div style="margin-top:10px;">
+                            <a href="#" style="display:inline-block; padding:8px 10px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:12px; font-weight:700;">
+                              Watch on Twitch
+                            </a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <!-- Latest drops: rendered from JS objects; fallback included for non-JS environments -->
+                  <div style="margin-top:14px; padding:12px; border:1px dashed #d1d5db; background-color:#ffffff;">
+                    <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
+                      Latest Drops (data-driven)
+                    </div>
+
+                    <div id="jsMediaDrops" style="font-size:13px; line-height:20px; color:#374151;">
+                      <!-- Fallback content if JS is disabled -->
+                      <div style="margin:0 0 6px 0;"><strong>YouTube:</strong> Galaxy Grind VII — Controller Funeral <span style="color:#6b7280;">(12:44)</span></div>
+                      <div style="margin:0 0 6px 0;"><strong>TikTok:</strong> NPC Launches Into Orbit <span style="color:#6b7280;">(0:23)</span></div>
+                      <div style="margin:0;"><strong>Twitch:</strong> Patch 1.02 Break Test <span style="color:#6b7280;">(Live)</span></div>
+                    </div>
+                  </div>
+
+                  <!-- Web preview demo: simulate an upload event -> would become an email in a real backend -->
+                  <div style="margin-top:12px; padding:12px; background-color:#f9fafb; border:1px solid #e5e7eb;">
+                    <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700;">
+                      Demo: Email Alert Trigger
+                    </div>
+                    <div style="margin-top:6px; font-size:12px; line-height:18px; color:#6b7280;">
+                      In production, a backend service would detect uploads and send emails to subscribers who opted into video alerts.
+                      Here we simulate that event in the browser.
+                    </div>
+
+                    <button
+                      id="simulateUploadBtn"
+                      type="button"
+                      style="margin-top:10px; padding:10px 12px; border:0; background-color:#7c3aed; color:#ffffff; border-radius:6px; font-size:13px; font-weight:700; cursor:pointer; font-family: Arial, Helvetica, sans-serif;"
+                    >
+                      Simulate “New Video Uploaded”
+                    </button>
+
+                    <div id="uploadAlertMsg" style="margin-top:10px; font-size:13px; line-height:18px; color:#374151;">
+                      <!-- JS writes simulated alert status here -->
+                    </div>
+                  </div>
+                </div>
+
+
                 <!-- =========================
                      PRIMARY CTA
                      Purpose:
@@ -365,13 +518,13 @@
                      ========================= -->
                 <div style="margin-top:18px; text-align:center;">
                   <a
-                    href="#subscribe"
+                    href="signup.html"
                     id="ctaSubscribe"
                     style="display:inline-block; padding:12px 18px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:14px; line-height:14px; font-weight:700;">
                     Subscribe for Roasts & Alerts
                   </a>
                   <div style="margin-top:10px; font-size:12px; line-height:18px; color:#6b7280;">
-                    (In a real email campaign, this would link to a signup page.)
+                    (CTA now links to signup.html — a frontend-only landing page preview.)
                   </div>
                 </div>
 
@@ -414,6 +567,13 @@
                       <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
                         <input type="checkbox" name="prefs" value="newsletter" style="vertical-align:middle;" />
                         <span style="vertical-align:middle;">Weekly newsletter (the polite yelling)</span>
+                      </label>
+
+
+                      <!-- Video upload alerts: ties cross-platform content back to the email subscription model -->
+                      <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
+                        <input type="checkbox" name="prefs" value="video_alerts" style="vertical-align:middle;" />
+                        <span style="vertical-align:middle;">Video upload alerts (YouTube/TikTok/Twitch)</span>
                       </label>
 
                       <label style="display:block; margin-bottom:0; font-size:13px; line-height:18px; color:#374151;">
@@ -543,12 +703,27 @@
     <!-- =========================
          JAVASCRIPT (WEB PREVIEW ONLY)
          Purpose:
-         - Provides basic interactivity (image swapping, object-based rendering, basic validation).
+         - Provides basic interactivity (image swapping, object-based rendering, basic validation, and media alert simulation).
          - Kept modular for easy replacements with real app logic later
          ========================= -->
     <script>
       (function () {
         "use strict";
+
+        // Lightweight in-memory state for this web preview.
+        // In production, these preferences would live in a backend (I want to use Django) + database (probably Sqlite).
+        var appState = {
+          subscriber: {
+            email: null,
+            prefs: {
+              alerts: false,
+              newsletter: false,
+              deals: false,
+              video_alerts: false
+            }
+          }
+        };
+
 
         /*
           setupImageSwaps()
@@ -621,6 +796,68 @@
           target.innerHTML = html;
         }
 
+
+        /*
+          renderMediaDrops()
+          - Same pattern as Quick Hits: a small content model (array of objects) rendered into the DOM.
+          - This models how a backend could supply the latest video/stream entries for a newsletter.
+        */
+        function renderMediaDrops() {
+          var target = document.getElementById("jsMediaDrops");
+          if (!target) return;
+
+          var drops = [
+            { channel: "YouTube", title: "Galaxy Grind VII — Controller Funeral", meta: "12:44" },
+            { channel: "TikTok", title: "NPC Launches Into Orbit (Any% Speedrun)", meta: "0:23" },
+            { channel: "Twitch", title: "Patch 1.02 — Will It Crash Less?", meta: "Live" }
+          ];
+
+          var html = "";
+          for (var i = 0; i < drops.length; i++) {
+            html +=
+              '<div style="margin:0 0 ' + (i === drops.length - 1 ? "0" : "6px") + ' 0;">' +
+                '<strong>' + drops[i].channel + ':</strong> ' +
+                drops[i].title + ' <span style="color:#6b7280;">(' + drops[i].meta + ')</span>' +
+              '</div>';
+          }
+
+          target.innerHTML = html;
+        }
+
+        /*
+          setupUploadSimulator()
+          - Web preview only: simulates “a new upload happened” and shows what an email alert might look like.
+          - The alert only "fires" if the subscriber opted into video_alerts in the Subscribe section.
+          - In a real system, this logic belongs server-side (polling webhooks/APIs + sending email).
+        */
+        function setupUploadSimulator() {
+          var btn = document.getElementById("simulateUploadBtn");
+          var msg = document.getElementById("uploadAlertMsg");
+          if (!btn || !msg) return;
+
+          var sampleEvents = [
+            { channel: "YouTube", title: "Galaxy Grind VII — Boss AI Faceplant Compilation" },
+            { channel: "TikTok", title: "Physics Glitch: Car Turns Into Helicopter (0:12)" },
+            { channel: "Twitch", title: "LIVE: “Unpatched Softlock Any%” Challenge Run" }
+          ];
+
+          btn.addEventListener("click", function () {
+            var event = sampleEvents[Math.floor(Math.random() * sampleEvents.length)];
+            var prefs = (appState && appState.subscriber && appState.subscriber.prefs) ? appState.subscriber.prefs : {};
+
+            if (prefs.video_alerts) {
+              msg.textContent =
+                "Email Alert (simulated): New " + event.channel + " drop — " + event.title +
+                ". (Production version: backend would email subscribers who opted in.)";
+              msg.style.color = "#1f2937";
+            } else {
+              msg.textContent =
+                "No alert sent: enable “Video upload alerts” in the Subscribe section to receive channel notifications.";
+              msg.style.color = "#b91c1c";
+            }
+          });
+        }
+
         /*
           setupSubscribeForm()
           - Lightweight web preview
@@ -643,8 +880,31 @@
               return;
             }
 
-            msg.textContent = "Subscribed! You’ll get the next issue (and the occasional digital side-eye).";
+            
+            // Read preference checkboxes (supports future expansion with more options).
+            var checked = form.querySelectorAll('input[type="checkbox"][name="prefs"]:checked');
+            var prefs = { alerts: false, newsletter: false, deals: false, video_alerts: false };
+
+            for (var i = 0; i < checked.length; i++) {
+              prefs[checked[i].value] = true;
+            }
+
+            // Persist state for the web preview (simulates what a backend would store).
+            appState.subscriber.email = email;
+            appState.subscriber.prefs = prefs;
+
+            var enabled = [];
+            if (prefs.video_alerts) enabled.push("video upload alerts");
+            if (prefs.newsletter) enabled.push("weekly newsletter");
+            if (prefs.alerts) enabled.push("instant alerts");
+            if (prefs.deals) enabled.push("deals & releases");
+
+            msg.textContent =
+              "Subscribed! " +
+              (enabled.length ? ("You enabled: " + enabled.join(", ") + ".") : "Choose preferences to tailor your alerts.");
+
             msg.style.color = "#065f46";
+
 
             var cta = document.getElementById("ctaSubscribe");
             if (cta) cta.textContent = "Subscribed ✓";
@@ -672,8 +932,10 @@
         // Boot sequence: to be expanded later
         setupImageSwaps();
         renderQuickHits();
+        renderMediaDrops();
         setupSubscribeForm();
         setupContactForm();
+        setupUploadSimulator();
       })();
     </script>
 
