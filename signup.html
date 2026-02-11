@@ -40,11 +40,128 @@
         .fluid-img { width:100% !important; max-width:100% !important; height:auto !important; }
         .center { text-align:center !important; }
       }
+
+    
+
+      /* ============================================================
+         ACCESSIBILITY MODES (WEB PREVIEW)
+         - These classes are toggled on <body> by the accessibility buttons.
+         - Email clients may ignore this; GitHub Pages preview will honor it.
+         ============================================================ */
+      body.dark { background-color: #0b1220 !important; }
+      body.dark table[role="presentation"] { background-color: #0b1220 !important; }
+      body.dark .container { background-color: #0f172a !important; border-color: #334155 !important; }
+      body.dark, body.dark td, body.dark p, body.dark div { color: #e5e7eb !important; }
+      body.dark a { color: #93c5fd !important; }
+      body.dark .muted { color: #cbd5e1 !important; }
+
+      body.reader td, body.reader p, body.reader li, body.reader div {
+        font-size: 16px !important;
+        line-height: 26px !important;
+      }
+      body.reader h1 { font-size: 28px !important; line-height: 36px !important; }
+      body.reader h2 { font-size: 20px !important; line-height: 28px !important; }
+      body.reader .center { text-align: left !important; }
+
+      body.no-images img { display: none !important; }
+
+    
+      /* ============================================================
+         DARK THEME OVERRIDES (WEB PREVIEW)
+         Future note:
+         - Eventually, migrate the web app UI to a component library (e.g., MUI) to centralize theming,
+           improve accessibility primitives, and avoid inline-style overrides for dark mode.
+         Problem:
+         - Many blocks use inline background colors (email-style). Inline styles win unless we override with !important.
+         Fix:
+         - Use a small set of utility classes + attribute selectors for common inline background colors.
+         - Apply "theme-surface" / "theme-muted" classes to key boxes so we can control them in dark mode.
+         ============================================================ */
+      body.dark .theme-surface { background-color: #0f172a !important; border-color: #334155 !important; }
+      body.dark .theme-muted   { background-color: #111827 !important; border-color: #334155 !important; }
+      body.dark .theme-invert  { background-color: #0b1220 !important; border-color: #334155 !important; }
+      body.dark .theme-text    { color: #e5e7eb !important; }
+      body.dark .theme-subtext { color: #cbd5e1 !important; }
+
+      /* Catch common inline backgrounds used across the template (email-style) */
+      body.dark [style*="background-color: #ffffff"] { background-color: #0f172a !important; }
+      body.dark [style*="background-color:#ffffff"] { background-color: #0f172a !important; }
+      body.dark [style*="background-color: #f9fafb"] { background-color: #111827 !important; }
+      body.dark [style*="background-color:#f9fafb"] { background-color: #111827 !important; }
+      body.dark [style*="background-color: #f3f4f6"] { background-color: #0b1220 !important; }
+      body.dark [style*="background-color:#f3f4f6"] { background-color: #0b1220 !important; }
+
+      /* Catch common inline text colors */
+      body.dark [style*="color: #111827"] { color: #e5e7eb !important; }
+      body.dark [style*="color:#111827"] { color: #e5e7eb !important; }
+      body.dark [style*="color: #374151"] { color: #cbd5e1 !important; }
+      body.dark [style*="color:#374151"] { color: #cbd5e1 !important; }
+      body.dark [style*="color: #6b7280"] { color: #94a3b8 !important; }
+      body.dark [style*="color:#6b7280"] { color: #94a3b8 !important; }
+
+      /* Inputs/textarea in dark mode */
+      body.dark input, body.dark textarea, body.dark select {
+        background-color: #0b1220 !important;
+        color: #e5e7eb !important;
+        border-color: #334155 !important;
+      }
+            /* Swap to a darker banner asset in dark mode for better contrast. */
+      body.dark .bg-banner { background-image: url('images/banner-dark.png') !important; }
+
+      body.dark input::placeholder, body.dark textarea::placeholder {
+        color: #94a3b8 !important;
+      }
+
     </style>
   </head>
 
   <body id="body" style="margin:0 !important; padding:0 !important; background-color:#f3f4f6;">
+    <!-- Skip link improves keyboard navigation (especially for screen reader and power users). -->
+    <a href="#main" style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">
+      Skip to main content
+    </a>
+
     <a id="top"></a>
+
+
+
+    <!-- ============================================================
+         ACCESSIBILITY CONTROLS (WEB PREVIEW ONLY)
+         Purpose (developer notes):
+         - Email clients generally ignore/strip JavaScript; these controls are for the *web preview* / GitHub Pages version.
+         - Provides quick, user-driven adjustments for contrast and readability.
+         Modes:
+         - Dark Mode: higher contrast + reduced glare for many users.
+         - Reader Mode: larger type/line-height + left-aligned reading flow for long-form content.
+         - Skip Images: collapses images for text-first reading, reduced distraction, or low-bandwidth.
+         Implementation:
+         - Toggles CSS classes on <body> and persists preferences in localStorage.
+         ============================================================ -->
+    <div style="max-width:600px; margin:0 auto; padding:12px 12px 6px 12px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto;">
+        <tr>
+          <td align="center" style="padding:0;">
+            <button id="toggleDark" type="button"
+              style="margin:0 8px 0 0; padding:10px 14px; border:1px solid #d1d5db; background-color:#ffffff; color:#111827; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer;">
+              Toggle Dark
+            </button>
+            <button id="toggleReader" type="button"
+              style="margin:0 8px 0 0; padding:10px 14px; border:1px solid #d1d5db; background-color:#ffffff; color:#111827; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer;">
+              Toggle Reader
+            </button>
+            <button id="toggleImages" type="button"
+              style="margin:0; padding:10px 14px; border:1px solid #d1d5db; background-color:#ffffff; color:#111827; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer;">
+              Toggle Images
+            </button>
+          </td>
+        </tr>
+      </table>
+
+      <div style="margin-top:8px; font-size:11px; line-height:16px; color:#6b7280; text-align:center;">
+        Web preview only • Keyboard: Tab to buttons, Enter to toggle
+      </div>
+    </div>
+
 
     <!-- Preheader (email-style) -->
     <div style="display:none; font-size:1px; color:#f3f4f6; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidden;">
@@ -65,7 +182,7 @@
                  - Provides a safe "Back to campaign" navigation for the web preview
                  ========================= -->
             <tr>
-              <td class="px" style="padding:22px 28px 10px 28px; font-family: Arial, Helvetica, sans-serif;">
+              <td class="px" style="padding:22px 28px 10px 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
                 <div style="text-align:center; margin:0 0 10px 0;">
                   <img
                     src="images/logo.png"
@@ -89,7 +206,7 @@
 
                   <div style="margin-top:12px;">
                     <a href="index.html"
-                      style="display:inline-block; padding:10px 12px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:13px; font-weight:700;">
+                      style="display:inline-block; padding:12px 18px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:10px; font-size:13px; font-weight:700;">
                       ← Back to Weekly Roast
                     </a>
                   </div>
@@ -107,7 +224,7 @@
                  - Swap image assets under /images/banner-*.png and /images/hero-*.png as needed.
                  ========================= -->
             <tr>
-              <td align="center" class="px" style="padding: 6px 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
+              <td align="center" class="px" style="padding: 6px 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
                 <div style="margin:0; padding:0; text-align:center;">
 
                   <!-- Banner: click to toggle "glitch mode" -->
@@ -159,7 +276,7 @@
                  - Provides roadmap for production version
                  ========================= -->
             <tr>
-              <td class="px" style="padding: 0 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
+              <td class="px" style="padding: 0 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
                 <div style="margin-top:10px; padding:12px 14px; border-left:4px solid #7c3aed; background-color:#f9fafb;">
                   <p style="margin:0; font-size:14px; line-height:22px; color:#111827;">
                     <strong>Under construction:</strong> When we add a backend (Django), this page will:
@@ -179,8 +296,9 @@
                  - Later: wire to Django endpoints + database; for now, this is static UI.
                  ========================= -->
             <tr>
-              <td class="px" style="padding:18px 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
-                <div style="padding:12px 14px; border:1px solid #e5e7eb; background-color:#f9fafb;">
+              <td id="main" class="px" style="padding:18px 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; text-align:left;" role="main" aria-label="Signup page content">
+                <!-- Accessibility note: left-aligned long-form text improves scanning and readability. -->
+                <div class="theme-muted" style="padding:12px 14px; border:1px solid #e5e7eb; background-color:#f9fafb;">
                   <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
                     Mock Metrics (Work in Progress)
                   </div>
@@ -238,8 +356,8 @@
                  - Email-friendly presentation: a compact "issue card" with headline, excerpt, and highlights.
                  ========================= -->
             <tr>
-              <td class="px" style="padding:16px 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
-                <div style="padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
+              <td class="px" style="padding:16px 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
+                <div class="theme-surface" style="padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
                   <h2 style="margin:0 0 8px 0; font-size:18px; line-height:24px; color:#111827;">
                     Newsletter Preview: “The Open-World Overflow”
                   </h2>
@@ -278,8 +396,8 @@
                  -When in production mode, it offers users something to write feedback on, or even make suggestions
                  ========================= -->
             <tr>
-              <td class="px" style="padding:16px 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
-                <div style="padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
+              <td class="px" style="padding:16px 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
+                <div class="theme-muted" style="padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
                   <h2 style="margin:0 0 8px 0; font-size:18px; line-height:24px; color:#111827;">
                     Things to Come (Roadmap Preview)
                   </h2>
@@ -305,8 +423,8 @@
                  - Uses JS to generate a "preview email" block (web-only; email clients won't run JS).
                  ========================= -->
             <tr>
-              <td class="px" style="padding:16px 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
-                <div style="padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
+              <td class="px" style="padding:16px 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
+                <div class="theme-surface" style="padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
                   <h2 style="margin:0 0 8px 0; font-size:18px; line-height:24px; color:#111827;">
                     Sample Upload Alert Email (Preview)
                   </h2>
@@ -319,7 +437,7 @@
                   <button
                     id="previewAlertBtn"
                     type="button"
-                    style="padding:10px 12px; border:0; background-color:#2563eb; color:#ffffff; border-radius:6px; font-size:13px; font-weight:700; cursor:pointer; font-family: Arial, Helvetica, sans-serif;"
+                    style="padding:12px 18px; border:0; background-color:#0f766e; color:#ffffff; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;"
                   >
                     Preview an alert email
                   </button>
@@ -349,8 +467,8 @@
                  - JS simulates success state + shows a "receipt" summary.
                  ========================= -->
             <tr>
-              <td class="px" style="padding:18px 28px 0 28px; font-family: Arial, Helvetica, sans-serif;">
-                <div style="padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
+              <td class="px" style="padding:18px 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
+                <div class="theme-surface" style="padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
                   <h2 style="margin:0 0 10px 0; font-size:18px; line-height:24px; color:#111827;">
                     Signup Details
                   </h2>
@@ -365,7 +483,7 @@
                       type="email"
                       placeholder="you@example.com"
                       required
-                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: Arial, Helvetica, sans-serif;"
+                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;"
                     />
 
                     <label for="displayName" style="display:block; font-size:13px; line-height:18px; color:#374151; margin:10px 0 6px 0;">
@@ -376,7 +494,7 @@
                       name="displayName"
                       type="text"
                       placeholder="e.g., Captain Backlog"
-                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: Arial, Helvetica, sans-serif;"
+                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;"
                     />
 
                     <div style="margin-top:12px;">
@@ -413,7 +531,7 @@
                       <select
                         id="channelFocus"
                         name="channelFocus"
-                        style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: Arial, Helvetica, sans-serif; background-color:#ffffff;"
+                        style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; background-color:#ffffff;"
                       >
                         <option value="">No preference</option>
                         <option value="youtube">YouTube (full reviews)</option>
@@ -422,9 +540,10 @@
                       </select>
                     </div>
 
+                                        <!-- Cohesive system note: primary action button styling matches index.html CTA for consistent affordance. -->
                     <button
                       type="submit"
-                      style="margin-top:14px; padding:10px 12px; border:0; background-color:#0f766e; color:#ffffff; border-radius:6px; font-size:14px; font-weight:700; cursor:pointer; font-family: Arial, Helvetica, sans-serif;">
+                      style="margin-top:14px; padding:14px 22px; border:0; background-color:#111827; color:#ffffff; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
                       Create my alerts
                     </button>
                     <div style="margin-top:10px; font-size:11px; line-height:16px; color:#6b7280;">
@@ -461,7 +580,7 @@
                  - Includes basic disclaimer about preview behavior
                  ========================= -->
             <tr>
-              <td class="px" style="padding:22px 28px; font-family: Arial, Helvetica, sans-serif; background-color:#111827;">
+              <td class="px" style="padding:22px 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; background-color:#111827;">
                 <div style="color:#e5e7eb; font-size:12px; line-height:18px;">
                   <strong style="color:#ffffff;">RageQuit Press</strong><br />
                   Signup page preview • No real emails are sent yet
@@ -489,6 +608,37 @@
         "use strict";
 
         function $(id) { return document.getElementById(id); }
+
+        /*
+          setupA11yToggles()
+          - Mirrors index.html accessibility controls for a consistent experience.
+          - Persists user choices in localStorage:
+            rq_dark, rq_reader, rq_no_images
+        */
+        function setupA11yToggles() {
+          var darkBtn = $("toggleDark");
+          var readerBtn = $("toggleReader");
+          var imgBtn = $("toggleImages");
+          if (!darkBtn || !readerBtn || !imgBtn) return;
+
+          try {
+            if (localStorage.getItem("rq_dark") === "1") document.body.classList.add("dark");
+            if (localStorage.getItem("rq_reader") === "1") document.body.classList.add("reader");
+            if (localStorage.getItem("rq_no_images") === "1") document.body.classList.add("no-images");
+          } catch (e) {}
+
+          function toggle(cls, key) {
+            document.body.classList.toggle(cls);
+            try {
+              localStorage.setItem(key, document.body.classList.contains(cls) ? "1" : "0");
+            } catch (e) {}
+          }
+
+          darkBtn.addEventListener("click", function () { toggle("dark", "rq_dark"); });
+          readerBtn.addEventListener("click", function () { toggle("reader", "rq_reader"); });
+          imgBtn.addEventListener("click", function () { toggle("no-images", "rq_no_images"); });
+        }
+
 
 
         /*
@@ -646,6 +796,7 @@
         }
 
         setupImageSwaps();
+        setupA11yToggles();
         setupSignupForm();
         setupAlertEmailPreview();
       })();
