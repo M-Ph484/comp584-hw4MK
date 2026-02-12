@@ -84,8 +84,7 @@
 
       /* ============================================================
          ACCESSIBILITY MODES (WEB PREVIEW)
-         - These classes are toggled on <body> by the accessibility buttons.
-         - Email clients may ignore this; GitHub Pages preview will honor it.
+         - These classes are toggled on <body> by the accessibility buttons
          ============================================================ */
       body.dark { background-color: #0b1220 !important; }
       body.dark table[role="presentation"] { background-color: #0b1220 !important; }
@@ -109,12 +108,12 @@
          DARK THEME OVERRIDES (WEB PREVIEW)
          Future note:
          - Eventually, migrate the web app UI to a component library (e.g., MUI) to centralize theming,
-           improve accessibility primitives, and avoid inline-style overrides for dark mode.
+           improve accessibility primitives, and avoid inline-style overrides for dark mode
          Problem:
-         - Many blocks use inline background colors (email-style). Inline styles win unless we override with !important.
+         - Many blocks use inline background colors (email-style). Inline styles win unless overridden with !important
          Fix:
-         - Use a small set of utility classes + attribute selectors for common inline background colors.
-         - Apply "theme-surface" / "theme-muted" classes to key boxes so we can control them in dark mode.
+         - Use a small set of utility classes + attribute selectors for common inline background colors
+         - Apply "theme-surface" / "theme-muted" classes to key boxes so we can control them in dark mode
          ============================================================ */
       body.dark .theme-surface { background-color: #0f172a !important; border-color: #334155 !important; }
       body.dark .theme-muted   { background-color: #111827 !important; border-color: #334155 !important; }
@@ -144,11 +143,9 @@
         color: #e5e7eb !important;
         border-color: #334155 !important;
       }
-            /* Swap to a darker banner asset in dark mode for better contrast. */
+            
       /* Dark-mode banner swap NOTE:
-         - The banner is an <img id="bannerImg">, not a CSS background.
-         - We swap the banner <img> src + data-src-* in JS when Dark Mode toggles.
-         - Assets expected:
+         - The banner is an <img id="bannerImg">, not a CSS background
            Light: images/banner-a.png, images/banner-b.png
            Dark:  images/banner-dark.png, images/banner-dark-b.png
       */
@@ -160,7 +157,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
   </head>
 
   <body id="body" style="margin: 0 !important; padding: 0 !important; background-color: #f3f4f6;">
-    <!-- Skip link improves keyboard navigation (especially for screen reader and power users). -->
+    <!-- Skip link improves keyboard navigation (especially for screen reader and power users) -->
     <a href="#main" style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">
       Skip to main content
     </a>
