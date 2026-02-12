@@ -5,15 +5,8 @@
   xmlns:o="urn:schemas-microsoft-com:office:office">
 
   <head>
-    <!--
-      This page is a *web preview* of an email campaign layout for a video game
-      review and resource site called "RageQuit Press". Many components
-      are previews or only somewhat operational, since the focus of this 
-      assignment was to use email-related HTML/CSS. 
-    -->
     <title>RageQuit Press — Weekly Roast (Assignment 3)</title>
 
-    <!-- Email-safe meta + mobile scaling -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -31,9 +24,7 @@
       table { border-collapse: collapse !important; }
       body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
 
-      /*
-        “Blue link” overrides
-      */
+      /* Apple Blue Link Fixes */
       a[x-apple-data-detectors] {
         color: inherit !important;
         text-decoration: none !important;
@@ -42,1109 +33,432 @@
         font-weight: inherit !important;
         line-height: inherit !important;
       }
-      u + #body a {
-        color: inherit;
-        text-decoration: none;
-        font-size: inherit;
-        font-family: inherit;
-        font-weight: inherit;
-        line-height: inherit;
-      }
-      #MessageViewBody a {
-        color: inherit;
-        text-decoration: none;
-        font-size: inherit;
-        font-family: inherit;
-        font-weight: inherit;
-        line-height: inherit;
-      }
 
-      /*
-        Minimal responsiveness
+      /* Hover states for interactive elements (progressive enhancement) */
+      .hover-bg:hover { background-color: #5fa5f7 !important; } /* darker blue */
+      .hover-underline:hover { text-decoration: underline !important; }
+
+      /* DARK MODE (Web Preview Only)
+         In a real email context, we would use @media (prefers-color-scheme: dark)
+         or specific [data-ogsc] hacks for Outlook. Here we use a manual class toggle.
       */
-      @media screen and (max-width: 640px) {
-        .container { width: 100% !important; }
-        .px { padding-left: 16px !important; padding-right: 16px !important; }
-        .stack { display: block !important; width: 100% !important; }
-        .fluid-img { width: 100% !important; max-width: 100% !important; height: auto !important; }
-        .center { text-align: center !important; }
-      }
-        display: none !important;
-      }
-      body.no-images [role="img"] {
-        display: none !important;
-      }
+      body.dark { background-color: #111827 !important; color: #e5e7eb !important; }
+      body.dark .email-container { background-color: #1f2937 !important; border: 1px solid #374151; }
+      body.dark h1, body.dark h2, body.dark h3 { color: #f3f4f6 !important; }
+      body.dark .card { background-color: #1f2937 !important; border: 1px solid #374151 !important; }
+      body.dark .footer-text { color: #9ca3af !important; }
+      body.dark a { color: #60a5fa !important; } /* lighter blue link */
 
-      body.reader img {
-        /* Reduce visual noise for low-vision reading */
-        filter: saturate(0.9) contrast(1.05);
-      }
-
-    
-
-      /* ============================================================
-         ACCESSIBILITY MODES (WEB PREVIEW)
-         - These classes are toggled on <body> by the accessibility buttons.
-         - Email clients may ignore this; GitHub Pages preview will honor it.
-         ============================================================ */
-      body.dark { background-color: #0b1220 !important; }
-      body.dark table[role="presentation"] { background-color: #0b1220 !important; }
-      body.dark .container { background-color: #0f172a !important; border-color: #334155 !important; }
-      body.dark, body.dark td, body.dark p, body.dark div { color: #e5e7eb !important; }
-      body.dark a { color: #93c5fd !important; }
-      body.dark .muted { color: #cbd5e1 !important; }
-
-      body.reader td, body.reader p, body.reader li, body.reader div {
-        font-size: 16px !important;
-        line-height: 26px !important;
-      }
-      body.reader h1 { font-size: 28px !important; line-height: 36px !important; }
-      body.reader h2 { font-size: 20px !important; line-height: 28px !important; }
-      body.reader .center { text-align: left !important; }
-
-      body.no-images img { display: none !important; }
-
-    
-      /* ============================================================
-         DARK THEME OVERRIDES (WEB PREVIEW)
-         Future note:
-         - Eventually, migrate the web app UI to a component library (e.g., MUI) to centralize theming,
-           improve accessibility primitives, and avoid inline-style overrides for dark mode.
-         Problem:
-         - Many blocks use inline background colors (email-style). Inline styles win unless we override with !important.
-         Fix:
-         - Use a small set of utility classes + attribute selectors for common inline background colors.
-         - Apply "theme-surface" / "theme-muted" classes to key boxes so we can control them in dark mode.
-         ============================================================ */
-      body.dark .theme-surface { background-color: #0f172a !important; border-color: #334155 !important; }
-      body.dark .theme-muted   { background-color: #111827 !important; border-color: #334155 !important; }
-      body.dark .theme-invert  { background-color: #0b1220 !important; border-color: #334155 !important; }
-      body.dark .theme-text    { color: #e5e7eb !important; }
-      body.dark .theme-subtext { color: #cbd5e1 !important; }
-
-      /* Catch common inline backgrounds used across the template (email-style) */
-      body.dark [style*="background-color: #ffffff"] { background-color: #0f172a !important; }
-      body.dark [style*="background-color:#ffffff"] { background-color: #0f172a !important; }
-      body.dark [style*="background-color: #f9fafb"] { background-color: #111827 !important; }
-      body.dark [style*="background-color:#f9fafb"] { background-color: #111827 !important; }
-      body.dark [style*="background-color: #f3f4f6"] { background-color: #0b1220 !important; }
-      body.dark [style*="background-color:#f3f4f6"] { background-color: #0b1220 !important; }
-
-      /* Catch common inline text colors */
-      body.dark [style*="color: #111827"] { color: #e5e7eb !important; }
-      body.dark [style*="color:#111827"] { color: #e5e7eb !important; }
-      body.dark [style*="color: #374151"] { color: #cbd5e1 !important; }
-      body.dark [style*="color:#374151"] { color: #cbd5e1 !important; }
-      body.dark [style*="color: #6b7280"] { color: #94a3b8 !important; }
-      body.dark [style*="color:#6b7280"] { color: #94a3b8 !important; }
-
-      /* Inputs/textarea in dark mode */
-      body.dark input, body.dark textarea, body.dark select {
-        background-color: #0b1220 !important;
-        color: #e5e7eb !important;
-        border-color: #334155 !important;
-      }
-            /* Swap to a darker banner asset in dark mode for better contrast. */
-      /* Dark-mode banner swap NOTE:
-         - The banner is an <img id="bannerImg">, not a CSS background.
-         - We swap the banner <img> src + data-src-* in JS when Dark Mode toggles.
-         - Assets expected:
-           Light: images/banner-a.png, images/banner-b.png
-           Dark:  images/banner-dark.png, images/banner-dark-b.png
-      */
-body.dark input::placeholder, body.dark textarea::placeholder {
-        color: #94a3b8 !important;
+      /* Reader Mode (No images) */
+      body.no-images img { opacity: 0.1; filter: grayscale(100%); }
+      body.no-images .img-placeholder {
+         display: block !important; 
+         background: #eee; 
+         color: #333; 
+         padding: 20px; 
+         text-align: center;
+         border: 1px dashed #999;
       }
 
+      /* ACCESSIBILITY OVERRIDES (Web Preview Only) */
+      
+      /* Restore focus rings for keyboard users (Axe: Focusable content must have focus style) */
+      img:focus, img:focus-visible, 
+      div[role="button"]:focus, div[role="button"]:focus-visible,
+      a:focus, a:focus-visible {
+        outline: 2px solid #111827 !important;
+        outline-offset: 2px;
+      }
+      body.dark img:focus, body.dark img:focus-visible,
+      body.dark div[role="button"]:focus, body.dark div[role="button"]:focus-visible,
+      body.dark a:focus, body.dark a:focus-visible {
+        outline: 2px solid #93c5fd !important;
+      }
+
+      /* Dark Mode Text Fixes (Axe: Contrast) */
+      /* Overrides inline #6b7280 for better contrast on dark backgrounds */
+      body.dark .muted-text {
+        color: #d1d5db !important; /* Gray-300 */
+      }
     </style>
   </head>
 
-  <body id="body" style="margin: 0 !important; padding: 0 !important; background-color: #f3f4f6;">
-    <!-- Skip link improves keyboard navigation (especially for screen reader and power users). -->
-    <a href="#main" style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">
-      Skip to main content
-    </a>
+  <body style="background-color: #f3f4f6; margin: 0; padding: 0;">
 
-
-    <!--
-      Anchor targets:
-      Used for internal “jump links” 
-    -->
-    <a id="top"></a>
-
-
-
-    <!-- ============================================================
-         ACCESSIBILITY CONTROLS (WEB PREVIEW ONLY)
-         Purpose (developer notes):
-         - Email clients generally ignore/strip JavaScript; these controls are for the *web preview* / GitHub Pages version.
-         - Provides quick, user-driven adjustments for contrast and readability.
-         Modes:
-         - Dark Mode: higher contrast + reduced glare for many users.
-         - Reader Mode: larger type/line-height + left-aligned reading flow for long-form content.
-         - Skip Images: collapses images for text-first reading, reduced distraction, or low-bandwidth.
-         Implementation:
-         - Toggles CSS classes on <body> and persists preferences in localStorage.
-         ============================================================ -->
-    <div style="max-width:600px; margin:0 auto; padding:12px 12px 6px 12px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
-      <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto;">
-        <tr>
-          <td align="center" style="padding:0;">
-            <button id="toggleDark" type="button"
-              style="margin:0 8px 0 0; padding:10px 14px; border:1px solid #d1d5db; background-color:#ffffff; color:#111827; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer;">
-              Toggle Dark
-            </button>
-            <button id="toggleReader" type="button"
-              style="margin:0 8px 0 0; padding:10px 14px; border:1px solid #d1d5db; background-color:#ffffff; color:#111827; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer;">
-              Toggle Reader
-            </button>
-            <button id="toggleImages" type="button"
-              style="margin:0; padding:10px 14px; border:1px solid #d1d5db; background-color:#ffffff; color:#111827; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer;">
-              Toggle Images
-            </button>
-          </td>
-        </tr>
-      </table>
-
-      <div style="margin-top:8px; font-size:11px; line-height:16px; color:#6b7280; text-align:center;">
-        Web preview only • Keyboard: Tab to buttons, Enter to toggle
+    <header role="banner" aria-label="Preview Controls">
+      <div style="max-width:600px; margin:0 auto; padding:10px 0; text-align:right;">
+        <button id="toggleDark" style="padding:6px 12px; cursor:pointer;" aria-label="Toggle dark mode">Dark Mode</button>
+        <button id="toggleImages" style="padding:6px 12px; cursor:pointer;" aria-label="Toggle images">Skip Images</button>
+        <button id="toggleReader" style="padding:6px 12px; cursor:pointer;" aria-label="Toggle reader mode">Reader Mode</button>
       </div>
+    </header>
+
+    <div style="display:none;font-size:1px;color:#333333;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">
+      Galaxy Grind review inside! Is it trash or treasure? + This week's top 5 worst launches...
     </div>
 
+    <center style="width: 100%; background-color: #f3f4f6;">
+      <div class="email-container" style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+        
+        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:600px; margin:0 auto;">
+          <tr>
+            <td id="main" class="px" align="center" width="600" style="padding-left:20px; padding-right:20px; padding-bottom:40px;">
 
- 
-    <div style="display:none; font-size:1px; color:#f3f4f6; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidden;">
-      This week: one AAA flop roasted, three indie games were overhyped, and a “patch notes apology tour.”
-    </div>
+              <div role="main" style="width:100%;">
 
-    <!--
-      Outer wrapper table:
-      Email-safe centering + background color block.
-      Tables were used to keep the layout consistent.
-    -->
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation" style="background-color:#f3f4f6;">
-      <tr>
-        <td align="center" style="padding: 20px 12px;">
+                <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td align="center" style="padding-top: 40px; padding-bottom: 20px;">
+                      <img 
+                        id="bannerImg"
+                        src="images/banner-light.png" 
+                        data-src-light="images/banner-light.png"
+                        data-src-dark="images/banner-dark.png"
+                        width="300" 
+                        alt="RageQuit Press Logo - Click to toggle Theme" 
+                        style="display: block; border: 0; max-width: 100%; cursor: pointer;"
+                        tabindex="0"
+                        role="button"
+                        aria-pressed="false"
+                        aria-label="Toggle dark mode theme"
+                      />
+                    </td>
+                  </tr>
+                </table>
 
-          <!--
-            Inner container (600px):
-            Standard email width for readability on desktop clients.
-            If the width is changed here, key image widths have to be adjusted
-            (e.g., 544px) for alignment.
-          -->
-          <table border="0" cellpadding="0" cellspacing="0" width="600" class="container" role="presentation"
-            style="width:600px; max-width:600px; background-color:#ffffff; border:1px solid #e5e7eb;">
+                <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td align="center" style="padding-bottom: 30px;">
+                      <img 
+                        id="heroImg"
+                        src="images/hero-a.png" 
+                        data-src-a="images/hero-a.png"
+                        data-src-b="images/hero-b.png"
+                        width="560" 
+                        alt="Hero image: Galaxy Grind Game Review Cover Art. Click to toggle evidence." 
+                        style="display: block; border: 0; max-width: 100%; border-radius: 8px; cursor: pointer;"
+                        tabindex="0"
+                        role="button"
+                        aria-pressed="false"
+                        aria-label="Toggle evidence mode for Galaxy Grind review"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="font-family: 'Arial Black', sans-serif; font-size: 28px; line-height: 34px; color: #111827;">
+                      Galaxy Grind: An Infinite Loop of Sadness?
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding-top: 15px; font-family: sans-serif; font-size: 16px; line-height: 24px; color: #4b5563;">
+                      We spent 40 hours mining virtual rocks so you don't have to. Spoiler: The rocks win.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding-top: 25px;">
+                      <a href="signup.html" class="hover-bg" style="background-color: #2563eb; color: #ffffff; padding: 14px 28px; border-radius: 6px; text-decoration: none; font-family: sans-serif; font-weight: bold; display: inline-block;">
+                        Read the Full Roast &rarr;
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding-top: 10px;">
+                       <div class="muted-text" style="font-family:sans-serif; font-size:12px; line-height:18px; color:#6b7280; margin-top:8px;">
+                          (Web preview only: click image to toggle evidence)
+                       </div>
+                    </td>
+                  </tr>
+                </table>
 
-            <!-- =========================
-                 HEADER / BRAND BLOCK
-                 - Establish branding and “issue title” quickly.
-                 - Keep typography web-safe (Arial) per assignment (no web fonts).
-                 Edit points:
-                 - Update issue title/subtitle copy
-                 ========================= -->
-            <tr>
-              <td class="px" style="padding: 22px 28px 10px 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
-                <div style="text-align:center; margin:0 0 10px 0;">
-                  <img
-                    src="images/logo.png"
-                    width="84"
-                    height="84"
-                    alt="RageQuit Press logo"
-                    style="display:inline-block; border-radius:42px;"
-                  />
-                  <div style="font-size:12px; letter-spacing:1.2px; color:#6b7280; margin-top:10px;">
-                    RAGEQUIT PRESS • EMAIL CAMPAIGN PREVIEW
-                  </div>
-                </div>
+                <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td style="padding: 40px 0;">
+                      <div style="height: 1px; background-color: #e5e7eb; line-height: 1px;">&nbsp;</div>
+                    </td>
+                  </tr>
+                </table>
 
-                <div style="text-align:center;">
-                  <h1 style="margin:8px 0 8px 0; font-size:30px; line-height:38px; color:#111827; font-weight:700;">
-                    The Week in Gaming, With Zero Mercy
-                  </h1>
-                  <p style="margin:0; font-size:14px; line-height:22px; color:#374151;">
-                    Issue #02 • Click any image to toggle “Evidence Mode.”
-                  </p>
-                </div>
-              </td>
-            </tr>
+                <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td style="padding-bottom: 20px;">
+                      <h2 style="margin:0; font-family:'Arial Black', sans-serif; font-size:20px; color:#111827;">Quick Hits</h2>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td id="quickHitsContainer">
+                      <p style="font-family:sans-serif; color:#6b7280;">Loading hits...</p>
+                    </td>
+                  </tr>
+                </table>
 
-            <!-- =========================
-                 INTERACTIVE BANNER 
-                 Purpose:
-                 - Meant to be like a magazine/site header
-                 - Show brand identity 
-                 - Reusable interaction that can be swapped without extra JS.
-                 Edit points:
-                 - Replace images/banner-a.png and images/banner-b.png at some point
-                 - Keep width at 544px to match container padding for clean alignment
-                 ========================= -->
-            <tr>
-              <td align="center" class="px" style="padding: 12px 28px 0 28px;">
-                <div style="margin:0; padding:0; text-align:center;">
-                  <img
-                    id="bannerImg"
-                    src="images/banner-a.png"
-                    data-src-a="images/banner-a.png"
-                    data-src-b="images/banner-b.png"
-                    data-toggle="swap"
-                    tabindex="0"
-                    alt="RageQuit Press banner (click to toggle glitch mode)"
-                    width="544"
-                    style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb; cursor:pointer;"
-                    class="fluid-img"
-                  />
-                  <div style="margin-top:8px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#6b7280;">
-                    Click banner to toggle <strong>glitch mode</strong>.
-                  </div>
-                </div>
-              </td>
-            </tr>
+                <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td style="padding: 40px 0;">
+                      <div style="height: 1px; background-color: #e5e7eb; line-height: 1px;">&nbsp;</div>
+                    </td>
+                  </tr>
+                </table>
 
-            <!-- =========================
-                 HERO IMAGE
-                 Purpose:
-                 - Grab reader attention (featured cover art and familiar mascots)
-                 - “Evidence mode” swap supports the site’s theme
-                 Edit points:
-                 - Update hero images: images/hero-a.png and images/hero-b.png for real 
-                 video games that are being reviewed (these were fakes made using an Generative LLM)
-                 - Caption text is dynamically updated in JS for hero only
-                 ========================= -->
-            <tr>
-              <td align="center" class="px" style="padding: 14px 28px 0 28px;">
-                <div style="margin:0; padding:0; text-align:center;">
-                  <img
-                    id="heroImg"
-                    src="images/hero-a.png"
-                    data-src-a="images/hero-a.png"
-                    data-src-b="images/hero-b.png"
-                    data-toggle="swap"
-                    tabindex="0"
-                    alt="Hero image: featured review cover art"
-                    width="544"
-                    style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb; cursor:pointer;"
-                    class="fluid-img"
-                  />
-                  <div id="heroCaption" style="margin-top:10px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; font-size:13px; line-height:18px; color:#6b7280;">
-                    Cover shot (click to swap to “Evidence Mode”).
-                  </div>
-                </div>
-              </td>
-            </tr>
+                <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td style="padding-bottom: 20px;">
+                      <h2 style="margin:0; font-family:'Arial Black', sans-serif; font-size:20px; color:#111827;">Media Drops</h2>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td id="mediaDropsContainer">
+                      </td>
+                  </tr>
+                </table>
 
-            <!-- =========================
-                 CONTENT BODY
-                 - All sections (intro, feature, quick hits, CTA, forms)
-                 - Kept inside one <td> to preserve stability
-                 Edit points:
-                 - Most styling and reactivity will need to be updated later, when
-                 new features are introduced in class (or if I'm allowed to include frameworks I want
-                 to experiment with)
-                 ========================= -->
-            <tr>
-              <td id="main" class="px" style="padding: 18px 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; text-align:left;" role="main" aria-label="RageQuit Press email campaign content">
+                <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td style="padding: 40px 0;">
+                      <div style="height: 1px; background-color: #e5e7eb; line-height: 1px;">&nbsp;</div>
+                    </td>
+                  </tr>
+                </table>
 
-                <!-- Accessibility note: left-aligned long-form text improves scanning and reduces cognitive load compared to centered paragraphs. -->
-
-                <!-- Intro callout: quick context + tone setting -->
-                <div style="border-left:4px solid #111827; padding:12px 14px; background-color:#f9fafb;">
-                  <p style="margin:0; font-size:15px; line-height:24px; color:#111827;">
-                    Welcome to <strong>RageQuit Press</strong>, a video game journalism app that reviews games the way a 90’s magazine did:
-                    brutal honesty, no agreements with companies to play nice, and what not to do in game design.
-                  </p>
-                </div>
-
-                <p style="margin:14px 0 0 0; font-size:14px; line-height:22px; color:#374151;">
-                  This page is styled like an <strong>email campaign</strong> (inline CSS, table layout, unsubscribe footer),
-                  but also includes some basic interactivity (click-to-toggle images + simple JS objects).
+                <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb;">
+                  <tr>
+                    <td style="padding: 30px;">
+                      <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td align="center" style="font-family: 'Arial Black', sans-serif; font-size: 20px; color: #111827; padding-bottom: 10px;">
+                            Don't Miss the Next Rage
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="center" style="font-family: sans-serif; font-size: 14px; color: #4b5563; padding-bottom: 20px;">
+                            Join 10k+ subscribers who enjoy watching bad games burn.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="center">
+                            <form id="subscribeForm" action="signup.html" style="margin:0;">
+                              <label for="emailInput" class="sr-only" style="display:none;">Email Address</label>
+                              <input 
+                                type="email" 
+                                id="emailInput" 
+                                placeholder="Enter your email" 
+                                style="padding: 10px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px; width: 60%; max-width: 250px;" 
+                                required
+                              />
+                              <button 
+                                type="submit" 
+                                style="background-color: #111827; color: #ffffff; padding: 10px 20px; border: none; border-radius: 4px; font-size: 14px; cursor: pointer; margin-left: 5px;">
+                                Sub
+                              </button>
+                            </form>
+                            <div id="subMessage" style="font-family:sans-serif; font-size:12px; margin-top:10px; display:none;"></div>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              
+              </div>
+              <div class="footer" role="contentinfo" style="margin-top: 40px; text-align: center;">
+                <p class="footer-text" style="font-family: sans-serif; font-size: 12px; color: #9ca3af; line-height: 18px; margin: 0;">
+                  &copy; 2025 RageQuit Press. All wrongs reserved.<br>
+                  <a href="#" class="hover-underline" style="color: #6b7280; text-decoration: underline;">Unsubscribe</a> | 
+                  <a href="#" class="hover-underline" style="color: #6b7280; text-decoration: underline;">View in Browser</a> |
+                  <a href="#" class="hover-underline" style="color: #6b7280; text-decoration: underline;">Privacy Policy</a>
                 </p>
+                <p class="footer-text" style="font-family: sans-serif; font-size: 12px; color: #9ca3af; line-height: 18px; margin-top: 10px;">
+                  1234 Salt Mines Road, Level 1, Basement<br>
+                  San Francisco, CA 94103
+                </p>
+              </div>
 
-                <!-- =========================
-                     FEATURED ROAST SECTION
-                     Purpose:
-                     - Primary content module (what users should read first).
-                     - **HW3 update:** converted from a 2-column table into a TRUE single-column table layout.
-                       Reasoning:
-                       * Email clients are more reliable with simple vertical flow (fewer side-by-side columns).
-                       * Accessibility: reading order is naturally top-to-bottom (image → bullets → score) for screen readers.
-                     Edit points:
-                     - Replace feature images (feature1-a/b)
-                     - Update bullet points + copy
-                     ========================= -->
-                <div style="margin-top:18px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
-                  <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">
-                    Featured Roast: “Galaxy Grind VII”
-                  </h2>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </center>
 
-                  <p style="margin:0 0 10px 0; font-size:14px; line-height:22px; color:#374151;">
-                    Marketing promised “freedom.” The tutorial is 47 minutes long and I was actively rooting 
-                    against the people I played as.
-                  </p>
-
-                  <!-- Single-column block: image first, then critique copy.
-                       Email/dev notes:
-                       - Stays within the “one column” requirement while keeping layout stable.
-                       - Uses a single <td> so Outlook and other strict clients render predictably. -->
-                  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                      <td valign="top" style="padding:0;">
-
-                        <img
-                          src="images/feature1-a.png"
-                          data-src-a="images/feature1-a.png"
-                          data-src-b="images/feature1-b.png"
-                          data-toggle="swap"
-                          tabindex="0"
-                          alt="Screenshot: review highlight"
-                          width="544"
-                          style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb; cursor:pointer;"
-                          class="fluid-img"
-                        />
-                        <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
-                          Click to toggle: “Trailer” ⇄ “In-game reality.”
-                        </div>
-
-                        <div style="margin-top:12px; padding:0;">
-
-                          <ul style="margin:0; padding:0 0 0 18px; font-size:14px; line-height:22px; color:#374151;">
-                            <li><strong>UI:</strong> Designed by someone who hates eyes.</li>
-                            <li><strong>Combat:</strong> I wish I could beat up the person I'm playing as because he's so inept.</li>
-                            <li><strong>Story:</strong> A cutscene landfill.</li>
-                          </ul>
-
-                          <!-- Score copy remains for accessibility/SEO; badge adds visual “at-a-glance” score -->
-                          <p style="margin:10px 0 0 0; font-size:14px; line-height:22px; color:#374151;">
-                            Final score: <strong>3/10</strong> — “A masterpiece of ignoring user feedback.”
-                          </p>
-
-                          <!-- =========================
-                               SCORE BADGE
-                               Purpose:
-                               - Converts the score into a scannable visual element.
-                               - Toggle demonstrates “state change” (roast vs praise) using the same swap handler.
-                               Edit points:
-                               - Swap images/score-03.png and images/score-09.png
-                               - Later: drive this from data (rating model) instead of manual swaps
-                               ========================= -->
-                          <div style="margin-top:12px;">
-                            <img
-                              id="scoreBadge"
-                              src="images/score-03.png"
-                              data-src-a="images/score-03.png"
-                              data-src-b="images/score-09.png"
-                              data-toggle="swap"
-                              tabindex="0"
-                              alt="Score badge (click to toggle score)"
-                              width="210"
-                              style="display:block; width:210px; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:10px; cursor:pointer;"
-                            />
-                            <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
-                              Click badge to toggle <strong>ROASTED</strong> ⇄ <strong>GODLIKE</strong> (web preview).
-                            </div>
-                          </div>
-
-                        </div>
-
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-<!-- =========================
-                     QUICK HITS
-                     Purpose:
-                     - Secondary content block.
-                     - Rendered from a JS object array to demonstrate basic data-driven DOM rendering.
-                     - Includes static fallback HTML so the section still works if JS is disabled.
-                     Edit points:
-                     - Change the hits array in renderQuickHits() in the script
-                     ========================= -->
-                <div style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
-                  <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">
-                    Quick Hits
-                  </h2>
-                  <p style="margin:0 0 10px 0; font-size:14px; line-height:22px; color:#374151;">
-                    Three headlines, one mood (this block is populated by a JS array of objects):
-                  </p>
-
-                  <div id="jsReviews" style="margin:0; padding:0;">
-                    <!-- Fallback content if JS is disabled -->
-                    <div style="margin: 0 0 10px 0;">
-                      <strong style="color:#111827;">Patch Notes Apology Tour</strong>
-                      <span style="color:#6b7280;">— “We fixed the bug where the game launched.”</span>
-                    </div>
-                    <div style="margin: 0 0 10px 0;">
-                      <strong style="color:#111827;">Indie Gem: “Wicker Dungeon”</strong>
-                      <span style="color:#6b7280;">— “Suspiciously fun.”</span>
-                    </div>
-                    <div style="margin: 0;">
-                      <strong style="color:#111827;">Sequel Syndrome</strong>
-                      <span style="color:#6b7280;">— “More of the same, priced like innovation.”</span>
-                    </div>
-                  </div>
-                </div>
-
-
-                <!-- =========================
-                     BROADCAST / CROSS-MEDIA HUB
-                     Purpose:
-                     - Mirrors modern games media
-                     - Email-campaign compatible pattern: thumbnails + CTA links (no embeds), promote cross-platform content
-                     - Designed for reuse: each channel card follows the same structure and the "Latest Drops"
-                       list is populated from JS objects (with HTML fallback)
-                     Edit points:
-                     - Replace /images/media-*-a.png and /images/media-*-b.png with real thumbnails later
-                     - Replace href="#" with real channel URLs
-                     - The simulator button is web-preview only; a real implementation would be server-driven
-                     ========================= -->
-                <div id="media" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
-                  <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">
-                    Broadcast Channels: Reviews, Shorts, and Live “Game Breaking”
-                  </h2>
-
-                  <p style="margin:0 0 12px 0; font-size:14px; line-height:22px; color:#374151;">
-                    Written reviews stay mostly polite. The <strong>real roasting</strong> happens on video—where we can show the bugs,
-                    the jank, and the “feature-not-a-bug” moments in real time. Subscribers can opt in to <strong>email alerts</strong>
-                    when new uploads go live on any channel.
-                  </p>
-
-                  <!-- Channel cards: table layout keeps this block email-template-friendly -->
-                  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                      <!-- YouTube card -->
-                      <td class="stack" width="33.33%" valign="top" style="padding: 0 8px 0 0;">
-                        <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px; background-color:#f9fafb;">
-                          <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
-                            YouTube • Full Reviews
-                          </div>
-
-                          <img
-                            src="images/media-youtube-a.png"
-                            data-src-a="images/media-youtube-a.png"
-                            data-src-b="images/media-youtube-b.png"
-                            data-toggle="swap"
-                            tabindex="0"
-                            alt="YouTube review thumbnail (click to toggle)"
-                            style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px; cursor:pointer;"
-                          />
-
-                          <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
-                            Latest: <strong>“Galaxy Grind VII — Controller Funeral”</strong>
-                          </div>
-
-                          <div style="margin-top:10px;">
-                            <a href="#" style="display:inline-block; padding:8px 10px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:12px; font-weight:700;">
-                              Watch on YouTube
-                            </a>
-                          </div>
-                        </div>
-                      </td>
-
-                      <!-- TikTok card -->
-                      <td class="stack" width="33.33%" valign="top" style="padding: 0 8px;">
-                        <div style="border:1px solid #e5e7eb; border-radius: 10px; padding:10px; background-color:#f9fafb;">
-                          <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
-                            TikTok • “Bug Clips”
-                          </div>
-
-                          <img
-                            src="images/media-tiktok-a.png"
-                            data-src-a="images/media-tiktok-a.png"
-                            data-src-b="images/media-tiktok-b.png"
-                            data-toggle="swap"
-                            tabindex="0"
-                            alt="TikTok short thumbnail (click to toggle)"
-                            style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px; cursor:pointer;"
-                          />
-
-                          <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
-                            Latest: <strong>“NPC Launches Into Orbit (Any% Speedrun)”</strong>
-                          </div>
-
-                          <div style="margin-top:10px;">
-                            <a href="#" style="display:inline-block; padding:8px 10px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:12px; font-weight:700;">
-                              Watch on TikTok
-                            </a>
-                          </div>
-                        </div>
-                      </td>
-
-                      <!-- Twitch card -->
-                      <td class="stack" width="33.33%" valign="top" style="padding: 0 0 0 8px;">
-                        <div style="border:1px solid #e5e7eb; border-radius:8px; padding:10px; background-color:#f9fafb;">
-                          <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
-                            Twitch • Live “Break Tests”
-                          </div>
-
-                          <img
-                            src="images/media-twitch-a.png"
-                            data-src-a="images/media-twitch-a.png"
-                            data-src-b="images/media-twitch-b.png"
-                            data-toggle="swap"
-                            tabindex="0"
-                            alt="Twitch stream thumbnail (click to toggle)"
-                            style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px; cursor:pointer;"
-                          />
-
-                          <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
-                            Tonight: <strong>“Patch 1.02 — Will It Crash Less?”</strong>
-                          </div>
-
-                          <div style="margin-top:10px;">
-                            <a href="#" style="display:inline-block; padding:8px 10px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:12px; font-weight:700;">
-                              Watch on Twitch
-                            </a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </table>
-
-                  <!-- Latest drops: rendered from JS objects; fallback included for non-JS environments -->
-                  <div style="margin-top:14px; padding:12px; border:1px dashed #d1d5db; background-color:#ffffff;">
-                    <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
-                      Latest Drops (data-driven)
-                    </div>
-
-                    <div id="jsMediaDrops" style="font-size:13px; line-height:20px; color:#374151;">
-                      <!-- Fallback content if JS is disabled -->
-                      <div style="margin:0 0 6px 0;"><strong>YouTube:</strong> Galaxy Grind VII — Controller Funeral <span style="color:#6b7280;">(12:44)</span></div>
-                      <div style="margin:0 0 6px 0;"><strong>TikTok:</strong> NPC Launches Into Orbit <span style="color:#6b7280;">(0:23)</span></div>
-                      <div style="margin:0;"><strong>Twitch:</strong> Patch 1.02 Break Test <span style="color:#6b7280;">(Live)</span></div>
-                    </div>
-                  </div>
-
-                  <!-- Web preview demo: simulate an upload event -> would become an email in a real backend -->
-                  <div style="margin-top:12px; padding:12px; background-color:#f9fafb; border:1px solid #e5e7eb;">
-                    <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700;">
-                      Demo: Email Alert Trigger
-                    </div>
-                    <div style="margin-top:6px; font-size:12px; line-height:18px; color:#6b7280;">
-                      In production, a backend service would detect uploads and send emails to subscribers who opted into video alerts.
-                      Here we simulate that event in the browser.
-                    </div>
-
-                    <button
-                      id="simulateUploadBtn"
-                      type="button"
-                      style="margin-top:10px; padding:10px 12px; border:0; background-color:#7c3aed; color:#ffffff; border-radius:6px; font-size:13px; font-weight:700; cursor:pointer; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;"
-                    >
-                      Simulate “New Video Uploaded”
-                    </button>
-
-                    <div id="uploadAlertMsg" style="margin-top:10px; font-size:13px; line-height:18px; color:#374151;">
-                      <!-- JS writes simulated alert status here -->
-                    </div>
-                  </div>
-                </div>
-
-
-                <!-- =========================
-                     PRIMARY CTA
-                     Purpose:
-                     - Clear conversion action (subscribe) in layout
-                     - When this is made to work for real, this will go to an external landing page
-                     Edit points:
-                     - Change href to a real route later (signup.html / React route / etc.)
-                     ========================= -->
-                <div style="margin-top:18px; text-align:center;">
-                  <a
-                    href="signup.html"
-                    id="ctaSubscribe"
-                    style="display:inline-block; padding:12px 18px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:14px; line-height:14px; font-weight:700;">
-                    Subscribe for Roasts & Alerts
-                  </a>
-                  <div style="margin-top:10px; font-size:12px; line-height:18px; color:#6b7280;">
-                    (CTA now links to signup.html — a frontend-only landing page preview.)
-                  </div>
-                </div>
-
-                <!-- =========================
-                     SUBSCRIBE FORM (WEB PREVIEW)
-                     Purpose:
-                     - Data capture UI
-                     - JS provides lightweight validation + user feedback
-                     Note:
-                     - This will need to be modified later with different frameworks
-                     ========================= -->
-                <div id="subscribe" style="margin-top:18px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
-                  <h2 style="margin:0 0 10px 0; font-size:18px; line-height:24px; color:#111827;">
-                    Subscribe / Email Alerts / Newsletter
-                  </h2>
-
-                  <form id="subscribeForm" action="#" method="post" style="margin:0;">
-                    <label for="email" style="display:block; font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">
-                      Email address
-                    </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="you@example.com"
-                      required
-                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;"
-                    />
-
-                    <div style="margin-top:12px;">
-                      <div style="font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">
-                        What do you want delivered?
-                      </div>
-
-                      <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
-                        <input type="checkbox" name="prefs" value="alerts" style="vertical-align:middle;" />
-                        <span style="vertical-align:middle;">Instant alerts (launch train-wrecks)</span>
-                      </label>
-
-                      <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
-                        <input type="checkbox" name="prefs" value="newsletter" style="vertical-align:middle;" />
-                        <span style="vertical-align:middle;">Weekly newsletter (the polite yelling)</span>
-                      </label>
-
-
-                      <!-- Video upload alerts: ties cross-platform content back to the email subscription model -->
-                      <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
-                        <input type="checkbox" name="prefs" value="video_alerts" style="vertical-align:middle;" />
-                        <span style="vertical-align:middle;">Video upload alerts (YouTube/TikTok/Twitch)</span>
-                      </label>
-
-                      <label style="display:block; margin-bottom:0; font-size:13px; line-height:18px; color:#374151;">
-                        <input type="checkbox" name="prefs" value="deals" style="vertical-align:middle;" />
-                        <span style="vertical-align:middle;">Deals & releases (so you can avoid them faster)</span>
-                      </label>
-                    </div>
-
-                    <button
-                      type="submit"
-                      style="margin-top:12px; padding:10px 12px; border:0; background-color: #111827; color:#ffffff; border-radius:6px; font-size:14px; font-weight:700; cursor:pointer; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
-                      Sign me up
-                    </button>
-
-                    <div id="subscribeMsg" style="margin-top:10px; font-size:13px; line-height:18px; color:#374151;">
-                      <!-- JS writes validation/success state here -->
-                    </div>
-                  </form>
-                </div>
-
-                <!-- =========================
-                     CONTACT FORM (WEB PREVIEW)
-                     Purpose:
-                     - Adds a “Contact the team” pathway, either for feedback or requests
-                     - JS simulates submission + feedback (no backend yet).
-                     Note:
-                     - Later on, if its allowed, I'd like to use DJango so the forms are operational, and connect to a database to 
-                     keep a record of all submissions.
-                     ========================= -->
-                <div style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
-                  <h2 style="margin:0 0 10px 0; font-size:18px; line-height:24px; color:#111827;">
-                    Contact the Team
-                  </h2>
-
-                  <form id="contactForm" action="#" method="post" style="margin:0;">
-                    <label for="name" style="display:block; font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">
-                      Name
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      placeholder="Your name"
-                      required
-                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;"
-                    />
-
-                    <label for="contactEmail" style="display:block; font-size:13px; line-height:18px; color:#374151; margin:10px 0 6px 0;">
-                      Email
-                    </label>
-                    <input
-                      id="contactEmail"
-                      name="contactEmail"
-                      type="email"
-                      placeholder="you@example.com"
-                      required
-                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;"
-                    />
-
-                    <label for="message" style="display:block; font-size:13px; line-height:18px; color:#374151; margin:10px 0 6px 0;">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows="4"
-                      placeholder="Pitch a review, report a bug, or demand justice for your favorite franchise."
-                      required
-                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; resize:vertical;"
-                    ></textarea>
-
-                    <button
-                      type="submit"
-                      style="margin-top:12px; padding:10px 12px; border:0; background-color:#2563eb; color:#ffffff; border-radius:6px; font-size:14px; font-weight:700; cursor:pointer; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
-                      Send
-                    </button>
-
-                    <div id="contactMsg" style="margin-top:10px; font-size:13px; line-height:18px; color:#374151;">
-                      <!-- JS writes “sent” confirmation here -->
-                    </div>
-                  </form>
-                </div>
-
-                <!-- Internal anchors used by footer links -->
-                <div id="preferences"></div>
-                <div id="unsubscribe"></div>
-
-              </td>
-            </tr>
-
-            <!-- =========================
-                 FOOTER / COMPLIANCE BLOCK
-                 Purpose:
-                 - A regular footer with info and unsubscribe links
-                 Edit points:
-                 - Address + legal text
-                 - Footer links (real site would go to hosted preference center)
-                 ========================= -->
-            <tr>
-              <td class="px" style="padding:22px 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; background-color:#111827;">
-                <div style="color:#e5e7eb; font-size:12px; line-height:18px;">
-                  <strong style="color:#ffffff;">RageQuit Press</strong><br />
-                  1725 Slough Avenue, Scranton, PA 18503
-                </div>
-
-                <div style="margin-top:12px; font-size:12px; line-height:18px;">
-                  <a href="#unsubscribe" style="color:#93c5fd; text-decoration:underline;">Unsubscribe</a>
-                  <span style="color:#9ca3af;"> • </span>
-                  <a href="#preferences" style="color:#93c5fd; text-decoration:underline;">Update preferences</a>
-                  <span style="color:#9ca3af;"> • </span>
-                  <a href="#top" style="color:#93c5fd; text-decoration:underline;">View in browser</a>
-                </div>
-
-                <div style="margin-top:10px; color:#9ca3af; font-size:11px; line-height:16px;">
-                  Note: This file is a web preview that is styled like an email campaign for coursework.
-                </div>
-              </td>
-            </tr>
-
-          </table>
-          <!-- End inner container -->
-
-        </td>
-      </tr>
-    </table>
-
-    <!-- =========================
-         JAVASCRIPT 
-         Purpose:
-         - Provides basic interactivity (image swapping, object-based rendering, basic validation, and media alert simulation)
-         - Kept modular for easy replacements with real app logic later
-         ========================= -->
     <script>
-      (function () {
-        "use strict";
+      (function() {
+        console.log("RageQuit Press: Email Preview Loaded");
 
-        // Lightweight in-memory state for this web preview
-        // In production, these preferences would live in a backend (I want to use Django) + database (probably Sqlite)
-        var appState = {
-          subscriber: {
-            email: null,
-            prefs: {
-              alerts: false,
-              newsletter: false,
-              deals: false,
-              video_alerts: false
-            }
+        // --- Data for Rendering ---
+        var quickHitsData = [
+          { title: "Cyber-Glitch 2078", score: "3/10", text: "It runs great if you close your eyes." },
+          { title: "Farming Sim: Concrete Edition", score: "8/10", text: "Oddly satisfying grey textures." },
+          { title: "Loot Box Hero", score: "0/10", text: "Ideally, you pay $5 to read this review." }
+        ];
+
+        var mediaDropsData = [
+          { 
+            img: "images/thumb1.jpg", 
+            alt: "Thumbnail for video essay on microtransactions",
+            title: "Why Your Wallet Hates You",
+            desc: "A deep dive into predatory monetization."
+          },
+          { 
+            img: "images/thumb2.jpg", 
+            alt: "Thumbnail for speedrun fail compilation",
+            title: "Top 10 Speedrun Fails",
+            desc: "Painful to watch, harder to look away."
           }
-        };
+        ];
 
-
-        /*
-          setupImageSwaps()
-          - Generic swap handler for any <img data-toggle="swap">
-          - Uses data-src-a / data-src-b attributes to avoid hardcoding file paths in JS
-          - Adds keyboard support (Enter / Space) for accessibility
-        */
-        function setupImageSwaps() {
-          var imgs = document.querySelectorAll('img[data-toggle="swap"]');
-
-          for (var i = 0; i < imgs.length; i++) {
-            (function (img) {
-              img.setAttribute("role", "button");
-              img.setAttribute("aria-pressed", "false");
-
-              function toggle() {
-                var a = img.getAttribute("data-src-a");
-                var b = img.getAttribute("data-src-b");
-                if (!a || !b) return;
-
-                var isA = img.getAttribute("src") === a;
-                img.setAttribute("src", isA ? b : a);
-                img.setAttribute("aria-pressed", isA ? "true" : "false");
-
-                // Only the hero has a dynamic caption; other swaps are self-explanatory
-                if (img.id === "heroImg") {
-                  var cap = document.getElementById("heroCaption");
-                  if (cap) cap.textContent = isA
-                    ? "Evidence mode (click to swap back)."
-                    : "Cover shot (click to swap to “Evidence Mode”).";
-                }
-              }
-
-              img.addEventListener("click", toggle);
-              img.addEventListener("keydown", function (e) {
-                var key = e.key || e.keyCode;
-                if (key === "Enter" || key === " " || key === 13 || key === 32) {
-                  e.preventDefault();
-                  toggle();
-                }
-              });
-            })(imgs[i]);
-          }
-        }
-
-        /*
-          renderQuickHits()
-          - Demonstrates a simple “content model” (array of objects) rendered into the DOM
-          - Keeps fallback HTML in place for non-JS environments
-        */
+        // --- Render Functions ---
         function renderQuickHits() {
-          var target = document.getElementById("jsReviews");
-          if (!target) return;
-
-          var hits = [
-            { title: "Patch Notes Apology Tour", line: "“We fixed the bug where the game launched.”" },
-            { title: "Indie Gem: “Wicker Dungeon”", line: "“Actually fun. Suspicious.”" },
-            { title: "Sequel Syndrome", line: "“More of the same, priced like innovation.”" }
-          ];
-
+          var container = document.getElementById("quickHitsContainer");
+          if(!container) return;
+          
           var html = "";
-          for (var i = 0; i < hits.length; i++) {
-            html +=
-              '<div style="margin: 0 0 ' + (i === hits.length - 1 ? "0" : "10px") + ' 0;">' +
-                '<strong style="color:#111827;">' + hits[i].title + '</strong> ' +
-                '<span style="color:#6b7280;">— ' + hits[i].line + '</span>' +
-              '</div>';
+          for(var i=0; i<quickHitsData.length; i++) {
+            var item = quickHitsData[i];
+            html += '<div class="card" style="margin-bottom: 15px; padding: 15px; border: 1px solid #e5e7eb; border-radius: 6px; background-color: #ffffff;">';
+            html += '<div style="font-family: sans-serif; font-weight: bold; color: #111827; margin-bottom: 5px;">' + item.title + ' <span style="background:#ef4444; color:white; padding:2px 6px; border-radius:4px; font-size:11px; margin-left:8px;">' + item.score + '</span></div>';
+            html += '<div style="font-family: sans-serif; font-size: 14px; color: #4b5563;">' + item.text + '</div>';
+            html += '</div>';
           }
-
-          target.innerHTML = html;
+          container.innerHTML = html;
         }
 
-
-        /*
-          renderMediaDrops()
-          - Same pattern as Quick Hits: a small content model (array of objects) rendered into the DOM
-          - This models how a backend could supply the latest video/stream entries for a newsletter
-        */
         function renderMediaDrops() {
-          var target = document.getElementById("jsMediaDrops");
-          if (!target) return;
+          var container = document.getElementById("mediaDropsContainer");
+          if(!container) return;
 
-          var drops = [
-            { channel: "YouTube", title: "Galaxy Grind VII — Controller Funeral", meta: "12:44" },
-            { channel: "TikTok", title: "NPC Launches Into Orbit (Any% Speedrun)", meta: "0:23" },
-            { channel: "Twitch", title: "Patch 1.02 — Will It Crash Less?", meta: "Live" }
-          ];
+          var html = '<table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">';
+          for(var i=0; i<mediaDropsData.length; i++) {
+            var item = mediaDropsData[i];
+            // Stacked layout for reliability
+            html += '<tr><td style="padding-bottom: 20px;">';
+            html += '<div class="card" style="border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; background-color: #ffffff;">';
+            // Placeholder image block since we don't have real files
+            html += '<div style="background-color: #d1d5db; height: 150px; width: 100%; display: flex; align-items: center; justify-content: center; color: #6b7280; font-family: sans-serif; font-size: 12px;">' + item.alt + '</div>';
+            html += '<div style="padding: 15px;">';
+            html += '<div style="font-family: sans-serif; font-weight: bold; color: #111827; margin-bottom: 5px;">' + item.title + '</div>';
+            html += '<div style="font-family: sans-serif; font-size: 13px; color: #6b7280;">' + item.desc + '</div>';
+            html += '</div></div>';
+            html += '</td></tr>';
+          }
+          html += '</table>';
+          container.innerHTML = html;
+        }
 
-          var html = "";
-          for (var i = 0; i < drops.length; i++) {
-            html +=
-              '<div style="margin:0 0 ' + (i === drops.length - 1 ? "0" : "6px") + ' 0;">' +
-                '<strong>' + drops[i].channel + ':</strong> ' +
-                drops[i].title + ' <span style="color:#6b7280;">(' + drops[i].meta + ')</span>' +
-              '</div>';
+        // --- Interaction Logic ---
+        
+        // 1. Image Swapper (Hero & Banner) + Accessibility Updates
+        function setupImageSwaps() {
+          var hero = document.getElementById("heroImg");
+          var banner = document.getElementById("bannerImg");
+
+          // Helper to toggle aria-pressed
+          function toggleAria(el) {
+            var isPressed = el.getAttribute("aria-pressed") === "true";
+            el.setAttribute("aria-pressed", !isPressed);
           }
 
-          target.innerHTML = html;
+          if (hero) {
+            hero.onclick = function() {
+              var current = hero.getAttribute("src");
+              var srcA = hero.getAttribute("data-src-a");
+              var srcB = hero.getAttribute("data-src-b");
+              hero.setAttribute("src", current === srcA ? srcB : srcA);
+              toggleAria(hero); // Update a11y state
+            };
+            hero.onkeydown = function(e) {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                hero.click();
+              }
+            };
+          }
+
+          if (banner) {
+            banner.onclick = function() {
+              // Trigger global dark mode instead of local swap
+              document.getElementById("toggleDark").click();
+              toggleAria(banner); // Update a11y state
+            };
+            banner.onkeydown = function(e) {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                banner.click();
+              }
+            };
+          }
         }
 
-        /*
-          setupUploadSimulator()
-          - Web preview only: simulates “a new upload happened” and shows what an email alert might look like
-          - The alert only "fires" if the subscriber opted into video_alerts in the Subscribe section
-          - In a real system, this logic belongs server-side (polling webhooks/APIs + sending email)
-        */
-        function setupUploadSimulator() {
-          var btn = document.getElementById("simulateUploadBtn");
-          var msg = document.getElementById("uploadAlertMsg");
-          if (!btn || !msg) return;
-
-          var sampleEvents = [
-            { channel: "YouTube", title: "Galaxy Grind VII — Boss AI Faceplant Compilation" },
-            { channel: "TikTok", title: "Physics Glitch: Car Turns Into Helicopter (0:12)" },
-            { channel: "Twitch", title: "LIVE: “Unpatched Softlock Any%” Challenge Run" }
-          ];
-
-          btn.addEventListener("click", function () {
-            var event = sampleEvents[Math.floor(Math.random() * sampleEvents.length)];
-            var prefs = (appState && appState.subscriber && appState.subscriber.prefs) ? appState.subscriber.prefs : {};
-
-            if (prefs.video_alerts) {
-              msg.textContent =
-                "Email Alert (simulated): New " + event.channel + " drop — " + event.title +
-                ". (Production version: backend would email subscribers who opted in.)";
-              msg.style.color = "#1f2937";
-            } else {
-              msg.textContent =
-                "No alert sent: enable “Video upload alerts” in the Subscribe section to receive channel notifications.";
-              msg.style.color = "#b91c1c";
-            }
-          });
-        }
-
-        /*
-          setupSubscribeForm()
-          - Lightweight web preview
-          - To do later: send to backend endpoint + show server response states
-        */
+        // 2. Subscribe Simulation
         function setupSubscribeForm() {
           var form = document.getElementById("subscribeForm");
-          var msg = document.getElementById("subscribeMsg");
-          if (!form || !msg) return;
+          var msg = document.getElementById("subMessage");
+          if(!form) return;
 
-          form.addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            var email = (document.getElementById("email").value || "").trim();
-            var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-            if (!ok) {
-              msg.textContent = "That email looks suspicious. Try a valid address (e.g., you@example.com).";
-              msg.style.color = "#b91c1c";
-              return;
-            }
-
-            
-            // Read preference checkboxes (supports future expansion with more options)
-            var checked = form.querySelectorAll('input[type="checkbox"][name="prefs"]:checked');
-            var prefs = { alerts: false, newsletter: false, deals: false, video_alerts: false };
-
-            for (var i = 0; i < checked.length; i++) {
-              prefs[checked[i].value] = true;
-            }
-
-            // Persist state for the web preview (simulates what a backend would store)
-            appState.subscriber.email = email;
-            appState.subscriber.prefs = prefs;
-
-            var enabled = [];
-            if (prefs.video_alerts) enabled.push("video upload alerts");
-            if (prefs.newsletter) enabled.push("weekly newsletter");
-            if (prefs.alerts) enabled.push("instant alerts");
-            if (prefs.deals) enabled.push("deals & releases");
-
-            msg.textContent =
-              "Subscribed! " +
-              (enabled.length ? ("You enabled: " + enabled.join(", ") + ".") : "Choose preferences to tailor your alerts.");
-
-            msg.style.color = "#065f46";
-
-
-            var cta = document.getElementById("ctaSubscribe");
-            if (cta) cta.textContent = "Subscribed ✓";
-          });
+          form.onsubmit = function(e) {
+            // Allow default behavior so we can see the transition to signup.html
+            // e.preventDefault(); 
+            // Mock behavior:
+            // msg.style.display = "block";
+            // msg.textContent = "Thanks for subscribing! (Simulation)";
+            // msg.style.color = "green";
+          };
         }
-
-        /*
-          setupContactForm()
-          - Simulates sending a message for demo purposes (no backend)
-          - Replace with fetch() to an API route for server-side email handling later
-        */
-        function setupContactForm() {
-          var form = document.getElementById("contactForm");
-          var msg = document.getElementById("contactMsg");
-          if (!form || !msg) return;
-
-          form.addEventListener("submit", function (e) {
-            e.preventDefault();
-            msg.textContent = "Message sent (pretend our editor isn’t crying in a corner right now).";
-            msg.style.color = "#1f2937";
-            form.reset();
-          });
-        }
-
-        // Boot sequence: to be expanded later
-
-        // 5) Accessibility modes (web preview): Dark Mode + Reader Mode toggles
         
-        /*
-          applyBannerTheme(isDark)
-          Fixes: “dark banner isn’t appearing in dark mode”
-          Root cause:
-            - The banner is an <img>, not a CSS background, so CSS background-image swaps won’t affect it.
-            - We must swap the <img> src and its data-src-* attributes so click-toggle still works in both themes.
-          Assets expected in /images:
-            Light: banner-a.png, banner-b.png
-            Dark:  banner-dark.png, banner-dark-b.png
-
-          Future note:
-            - Eventually, migrate the web app UI to a component library (e.g., MUI) to centralize theming,
-              improve accessibility primitives, and avoid inline-style override hacks like this.
-        */
-        function applyBannerTheme(isDark) {
-          var banner = document.getElementById("bannerImg");
-          if (!banner) return;
-
-          var lightA = "images/banner-a.png";
-          var lightB = "images/banner-b.png";
-          var darkA  = "images/banner-dark.png";
-          var darkB  = "images/banner-dark-b.png";
-
-          // Preserve which variant the user is currently seeing (A vs B)
-          var currentA = banner.getAttribute("data-src-a") || lightA;
-          var currentSrc = banner.getAttribute("src") || "";
-          var showingA = (currentSrc === currentA);
-
-          // Update toggle sources for the active theme
-          banner.setAttribute("data-src-a", isDark ? darkA : lightA);
-          banner.setAttribute("data-src-b", isDark ? darkB : lightB);
-
-          // Keep A/B state consistent across theme flips
-          banner.setAttribute("src", showingA ? (isDark ? darkA : lightA) : (isDark ? darkB : lightB));
+        // 3. Contact Form (Placeholder hook)
+        function setupContactForm() {
+          // Future expansion
         }
 
+        // 4. File Upload Simulator (for future assignment)
+        function setupUploadSimulator() {
+           // Not needed for index.html yet
+        }
 
+        // 5. Global Accessibility Toggles (Dark Mode / Reader Mode)
         function setupA11yToggles() {
           var darkBtn = document.getElementById("toggleDark");
           var readerBtn = document.getElementById("toggleReader");
-          if (!darkBtn || !readerBtn) return;
-
-          // Restore persisted preferences (optional, improves demo experience)
-          try {
-            var dark = localStorage.getItem("rq_dark") === "1";
-            var reader = localStorage.getItem("rq_reader") === "1";
-            if (dark) document.body.classList.add("dark");
-            if (reader) document.body.classList.add("reader");
+          var imgBtn = document.getElementById("toggleImages");
           
-            // Sync banner assets to the restored theme state.
-            applyBannerTheme(dark);
-} catch (e) {}
+          if(!darkBtn) return;
 
-          function toggleClass(cls, key) {
-            document.body.classList.toggle(cls);
-            try {
-              localStorage.setItem(key, document.body.classList.contains(cls) ? "1" : "0");
-            } catch (e) {}
+          function applyBannerTheme(isDark) {
+             var banner = document.getElementById("bannerImg");
+             if(!banner) return;
+             var lightSrc = banner.getAttribute("data-src-light");
+             var darkSrc = banner.getAttribute("data-src-dark");
+             banner.setAttribute("src", isDark ? darkSrc : lightSrc);
           }
 
-          darkBtn.addEventListener("click", function () { toggleClass("dark", "rq_dark"); applyBannerTheme(document.body.classList.contains("dark")); });
-          readerBtn.addEventListener("click", function () { toggleClass("reader", "rq_reader"); });
-
-          var imgBtn = document.getElementById("toggleImages");
-
-          // Restore image visibility preference
+          // Check LocalStorage preference
           try {
-            var noImgs = localStorage.getItem("rq_no_images") === "1";
-            if (noImgs) document.body.classList.add("no-images");
-          } catch (e) {}
+            var isDark = localStorage.getItem("rq_dark") === "1";
+            if (isDark) {
+               document.body.classList.add("dark");
+               applyBannerTheme(true);
+            }
+            if (localStorage.getItem("rq_reader") === "1") document.body.classList.add("reader");
+            if (localStorage.getItem("rq_no_images") === "1") document.body.classList.add("no-images");
+          } catch(e) {}
 
-          imgBtn.addEventListener("click", function () {
-            document.body.classList.toggle("no-images");
-            try {
-              localStorage.setItem("rq_no_images",
-                document.body.classList.contains("no-images") ? "1" : "0");
-            } catch (e) {}
+          // Toggle Handlers
+          darkBtn.addEventListener("click", function() {
+            document.body.classList.toggle("dark");
+            var isDark = document.body.classList.contains("dark");
+            applyBannerTheme(isDark);
+            try { localStorage.setItem("rq_dark", isDark ? "1" : "0"); } catch(e){}
           });
 
+          readerBtn.addEventListener("click", function() {
+            document.body.classList.toggle("reader"); // Future hook for text-only mode
+            try { localStorage.setItem("rq_reader", document.body.classList.contains("reader") ? "1" : "0"); } catch(e){}
+          });
+
+          imgBtn.addEventListener("click", function() {
+            document.body.classList.toggle("no-images");
+            try { localStorage.setItem("rq_no_images", document.body.classList.contains("no-images") ? "1" : "0"); } catch(e){}
+          });
         }
 
+        // Initialize
         setupImageSwaps();
         renderQuickHits();
         renderMediaDrops();
@@ -1152,6 +466,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
         setupContactForm();
         setupA11yToggles();
         setupUploadSimulator();
+
       })();
     </script>
 
