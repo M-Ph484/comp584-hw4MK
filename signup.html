@@ -142,6 +142,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
          Implementation:
          - Toggles CSS classes on <body> and persists preferences in localStorage.
          ============================================================ -->
+    <header role="banner" aria-label="Page header and accessibility controls">
     <div style="max-width:600px; margin:0 auto; padding:12px 12px 6px 12px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
       <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto;">
         <tr>
@@ -162,7 +163,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
         </tr>
       </table>
 
-      <div style="margin-top:8px; font-size:11px; line-height:16px; color:#6b7280; text-align:center;">
+      <div style="margin-top:8px; font-size:12px; line-height:18px; color:#4b5563; text-align:center;">
         Web preview only • Keyboard: Tab to buttons, Enter to toggle
       </div>
     </div>
@@ -245,7 +246,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
                     style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb; cursor:pointer;"
                     class="fluid-img"
                   />
-                  <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
+                  <div style="margin-top:8px; font-size:12px; line-height:18px; color:#4b5563;">
                     Click banner to toggle <strong>glitch mode</strong>.
                   </div>
 
@@ -263,7 +264,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
                       style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb; cursor:pointer;"
                       class="fluid-img"
                     />
-                    <div id="heroCaption" style="margin-top:10px; font-size:12px; line-height:18px; color:#6b7280;">
+                    <div id="heroCaption" style="margin-top:10px; font-size:12px; line-height:18px; color:#4b5563;">
                       Cover shot (click to swap to “Evidence Mode”).
                     </div>
                   </div>
@@ -301,7 +302,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
                  - Later: wire to Django endpoints + database; for now, this is static UI.
                  ========================= -->
             <tr>
-              <td id="main" class="px" style="padding:18px 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; text-align:left;" role="main" aria-label="Signup page content">
+              <td id="main" class="px" style="padding:18px 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; text-align:left;">
                 <!-- Accessibility note: left-aligned long-form text improves scanning and readability. -->
                 <div class="theme-muted" style="padding:12px 14px; border:1px solid #e5e7eb; background-color:#f9fafb;">
                   <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
@@ -315,7 +316,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
                         <div style="border:1px solid #e5e7eb; background-color:#ffffff; border-radius:8px; padding:10px;">
                           <div style="font-size:11px; letter-spacing:0.8px; color:#6b7280;">READERS</div>
                           <div style="font-size:20px; line-height:26px; font-weight:700; color:#111827;">12,480</div>
-                          <div style="font-size:12px; line-height:18px; color:#6b7280;">Newsletter list size (mock)</div>
+                          <div style="font-size:12px; line-height:18px; color:#4b5563;">Newsletter list size (mock)</div>
                         </div>
                       </td>
 
@@ -323,7 +324,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
                         <div style="border:1px solid #e5e7eb; background-color:#ffffff; border-radius:8px; padding:10px;">
                           <div style="font-size:11px; letter-spacing:0.8px; color:#6b7280;">VIDEO ALERTS</div>
                           <div style="font-size:20px; line-height:26px; font-weight:700; color:#111827;">3,104</div>
-                          <div style="font-size:12px; line-height:18px; color:#6b7280;">Opted into uploads (mock)</div>
+                          <div style="font-size:12px; line-height:18px; color:#4b5563;">Opted into uploads (mock)</div>
                         </div>
                       </td>
                     </tr>
@@ -333,7 +334,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
                         <div style="border:1px solid #e5e7eb; background-color:#ffffff; border-radius:8px; padding:10px;">
                           <div style="font-size:11px; letter-spacing:0.8px; color:#6b7280;">VIEWS</div>
                           <div style="font-size:20px; line-height:26px; font-weight:700; color:#111827;">98,775</div>
-                          <div style="font-size:12px; line-height:18px; color:#6b7280;">Across channels (mock)</div>
+                          <div style="font-size:12px; line-height:18px; color:#4b5563;">Across channels (mock)</div>
                         </div>
                       </td>
 
@@ -341,13 +342,13 @@ body.dark input::placeholder, body.dark textarea::placeholder {
                         <div style="border:1px solid #e5e7eb; background-color:#ffffff; border-radius:8px; padding:10px;">
                           <div style="font-size:11px; letter-spacing:0.8px; color:#6b7280;">LIKES</div>
                           <div style="font-size:20px; line-height:26px; font-weight:700; color:#111827;">21,460</div>
-                          <div style="font-size:12px; line-height:18px; color:#6b7280;">Engagement (mock)</div>
+                          <div style="font-size:12px; line-height:18px; color:#4b5563;">Engagement (mock)</div>
                         </div>
                       </td>
                     </tr>
                   </table>
 
-                  <div style="margin-top:10px; font-size:11px; line-height:16px; color:#9ca3af;">
+                  <div style="margin-top:10px; font-size:12px; line-height:18px; color:#4b5563;">
                     WIP note: These numbers are placeholders for future analytics (not real tracking yet).
                   </div>
                 </div>
@@ -367,7 +368,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
                     Newsletter Preview: “The Open-World Overflow”
                   </h2>
 
-                  <div style="font-size:12px; line-height:18px; color:#6b7280; margin-bottom:10px;">
+                  <div style="font-size:12px; line-height:18px; color:#4b5563; margin-bottom:10px;">
                     Issue #02 • Preview excerpt (mock content)
                   </div>
 
@@ -386,7 +387,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
                     <div style="font-size:12px; line-height:18px; color:#111827; font-weight:700;">
                       Cross-media tie-in
                     </div>
-                    <div style="margin-top:4px; font-size:12px; line-height:18px; color:#6b7280;">
+                    <div style="margin-top:4px; font-size:12px; line-height:18px; color:#4b5563;">
                       The written issue is measured. The video version shows the “receipts” (bugs, exploits, and design failures) on stream.
                     </div>
                   </div>
@@ -414,7 +415,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
                     <div style="margin:0;"><strong>Receipts Archive:</strong> curated clips from YouTube/TikTok/Twitch tied to each written review.</div>
                   </div>
 
-                  <div style="margin-top:10px; font-size:11px; line-height:16px; color:#9ca3af;">
+                  <div style="margin-top:10px; font-size:12px; line-height:18px; color:#4b5563;">
                     Roadmap note: These features are planned; UI placeholders help validate layout and information architecture now.
                   </div>
                 </div>
@@ -454,7 +455,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
                     <div id="alertEmailBody" style="font-size:13px; line-height:20px; color:#111827;">
                       <!-- JS injects preview content here -->
                     </div>
-                    <div style="margin-top:10px; font-size:11px; line-height:16px; color:#9ca3af;">
+                    <div style="margin-top:10px; font-size:12px; line-height:18px; color:#4b5563;">
                       Preview only — no emails are actually sent.
                     </div>
                   </div>
@@ -585,7 +586,7 @@ body.dark input::placeholder, body.dark textarea::placeholder {
                  - Includes basic disclaimer about preview behavior
                  ========================= -->
             <tr>
-              <td class="px" style="padding:22px 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; background-color:#111827;">
+              <td class="px" style="padding:22px 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; background-color:#111827;" role="contentinfo" aria-label="Email footer">
                 <div style="color:#e5e7eb; font-size:12px; line-height:18px;">
                   <strong style="color:#ffffff;">RageQuit Press</strong><br />
                   Signup page preview • No real emails are sent yet
