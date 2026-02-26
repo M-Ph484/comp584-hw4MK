@@ -12,25 +12,16 @@
     <style type="text/css">
       /*
         ============================================================
-        CSS-ONLY INTERACTIVITY (Week 4 pattern set)
-
-        This file intentionally avoids JavaScript.
-        Everything interactive is done using CSS features demonstrated
+        Web pages were changed to align with class requirements.
+       Everything interactive is done using CSS features demonstrated
         in the lecture slides:
           1) :hover states for links/buttons
           2) transition + transform + box-shadow for “pop” feedback
           3) @keyframes animations for simple entrance effects
           4) input:checked ~ sibling selectors for toggles/sliders
-
-        Why the page looks “email-like” (tables + inline styles):
-        - It keeps the assignment consistent with the email-campaign
-          template approach, but we’re previewing the interactions in
-          a normal browser.
-        - Because inline styles are very specific, we sometimes use
-          !important in CSS so the interactive states reliably apply.
         ============================================================
       */
-      /* ===== Email-safe baseline resets ===== */
+      /* ===== Baseline resets ===== */
       body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
       table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
       img { -ms-interpolation-mode: bicubic; }
@@ -38,12 +29,12 @@
       table { border-collapse: collapse !important; }
       body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
 
-      /* “Blue link” overrides */
+      /* Blue link overrides */
       a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; font-size: inherit !important; font-family: inherit !important; font-weight: inherit !important; line-height: inherit !important; }
       u + #body a { color: inherit; text-decoration: none; font-size: inherit; font-family: inherit; font-weight: inherit; line-height: inherit; }
       #MessageViewBody a { color: inherit; text-decoration: none; font-size: inherit; font-family: inherit; font-weight: inherit; line-height: inherit; }
 
-      /* Minimal responsiveness (table-based) */
+      /* Table based responsiveness */
       @media screen and (max-width: 640px) {
         .container { width: 100% !important; }
         .px { padding-left: 16px !important; padding-right: 16px !important; }
@@ -53,22 +44,21 @@
       }
 
       /* ============================================================
-         1) HOVER STATES + MICROINTERACTIONS (Week 4)
+         1) HOVER STATES + MICROINTERACTIONS 
 
          What this does:
          - Gives users a clear “this is clickable” cue.
          - On hover, buttons “lift” slightly and cast a shadow.
            That’s the “pop” effect you mentioned.
 
-         Why we implemented it here (CSS, not JS):
-         - Hover feedback is a pure CSS behavior (no scripting needed).
-         - This matches the lecture recommendation to use :hover +
-           transition + transform + box-shadow.
+         Why I implemented it here (CSS, replaced or removed Js):
+         - Hover feedback is a pure CSS behavior
+         - hover + transition + transform + box-shadow.
 
          Why we sometimes rely on !important:
-         - These templates use a lot of inline styles (email convention).
+         - These templates use a lot of inline styles
            Inline styles can override stylesheet rules, so using
-           !important ensures our hover styles reliably appear.
+           !important ensures the hover styles reliably appear.
          ============================================================ */
       a.button, label.button {
         display: inline-block;
@@ -89,18 +79,16 @@
       }
 
       /* ============================================================
-         2) KEYFRAME ANIMATIONS (Week 4)
+         2) KEYFRAME ANIMATIONS 
 
          What this does:
          - Applies a gentle “fade + scale in” to key elements so the
-           page feels alive when it loads.
-
-         Why this is safe for the assignment:
+           page feels alive when it loads
          - Uses the exact @keyframes + animation pattern shown in the
-           lecture slides.
+           lecture slides
 
-         How we control intensity:
-         - We apply different durations via .fade1/.fade2/.fade3.
+         How to control intensity:
+         - Different durations via .fade1/.fade2/.fade3.
            That staggers the entrance without requiring JavaScript.
          ============================================================ */
       @keyframes fade-in {
@@ -112,18 +100,15 @@
       .fade3 { animation: 1.6s 1 fade-in; }
 
       /* ============================================================
-         3) CHECKED-STATE INTERACTIVITY (Week 4)
+         3) CHECKED-STATE INTERACTIVITY
 
-         Core idea:
-         - A hidden checkbox/radio stores UI “state”.
-         - A <label for="..."> acts like the button users click.
+         Features:
+         - A hidden checkbox/radio stores UI “state”
+         - A <label for="..."> acts like the button users click
          - CSS reads that state via :checked and then shows/hides or
-           restyles parts of the page with the general-sibling selector (~).
-
-         IMPORTANT DOM REQUIREMENT (why inputs are placed near the top):
+           restyles parts of the page with the general-sibling selector (~)
          - The selector input:checked ~ .page ... only works if the
-           <input> appears BEFORE the element it affects.
-           That’s why all state inputs are placed above .controls and .page.
+           <input> appears before the element. That’s why all state inputs are placed above .controls and .page.
          ============================================================ */
       .mode-input { display: none; } /* hide state inputs; labels become the visible controls */
       .controls label { cursor: pointer; }
@@ -133,7 +118,7 @@
       #visualEvd:checked ~ .page .visA { display: none !important; }
       #visualEvd:checked ~ .page .visB { display: block !important; }
 
-      /* Accessibility “modes” driven by CSS (no JS) */
+      /* Accessibility “modes” driven by CSS now */
       /* Reader Mode: increases font sizes/line-heights to reduce eye strain */
       #modeNoImg:checked ~ .page img { display: none !important; } /* “Remove images” mode */
 
@@ -170,17 +155,9 @@
       }
 
       /*
-        4) CSS-ONLY SLIDER (Quick Hits)
-
-        Pattern:
-        - 3 radios share the same name="hits" so only ONE can be selected.
-        - Each radio toggles the visibility of one .slide.
-        - Labels are styled as buttons, so users click “Slide 1/2/3”.
-
-        Why this design:
-        - Demonstrates interactivity without JavaScript.
-        - Keeps content in the DOM (screen readers can still access it)
-          while controlling what is visually shown.
+        - 3 radios share the same name="hits" so only one can be selected
+        - Each radio toggles the visibility of one .slide
+        - Labels are styled as buttons, so users click “Slide 1/2/3”
       */
       .slide-input { display: none; }
       .slide { display: none; }
@@ -189,22 +166,18 @@
       #hit3:checked ~ .hits .slide3 { display: block; }
 
       /*
-        5) CSS-ONLY SLIDER (Broadcast Channels)
-        Same pattern as Quick Hits, but for the “channel cards”.
+        Broadcast channels: Same pattern as Quick Hits, but for the “channel cards”.
       */
       #cast1:checked ~ .casts .cast1,
       #cast2:checked ~ .casts .cast2,
       #cast3:checked ~ .casts .cast3 { display: block; }
     
       /*
-        6) CSS-ONLY “PREVIEW SUBMIT” (STUB FOR REAL JS LATER)
+        CSS-ONLY “PREVIEW SUBMIT” (STUB FOR REAL JS LATER)
 
-        Why this exists:
-        - In a real web app, form submission would be handled by JS + backend.
-        - For this assignment phase, we simulate “submitted” state using
+        - For this assignment phase, instead of using Js, it's simulating a “submitted” state using
           a checkbox and reveal a success message.
 
-        This keeps the page demonstrable without writing JS.
       */
       #alertBox { display:none; }
       #alertPreview:checked ~ #alertBox { display:block; }
@@ -222,16 +195,14 @@
     <a href="#main" style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">Skip to main content</a>
 
     <!--
-  STATE INPUTS (CSS-only interactivity)
+  STATE INPUTS 
 
-  These <input> elements are intentionally placed BEFORE the UI they control.
-  Reason: our CSS uses the general-sibling selector (~), like:
-      #modeDark:checked ~ .page ...
-  That selector only works forward in the DOM (it can’t select “previous” elements).
+  These <input> elements are intentionally placed before their UI.
+  The general-sibling selector (~) only works forward in the DOM (it can’t select “previous” elements)
 
   Each input is hidden (display:none) so it does not clutter the UI.
   Users interact with the inputs through <label for="..."> elements,
-  which we style to look like buttons.
+  which are styled to look like buttons
 -->
     <input class="mode-input" type="checkbox" id="modeDark" />
     <input class="mode-input" type="checkbox" id="modeReader" />
@@ -243,7 +214,7 @@
     <!--
   CONTROLS (labels act like buttons)
 
-  We use <label for="modeDark">...</label> instead of <button> + JS.
+  It's a <label for="modeDark">...</label> instead of <button> + JS.
   Clicking the label toggles the matching checkbox/radio.
 
   The “button pop” on hover is pure CSS (:hover + transition + transform + shadow).
@@ -302,7 +273,7 @@
                     <!--
   EVIDENCE MODE IMAGE SWAP (CSS-only)
 
-  We include two versions of the hero image:
+  There are two versions of the hero image:
     - .visA = standard visual
     - .visB = “evidence” visual
 
@@ -310,8 +281,6 @@
   CSS swaps which image is displayed:
       #visualEvd:checked ~ .page .visA { display:none }
       #visualEvd:checked ~ .page .visB { display:block }
-
-  This demonstrates Week 4’s checked-state technique without any JS.
 -->
 <img class="visA fluid-img" src="images/banner-a.png" alt="RageQuit Press banner" width="544"
                       style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
@@ -387,7 +356,7 @@
                     </div>
                   </div>
 
-                  <!-- Quick Hits (Week 4 slideshow pattern) -->
+                  <!-- Quick Hits-->
                   <div class="surface--muted" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
                     <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">Quick Hits</h2>
                     <p style="margin:0 0 10px 0; font-size:14px; line-height:22px; color:#374151;">
@@ -395,7 +364,7 @@
                     </p>
 
                     <!--
-  QUICK HITS “SLIDESHOW” (CSS-only)
+  QUICK HITS “SLIDESHOW” 
 
   These radios share name="hits" so only one slide can be active.
   The labels below are clickable and select each radio.
@@ -427,7 +396,7 @@
                     </div>
                   </div>
 
-                  <!-- Broadcast Channels (Week 4 “product view” slider) -->
+                  <!-- Broadcast Channels  -->
                   <div class="surface" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
                     <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">
                       Broadcast Channels (CSS-only Product Slider)
@@ -513,7 +482,7 @@
                   <div class="surface" style="margin-top:18px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
                     <h2 style="margin:0 0 10px 0; font-size:18px; line-height:24px; color:#111827;">Subscribe / Email Alerts</h2>
 
-                    <!-- NOTE: Demo-only. No JS, no backend. A checkbox simulates “submitted” state. -->
+                    <!-- NOTE: Demo-only. No JS, no backend. A checkbox simulates “submitted” state -->
                     <form action="#" method="post" style="margin:0;">
                       <label for="email" style="display:block; font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">Email address</label>
                       <input id="email" name="email" type="email" placeholder="you@example.com"
@@ -594,7 +563,7 @@
                   </div>
 
                   <div style="margin-top:10px; color:#9ca3af; font-size:11px; line-height:16px;">
-                    Note: This file demonstrates Week 4 CSS interactivity. JavaScript removed by design.
+                    
                   </div>
                 </td>
               </tr>
