@@ -3,67 +3,47 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:v="urn:schemas-microsoft-com:vml"
   xmlns:o="urn:schemas-microsoft-com:office:office">
-
   <head>
-    <!--
-      This page is a *web preview* of an email campaign layout for a video game
-      review and resource site called "RageQuit Press". Many components
-      are previews or only somewhat operational, since the focus of this 
-      assignment was to use email-related HTML/CSS. 
-    -->
-    <title>RageQuit Press — Weekly Roast (Assignment 3)</title>
-
-    <!-- Email-safe meta + mobile scaling -->
+    <title>RageQuit Press — Weekly Roast (CSS Interactivity Preview)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <style type="text/css">
       /*
-        Reduce layout inconsistencies across email clients.
-      */
-       
+        ============================================================
+        CSS-ONLY INTERACTIVITY (Week 4 pattern set)
 
+        This file intentionally avoids JavaScript.
+        Everything interactive is done using CSS features demonstrated
+        in the lecture slides:
+          1) :hover states for links/buttons
+          2) transition + transform + box-shadow for “pop” feedback
+          3) @keyframes animations for simple entrance effects
+          4) input:checked ~ sibling selectors for toggles/sliders
+
+        Why the page looks “email-like” (tables + inline styles):
+        - It keeps the assignment consistent with the email-campaign
+          template approach, but we’re previewing the interactions in
+          a normal browser.
+        - Because inline styles are very specific, we sometimes use
+          !important in CSS so the interactive states reliably apply.
+        ============================================================
+      */
+      /* ===== Email-safe baseline resets ===== */
       body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
       table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
       img { -ms-interpolation-mode: bicubic; }
-
-      /* Baseline reset to avoid unexpected spacing/underlines in email-like rendering */
       img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
       table { border-collapse: collapse !important; }
       body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
 
-      /*
-        “Blue link” overrides, forces inherit color/style on auto-detected dates/addresses
-      */
-      a[x-apple-data-detectors] {
-        color: inherit !important;
-        text-decoration: none !important;
-        font-size: inherit !important;
-        font-family: inherit !important;
-        font-weight: inherit !important;
-        line-height: inherit !important;
-      }
-      u + #body a {
-        color: inherit;
-        text-decoration: none;
-        font-size: inherit;
-        font-family: inherit;
-        font-weight: inherit;
-        line-height: inherit;
-      }
-      #MessageViewBody a {
-        color: inherit;
-        text-decoration: none;
-        font-size: inherit;
-        font-family: inherit;
-        font-weight: inherit;
-        line-height: inherit;
-      }
+      /* “Blue link” overrides */
+      a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; font-size: inherit !important; font-family: inherit !important; font-weight: inherit !important; line-height: inherit !important; }
+      u + #body a { color: inherit; text-decoration: none; font-size: inherit; font-family: inherit; font-weight: inherit; line-height: inherit; }
+      #MessageViewBody a { color: inherit; text-decoration: none; font-size: inherit; font-family: inherit; font-weight: inherit; line-height: inherit; }
 
-      /*
-        Minimal responsiveness
-      */
+      /* Minimal responsiveness (table-based) */
       @media screen and (max-width: 640px) {
         .container { width: 100% !important; }
         .px { padding-left: 16px !important; padding-right: 16px !important; }
@@ -71,1099 +51,562 @@
         .fluid-img { width: 100% !important; max-width: 100% !important; height: auto !important; }
         .center { text-align: center !important; }
       }
-        display: none !important;
-      }
-      body.no-images [role="img"] {
-        display: none !important;
-      }
-
-      body.reader img {
-        /* Reduce visual noise for low-vision reading */
-        filter: saturate(0.9) contrast(1.05);
-      }
-
-    
 
       /* ============================================================
-         ACCESSIBILITY MODES (WEB PREVIEW)
-         - These classes are toggled on <body> by the accessibility buttons.
-         - Email clients may ignore this; GitHub Pages preview will make it appears
-         ============================================================ */
-      body.dark { background-color: #0b1220 !important; }
-      body.dark table[role="presentation"] { background-color: #0b1220 !important; }
-      body.dark .container { background-color: #0f172a !important; border-color: #334155 !important; }
-      body.dark, body.dark td, body.dark p, body.dark div { color: #e5e7eb !important; }
-      body.dark a { color: #93c5fd !important; }
-      body.dark .muted { color: #cbd5e1 !important; }
+         1) HOVER STATES + MICROINTERACTIONS (Week 4)
 
-      body.reader td, body.reader p, body.reader li, body.reader div {
+         What this does:
+         - Gives users a clear “this is clickable” cue.
+         - On hover, buttons “lift” slightly and cast a shadow.
+           That’s the “pop” effect you mentioned.
+
+         Why we implemented it here (CSS, not JS):
+         - Hover feedback is a pure CSS behavior (no scripting needed).
+         - This matches the lecture recommendation to use :hover +
+           transition + transform + box-shadow.
+
+         Why we sometimes rely on !important:
+         - These templates use a lot of inline styles (email convention).
+           Inline styles can override stylesheet rules, so using
+           !important ensures our hover styles reliably appear.
+         ============================================================ */
+      a.button, label.button {
+        display: inline-block;
+        padding: 12px 18px;
+        border-radius: 10px;
+        font-weight: 700;
+        text-decoration: none;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;
+        transition: all 0.2s ease; /* smooth “pop” instead of instant jump */
+        cursor: pointer;
+      }
+      a.button--dark, label.button--dark { background-color: #111827; color: #ffffff; }
+      a.button--light, label.button--light { background-color: #ffffff; color: #111827; border: 1px solid #d1d5db; }
+
+      a.button:hover, label.button:hover {
+        box-shadow: 0px 12px 20px rgba(0,0,0,0.18); /* shadow = lifted surface */
+        transform: translateY(-1px); /* tiny upward motion reinforces hover */
+      }
+
+      /* ============================================================
+         2) KEYFRAME ANIMATIONS (Week 4)
+
+         What this does:
+         - Applies a gentle “fade + scale in” to key elements so the
+           page feels alive when it loads.
+
+         Why this is safe for the assignment:
+         - Uses the exact @keyframes + animation pattern shown in the
+           lecture slides.
+
+         How we control intensity:
+         - We apply different durations via .fade1/.fade2/.fade3.
+           That staggers the entrance without requiring JavaScript.
+         ============================================================ */
+      @keyframes fade-in {
+        from { opacity: 0; transform: scale(0.8); }
+        to   { opacity: 1; transform: scale(1); }
+      }
+      .fade1 { animation: 1s 1 fade-in; }
+      .fade2 { animation: 1.3s 1 fade-in; }
+      .fade3 { animation: 1.6s 1 fade-in; }
+
+      /* ============================================================
+         3) CHECKED-STATE INTERACTIVITY (Week 4)
+
+         Core idea:
+         - A hidden checkbox/radio stores UI “state”.
+         - A <label for="..."> acts like the button users click.
+         - CSS reads that state via :checked and then shows/hides or
+           restyles parts of the page with the general-sibling selector (~).
+
+         IMPORTANT DOM REQUIREMENT (why inputs are placed near the top):
+         - The selector input:checked ~ .page ... only works if the
+           <input> appears BEFORE the element it affects.
+           That’s why all state inputs are placed above .controls and .page.
+         ============================================================ */
+      .mode-input { display: none; } /* hide state inputs; labels become the visible controls */
+      .controls label { cursor: pointer; }
+
+      /* Visual mode: default shows A, Evidence shows B */
+      .visB { display: none; }
+      #visualEvd:checked ~ .page .visA { display: none !important; }
+      #visualEvd:checked ~ .page .visB { display: block !important; }
+
+      /* Accessibility “modes” driven by CSS (no JS) */
+      /* Reader Mode: increases font sizes/line-heights to reduce eye strain */
+      #modeNoImg:checked ~ .page img { display: none !important; } /* “Remove images” mode */
+
+      #modeReader:checked ~ .page td, /* Reader Mode: enlarge body text + spacing */
+      #modeReader:checked ~ .page p,
+      #modeReader:checked ~ .page li,
+      #modeReader:checked ~ .page div {
         font-size: 16px !important;
         line-height: 26px !important;
       }
-      body.reader h1 { font-size: 28px !important; line-height: 36px !important; }
-      body.reader h2 { font-size: 20px !important; line-height: 28px !important; }
-      body.reader .center { text-align: left !important; }
+      #modeReader:checked ~ .page h1 { font-size: 28px !important; line-height: 36px !important; }
+      #modeReader:checked ~ .page h2 { font-size: 20px !important; line-height: 28px !important; }
 
-      body.no-images img { display: none !important; }
+      #modeDark:checked ~ .page .outer { background-color: #0b1220 !important; }
+      #modeDark:checked ~ .page .container { background-color: #0f172a !important; border-color: #334155 !important; }
+      #modeDark:checked ~ .page td,
+      #modeDark:checked ~ .page p,
+      #modeDark:checked ~ .page li,
+      #modeDark:checked ~ .page div,
+      #modeDark:checked ~ .page h1,
+      #modeDark:checked ~ .page h2 { color: #e5e7eb !important; }
+      #modeDark:checked ~ .page a { color: #93c5fd !important; }
+      #modeDark:checked ~ .page .surface { background-color: #111827 !important; border-color: #334155 !important; }
+      #modeDark:checked ~ .page .surface--muted { background-color: #0b1220 !important; border-color: #334155 !important; }
 
-    
-      /* ============================================================
-         DARK THEME OVERRIDES (WEB PREVIEW)
-         Future note:
-         - Eventually, migrate the web app UI to a component library (e.g., MUI) to centralize theming,
-           improve accessibility primitives, and avoid inline-style overrides for dark mode.
-         Problem:
-         - Many blocks use inline background colors (email-style). Inline styles win unless we override with !important.
-         Fix:
-         - Use a small set of utility classes + attribute selectors for common inline background colors.
-         - Apply "theme-surface" / "theme-muted" classes to key boxes so we can control them in dark mode.
-         ============================================================ */
-      body.dark .theme-surface { background-color: #0f172a !important; border-color: #334155 !important; }
-      body.dark .theme-muted   { background-color: #111827 !important; border-color: #334155 !important; }
-      body.dark .theme-invert  { background-color: #0b1220 !important; border-color: #334155 !important; }
-      body.dark .theme-text    { color: #e5e7eb !important; }
-      body.dark .theme-subtext { color: #cbd5e1 !important; }
-
-      /* Catch common inline backgrounds used across the template (email-style) */
-      body.dark [style*="background-color: #ffffff"] { background-color: #0f172a !important; }
-      body.dark [style*="background-color:#ffffff"] { background-color: #0f172a !important; }
-      body.dark [style*="background-color: #f9fafb"] { background-color: #111827 !important; }
-      body.dark [style*="background-color:#f9fafb"] { background-color: #111827 !important; }
-      body.dark [style*="background-color: #f3f4f6"] { background-color: #0b1220 !important; }
-      body.dark [style*="background-color:#f3f4f6"] { background-color: #0b1220 !important; }
-
-      /* Catch common inline text colors */
-      body.dark [style*="color: #111827"] { color: #e5e7eb !important; }
-      body.dark [style*="color:#111827"] { color: #e5e7eb !important; }
-      body.dark [style*="color: #374151"] { color: #cbd5e1 !important; }
-      body.dark [style*="color:#374151"] { color: #cbd5e1 !important; }
-      body.dark [style*="color: #6b7280"] { color: #94a3b8 !important; }
-      body.dark [style*="color:#6b7280"] { color: #94a3b8 !important; }
-
-      /* Inputs/textarea in dark mode */
-      body.dark input, body.dark textarea, body.dark select {
-        background-color: #0b1220 !important;
-        color: #e5e7eb !important;
-        border-color: #334155 !important;
+      /* Make the active toggles look “pressed” */
+      #modeDark:checked ~ .controls label[for="modeDark"],
+      #modeReader:checked ~ .controls label[for="modeReader"],
+      #modeNoImg:checked ~ .controls label[for="modeNoImg"],
+      #visualEvd:checked ~ .controls label[for="visualEvd"] {
+        background-color: #111827;
+        color: #ffffff;
+        border-color: #111827;
       }
-            /* Swap to a darker banner asset in dark mode for better contrast. */
-      /* Dark-mode banner swap NOTE:
-         - The banner is an <img id="bannerImg">, not a CSS background.
-         - We swap the banner <img> src + data-src-* in JS when Dark Mode toggles.
-         - Assets expected:
-           Light: images/banner-a.png, images/banner-b.png
-           Dark:  images/banner-dark.png, images/banner-dark-b.png
+
+      /*
+        4) CSS-ONLY SLIDER (Quick Hits)
+
+        Pattern:
+        - 3 radios share the same name="hits" so only ONE can be selected.
+        - Each radio toggles the visibility of one .slide.
+        - Labels are styled as buttons, so users click “Slide 1/2/3”.
+
+        Why this design:
+        - Demonstrates interactivity without JavaScript.
+        - Keeps content in the DOM (screen readers can still access it)
+          while controlling what is visually shown.
       */
-body.dark input::placeholder, body.dark textarea::placeholder {
-        color: #94a3b8 !important;
-      }
+      .slide-input { display: none; }
+      .slide { display: none; }
+      #hit1:checked ~ .hits .slide1,
+      #hit2:checked ~ .hits .slide2,
+      #hit3:checked ~ .hits .slide3 { display: block; }
+
+      /*
+        5) CSS-ONLY SLIDER (Broadcast Channels)
+        Same pattern as Quick Hits, but for the “channel cards”.
+      */
+      #cast1:checked ~ .casts .cast1,
+      #cast2:checked ~ .casts .cast2,
+      #cast3:checked ~ .casts .cast3 { display: block; }
+    
+      /*
+        6) CSS-ONLY “PREVIEW SUBMIT” (STUB FOR REAL JS LATER)
+
+        Why this exists:
+        - In a real web app, form submission would be handled by JS + backend.
+        - For this assignment phase, we simulate “submitted” state using
+          a checkbox and reveal a success message.
+
+        This keeps the page demonstrable without writing JS.
+      */
+      #alertBox { display:none; }
+      #alertPreview:checked ~ #alertBox { display:block; }
+
+      #subMsg { display:none; }
+      #subscribed:checked ~ #subMsg { display:block; }
+
+      #contactMsg { display:none; }
+      #contactSent:checked ~ #contactMsg { display:block; }
 
     </style>
   </head>
 
   <body id="body" style="margin: 0 !important; padding: 0 !important; background-color: #f3f4f6;">
-    <!-- Skip link improves keyboard navigation (especially for screen reader and power users). -->
-    <a href="#main" style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">
-      Skip to main content
-    </a>
-
+    <a href="#main" style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">Skip to main content</a>
 
     <!--
-      Anchor targets:
-      Used for internal “jump links” 
-    -->
-    <a id="top"></a>
+  STATE INPUTS (CSS-only interactivity)
 
+  These <input> elements are intentionally placed BEFORE the UI they control.
+  Reason: our CSS uses the general-sibling selector (~), like:
+      #modeDark:checked ~ .page ...
+  That selector only works forward in the DOM (it can’t select “previous” elements).
 
+  Each input is hidden (display:none) so it does not clutter the UI.
+  Users interact with the inputs through <label for="..."> elements,
+  which we style to look like buttons.
+-->
+    <input class="mode-input" type="checkbox" id="modeDark" />
+    <input class="mode-input" type="checkbox" id="modeReader" />
+    <input class="mode-input" type="checkbox" id="modeNoImg" />
 
-    <!-- ============================================================
-         ACCESSIBILITY CONTROLS (WEB PREVIEW ONLY)
-         Purpose (developer notes):
-         - Email clients generally ignore/strip JavaScript; these controls are for the *web preview* / GitHub Pages version.
-         - Provides quick, user-driven adjustments for contrast and readability.
-         Modes:
-         - Dark Mode: higher contrast + reduced glare for many users.
-         - Reader Mode: larger type/line-height + left-aligned reading flow for long-form content.
-         - Skip Images: collapses images for text-first reading, reduced distraction, or low-bandwidth.
-         Implementation:
-         - Toggles CSS classes on <body> and persists preferences in localStorage.
-         ============================================================ -->
-    
-    <section>
-      <div aria-labelledby="toggleDark toggleReader toggleImages" style="max-width:600px; margin:0 auto; padding:12px 12px 6px 12px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
-      <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto;">
+    <input class="mode-input" type="radio" name="visual" id="visualStd" checked />
+    <input class="mode-input" type="radio" name="visual" id="visualEvd" />
+
+    <!--
+  CONTROLS (labels act like buttons)
+
+  We use <label for="modeDark">...</label> instead of <button> + JS.
+  Clicking the label toggles the matching checkbox/radio.
+
+  The “button pop” on hover is pure CSS (:hover + transition + transform + shadow).
+  The “active” styling (dark background) is also CSS-only:
+    #modeDark:checked ~ .controls label[for="modeDark"] { ... }
+-->
+    <div class="controls" style="max-width:600px; margin:0 auto; padding:12px 12px 6px 12px; text-align:center;">
+      <label for="modeDark" class="button button--light" style="margin:0 6px 6px 0;">Toggle Dark</label>
+      <label for="modeReader" class="button button--light" style="margin:0 6px 6px 0;">Toggle Reader</label>
+      <label for="modeNoImg" class="button button--light" style="margin:0 6px 6px 0;">Toggle Images</label>
+      <label for="visualEvd" class="button button--light" style="margin:0 0 6px 0;">Evidence Mode</label>
+
+      <div style="margin-top:8px; font-size:11px; line-height:16px; color:#6b7280;">
+        Web preview only • CSS-only interactivity (no JavaScript).
+      </div>
+    </div>
+
+    <div class="page">
+      <div style="display:none; font-size:1px; color:#f3f4f6; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidden;">
+        This week: one AAA flop roasted, three indie games were overhyped, and a “patch notes apology tour.”
+      </div>
+
+      <a id="top"></a>
+
+      <table class="outer" border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation" style="background-color:#f3f4f6;">
         <tr>
-          <td align="center" style="padding:0;">
-            <button id="toggleDark" type="button"
-              style="margin:0 8px 0 0; padding:10px 14px; border:1px solid #d1d5db; background-color:#ffffff; color:#111827; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer;">
-              Toggle Dark
-            </button>
-            <button id="toggleReader" type="button"
-              style="margin:0 8px 0 0; padding:10px 14px; border:1px solid #d1d5db; background-color:#ffffff; color:#111827; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer;">
-              Toggle Reader
-            </button>
-            <button id="toggleImages" type="button"
-              style="margin:0; padding:10px 14px; border:1px solid #d1d5db; background-color:#ffffff; color:#111827; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer;">
-              Toggle Images
-            </button>
+          <td align="center" style="padding: 20px 12px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="600" class="container" role="presentation"
+              style="width:600px; max-width:600px; background-color:#ffffff; border:1px solid #e5e7eb;">
+
+              <!-- Header -->
+              <tr>
+                <td class="px" style="padding: 22px 28px 10px 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
+                  <div style="text-align:center; margin:0 0 10px 0;">
+                    <img class="fade1" src="images/logo.png" width="84" height="84" alt="RageQuit Press logo" style="display:inline-block; border-radius:42px;" />
+                    <div class="fade2" style="font-size:12px; letter-spacing:1.2px; color:#6b7280; margin-top:10px;">
+                      RAGEQUIT PRESS • EMAIL CAMPAIGN PREVIEW
+                    </div>
+                  </div>
+
+                  <div style="text-align:center;">
+                    <h1 class="fade3" style="margin:8px 0 8px 0; font-size:30px; line-height:38px; color:#111827; font-weight:700;">
+                      The Week in Gaming, With Zero Mercy
+                    </h1>
+                    <p style="margin:0; font-size:14px; line-height:22px; color:#374151;">
+                      Issue #02 • Switch visuals using <strong>Evidence Mode</strong>.
+                    </p>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Banner (A/B controlled by Evidence Mode radio) -->
+              <tr>
+                <td align="center" class="px" style="padding: 12px 28px 0 28px;">
+                  <div style="margin:0; padding:0; text-align:center;">
+                    <!--
+  EVIDENCE MODE IMAGE SWAP (CSS-only)
+
+  We include two versions of the hero image:
+    - .visA = standard visual
+    - .visB = “evidence” visual
+
+  The “Evidence Mode” toggle is a radio input (#visualEvd).
+  CSS swaps which image is displayed:
+      #visualEvd:checked ~ .page .visA { display:none }
+      #visualEvd:checked ~ .page .visB { display:block }
+
+  This demonstrates Week 4’s checked-state technique without any JS.
+-->
+<img class="visA fluid-img" src="images/banner-a.png" alt="RageQuit Press banner" width="544"
+                      style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
+                    <img class="visB fluid-img" src="images/banner-b.png" alt="RageQuit Press banner (evidence mode)" width="544"
+                      style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
+
+                    <div style="margin-top:8px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#6b7280;">
+                      Evidence Mode uses the Week 4 <strong>checked-input</strong> pattern (no JS).
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Hero (A/B controlled by Evidence Mode radio) -->
+              <tr>
+                <td align="center" class="px" style="padding: 14px 28px 0 28px;">
+                  <div style="margin:0; padding:0; text-align:center;">
+                    <img class="visA fluid-img" src="images/hero-a.png" alt="Hero image: featured cover art" width="544"
+                      style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
+                    <img class="visB fluid-img" src="images/hero-b.png" alt="Hero image: evidence mode version" width="544"
+                      style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
+
+                    <div style="margin-top:10px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; font-size:13px; line-height:18px; color:#6b7280;">
+                      Cover shot ⇄ Evidence Mode (CSS-only).
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Body -->
+              <tr>
+                <td id="main" class="px" style="padding: 18px 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; text-align:left;" role="main">
+
+                  <div class="surface--muted" style="border-left:4px solid #111827; padding:12px 14px; background-color:#f9fafb; border:1px solid #e5e7eb;">
+                    <p style="margin:0; font-size:15px; line-height:24px; color:#111827;">
+                      Welcome to <strong>RageQuit Press</strong> — brutal honesty, no brand deals, and a running list of what not to do in game design.
+                    </p>
+                  </div>
+
+                  <p style="margin:14px 0 0 0; font-size:14px; line-height:22px; color:#374151;">
+                    This is a web preview styled like an email campaign (tables + inline CSS), but the interactivity is constrained to Week 4 CSS patterns:
+                    <strong>:hover</strong>, <strong>@keyframes</strong>, and <strong>:checked</strong>.
+                  </p>
+
+                  <!-- Featured Roast -->
+                  <div class="surface" style="margin-top:18px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
+                    <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">Featured Roast: “Galaxy Grind VII”</h2>
+                    <p style="margin:0 0 10px 0; font-size:14px; line-height:22px; color:#374151;">
+                      Marketing promised “freedom.” The tutorial is 47 minutes long and I was rooting against my own character.
+                    </p>
+
+                    <img class="visA fluid-img" src="images/feature1-a.png" alt="Screenshot: trailer version" width="544"
+                      style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
+                    <img class="visB fluid-img" src="images/feature1-b.png" alt="Screenshot: in-game reality version" width="544"
+                      style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
+
+                    <div style="margin-top:12px;">
+                      <ul style="margin:0; padding:0 0 0 18px; font-size:14px; line-height:22px; color:#374151;">
+                        <li><strong>UI:</strong> Designed by someone who hates eyes.</li>
+                        <li><strong>Combat:</strong> I wish I could beat up the person I'm playing as because he's so inept.</li>
+                        <li><strong>Story:</strong> A cutscene landfill.</li>
+                      </ul>
+                      <p style="margin:10px 0 0 0; font-size:14px; line-height:22px; color:#374151;">
+                        Final score: <strong>3/10</strong> — “A masterpiece of ignoring user feedback.”
+                      </p>
+
+                      <div style="margin-top:12px;">
+                        <img class="visA" src="images/score-03.png" alt="Score badge 3/10" width="210"
+                          style="display:block; width:210px; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:10px;" />
+                        <img class="visB" src="images/score-09.png" alt="Score badge 9/10 (evidence mode joke)" width="210"
+                          style="display:block; width:210px; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:10px;" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Quick Hits (Week 4 slideshow pattern) -->
+                  <div class="surface--muted" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
+                    <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">Quick Hits</h2>
+                    <p style="margin:0 0 10px 0; font-size:14px; line-height:22px; color:#374151;">
+                      CSS-only “slideshow” using the checked-radio approach from Week 4.
+                    </p>
+
+                    <!--
+  QUICK HITS “SLIDESHOW” (CSS-only)
+
+  These radios share name="hits" so only one slide can be active.
+  The labels below are clickable and select each radio.
+  CSS then shows exactly one .slideN block inside .hits.
+-->
+<input class="slide-input" type="radio" name="hits" id="hit1" checked />
+                    <input class="slide-input" type="radio" name="hits" id="hit2" />
+                    <input class="slide-input" type="radio" name="hits" id="hit3" />
+
+                    <div style="margin-bottom:10px;">
+                      <label for="hit1" class="button button--light" style="padding:8px 10px; margin-right:6px;">Slide 1</label>
+                      <label for="hit2" class="button button--light" style="padding:8px 10px; margin-right:6px;">Slide 2</label>
+                      <label for="hit3" class="button button--light" style="padding:8px 10px;">Slide 3</label>
+                    </div>
+
+                    <div class="hits">
+                      <div class="slide slide1">
+                        <strong style="color:#111827;">Patch Notes Apology Tour</strong>
+                        <span style="color:#6b7280;">— “We fixed the bug where the game launched.”</span>
+                      </div>
+                      <div class="slide slide2">
+                        <strong style="color:#111827;">Indie Gem: “Wicker Dungeon”</strong>
+                        <span style="color:#6b7280;">— “Actually fun. Suspicious.”</span>
+                      </div>
+                      <div class="slide slide3">
+                        <strong style="color:#111827;">Sequel Syndrome</strong>
+                        <span style="color:#6b7280;">— “More of the same, priced like innovation.”</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Broadcast Channels (Week 4 “product view” slider) -->
+                  <div class="surface" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
+                    <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">
+                      Broadcast Channels (CSS-only Product Slider)
+                    </h2>
+                    <p style="margin:0 0 12px 0; font-size:14px; line-height:22px; color:#374151;">
+                      This block uses the same checked-radio pattern, adapted like a product slider (Week 4 idea).
+                    </p>
+
+                    <input class="slide-input" type="radio" name="casts" id="cast1" checked />
+                    <input class="slide-input" type="radio" name="casts" id="cast2" />
+                    <input class="slide-input" type="radio" name="casts" id="cast3" />
+
+                    <div style="margin-bottom:10px;">
+                      <label for="cast1" class="button button--light" style="padding:8px 10px; margin-right:6px;">YouTube</label>
+                      <label for="cast2" class="button button--light" style="padding:8px 10px; margin-right:6px;">TikTok</label>
+                      <label for="cast3" class="button button--light" style="padding:8px 10px;">Twitch</label>
+                    </div>
+
+                    <div class="casts">
+                      <div class="slide cast1">
+                        <div style="font-size:13px; font-weight:700; color:#111827;">YouTube • Full Reviews</div>
+                        <div style="margin-top:6px;">
+                          <img class="visA" src="images/media-youtube-a.png" alt="YouTube thumbnail" style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
+                          <img class="visB" src="images/media-youtube-b.png" alt="YouTube thumbnail (evidence mode)" style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
+                        </div>
+                        <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">Latest: <strong>“Controller Funeral”</strong></div>
+                        <div style="margin-top:10px;">
+                          <a href="#" class="button button--dark">Watch on YouTube</a>
+                        </div>
+                      </div>
+
+                      <div class="slide cast2">
+                        <div style="font-size:13px; font-weight:700; color:#111827;">TikTok • “Bug Clips”</div>
+                        <div style="margin-top:6px;">
+                          <img class="visA" src="images/media-tiktok-a.png" alt="TikTok thumbnail" style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
+                          <img class="visB" src="images/media-tiktok-b.png" alt="TikTok thumbnail (evidence mode)" style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
+                        </div>
+                        <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">Latest: <strong>“NPC Launches Into Orbit”</strong></div>
+                        <div style="margin-top:10px;">
+                          <a href="#" class="button button--dark">Watch on TikTok</a>
+                        </div>
+                      </div>
+
+                      <div class="slide cast3">
+                        <div style="font-size:13px; font-weight:700; color:#111827;">Twitch • Live “Break Tests”</div>
+                        <div style="margin-top:6px;">
+                          <img class="visA" src="images/media-twitch-a.png" alt="Twitch thumbnail" style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
+                          <img class="visB" src="images/media-twitch-b.png" alt="Twitch thumbnail (evidence mode)" style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
+                        </div>
+                        <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">Tonight: <strong>“Will It Crash Less?”</strong></div>
+                        <div style="margin-top:10px;">
+                          <a href="#" class="button button--dark">Watch on Twitch</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- CSS-only alert preview (checkbox) -->
+                    <div class="surface--muted" style="margin-top:14px; padding:12px; border:1px dashed #d1d5db; background-color:#f9fafb;">
+                      <input class="slide-input" type="checkbox" id="alertPreview" />
+                      <label for="alertPreview" class="button button--light" style="padding:8px 10px;">Preview “New Upload Alert”</label>
+
+                      <div class="slide" style="margin-top:10px;" id="alertBox">
+                        <div style="font-size:12px; letter-spacing:1px; color:#6b7280; margin-bottom:6px;">RAGEQUIT PRESS • VIDEO ALERT (MOCK)</div>
+                        <div style="font-size:13px; line-height:20px; color:#111827;">
+                          New upload is live — “Boss AI Faceplant Compilation”. (CSS-only preview)
+                        </div>
+                      </div>
+<div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
+                        Future JS idea (stub): randomize the alert content + send to backend.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Primary CTA -->
+                  <div style="margin-top:18px; text-align:center;">
+                    <a href="signup.html" class="button button--dark">Subscribe for Roasts & Alerts</a>
+                    <div style="margin-top:10px; font-size:12px; line-height:18px; color:#6b7280;">
+                      Links to signup.html (landing page preview).
+                    </div>
+                  </div>
+
+                  <!-- Subscribe form (CSS-only “submit” preview) -->
+                  <div class="surface" style="margin-top:18px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
+                    <h2 style="margin:0 0 10px 0; font-size:18px; line-height:24px; color:#111827;">Subscribe / Email Alerts</h2>
+
+                    <!-- NOTE: Demo-only. No JS, no backend. A checkbox simulates “submitted” state. -->
+                    <form action="#" method="post" style="margin:0;">
+                      <label for="email" style="display:block; font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">Email address</label>
+                      <input id="email" name="email" type="email" placeholder="you@example.com"
+                        style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;" />
+
+                      <div style="margin-top:12px;">
+                        <div style="font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">What do you want delivered?</div>
+                        <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
+                          <input type="checkbox" name="prefs" value="alerts" style="vertical-align:middle;" /> <span style="vertical-align:middle;">Instant alerts</span>
+                        </label>
+                        <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
+                          <input type="checkbox" name="prefs" value="newsletter" style="vertical-align:middle;" /> <span style="vertical-align:middle;">Weekly newsletter</span>
+                        </label>
+                        <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
+                          <input type="checkbox" name="prefs" value="video_alerts" style="vertical-align:middle;" /> <span style="vertical-align:middle;">Video upload alerts</span>
+                        </label>
+                      </div>
+
+                      <input class="slide-input" type="checkbox" id="subscribed" />
+                      <label for="subscribed" class="button button--dark" style="margin-top:12px;">Sign me up (preview)</label>
+
+                      <div class="slide" id="subMsg" style="margin-top:10px; font-size:13px; line-height:18px; color:#374151;">
+                        Subscribed (preview). Future JS stub: validate email + POST to backend + render server response.
+                      </div>
+</form>
+                  </div>
+
+                  <!-- Contact form (CSS-only stub) -->
+                  <div class="surface--muted" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
+                    <h2 style="margin:0 0 10px 0; font-size:18px; line-height:24px; color:#111827;">Contact the Team</h2>
+
+                    <form action="#" method="post" style="margin:0;">
+                      <label for="name" style="display:block; font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">Name</label>
+                      <input id="name" name="name" type="text" placeholder="Your name"
+                        style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;" />
+
+                      <label for="contactEmail" style="display:block; font-size:13px; line-height:18px; color:#374151; margin:10px 0 6px 0;">Email</label>
+                      <input id="contactEmail" name="contactEmail" type="email" placeholder="you@example.com"
+                        style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;" />
+
+                      <label for="message" style="display:block; font-size:13px; line-height:18px; color:#374151; margin:10px 0 6px 0;">Message</label>
+                      <textarea id="message" name="message" rows="4" placeholder="Pitch a review, report a bug, or demand justice."
+                        style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; resize:vertical;"></textarea>
+
+                      <input class="slide-input" type="checkbox" id="contactSent" />
+                      <label for="contactSent" class="button button--dark" style="margin-top:12px;">Send (preview)</label>
+
+                      <div class="slide" id="contactMsg" style="margin-top:10px; font-size:13px; line-height:18px; color:#374151;">
+                        Message “sent” (preview). Future JS stub: POST form to API and show success/error states.
+                      </div>
+</form>
+
+                    <div style="margin-top:10px; font-size:12px; line-height:18px; color:#6b7280;">
+                      JS stub note: real submissions need backend routing (Django) + server-side email.
+                    </div>
+                  </div>
+
+                  <div id="preferences"></div>
+                  <div id="unsubscribe"></div>
+
+                </td>
+              </tr>
+
+              <!-- Footer -->
+              <tr>
+                <td class="px" style="padding:22px 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; background-color:#111827;">
+                  <div style="color:#e5e7eb; font-size:12px; line-height:18px;">
+                    <strong style="color:#ffffff;">RageQuit Press</strong><br />
+                    1725 Slough Avenue, Scranton, PA 18503
+                  </div>
+
+                  <div style="margin-top:12px; font-size:12px; line-height:18px;">
+                    <a href="#unsubscribe" style="color:#93c5fd; text-decoration:underline;">Unsubscribe</a>
+                    <span style="color:#9ca3af;"> • </span>
+                    <a href="#preferences" style="color:#93c5fd; text-decoration:underline;">Update preferences</a>
+                    <span style="color:#9ca3af;"> • </span>
+                    <a href="#top" style="color:#93c5fd; text-decoration:underline;">View in browser</a>
+                  </div>
+
+                  <div style="margin-top:10px; color:#9ca3af; font-size:11px; line-height:16px;">
+                    Note: This file demonstrates Week 4 CSS interactivity. JavaScript removed by design.
+                  </div>
+                </td>
+              </tr>
+
+            </table>
           </td>
         </tr>
       </table>
-</section>
-<section> 
-      <div aria-labelledby="toggleDark toggleReader toggleImages" style="margin-top:8px; font-size:11px; line-height:16px; color:#6b7280; text-align:center;">
-        Web preview only • Keyboard: Tab to buttons, Enter to toggle
-      </div>
+
+      <!-- JS STUB (intentionally removed)
+           Future idea: replace the “preview submit” checkboxes with real validation + fetch() calls to a backend.
+      -->
     </div>
-</section>
-
- 
-    <div style="display:none; font-size:1px; color:#f3f4f6; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidden;">
-      This week: one AAA flop roasted, three indie games were overhyped, and a “patch notes apology tour.”
-    </div>
-
-    <!--
-      Outer wrapper table:
-      Email-safe centering + background color block.
-      Tables were used to keep the layout consistent.
-    -->
-   <section>
-    <table aria-labelledby="toggleDark toggleReader toggleImages" border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation" style="background-color:#f3f4f6;">
-      <tr>
-        <td align="center" style="padding: 20px 12px;">
-
-          <!--
-            Inner container (600px):
-            Standard email width for readability on desktop clients.
-            If the width is changed here, key image widths have to be adjusted
-            (e.g., 544px) for alignment.
-          -->
-          <table border="0" cellpadding="0" cellspacing="0" width="600" class="container" role="presentation"
-            style="width:600px; max-width:600px; background-color:#ffffff; border:1px solid #e5e7eb;">
-
-            <!-- =========================
-                 HEADER / BRAND BLOCK
-                 - Establish branding and “issue title” quickly.
-                 - Keep typography web-safe (Arial) per assignment (no web fonts).
-                 Edit points:
-                 - Update issue title/subtitle copy
-                 ========================= -->
-            <tr>
-              <td class="px" style="padding: 22px 28px 10px 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
-                <div style="text-align:center; margin:0 0 10px 0;">
-                  <img
-                    src="images/logo.png"
-                    width="84"
-                    height="84"
-                    alt="RageQuit Press logo"
-                    style="display:inline-block; border-radius:42px;"
-                  />
-                  <div style="font-size:12px; letter-spacing:1.2px; color:#6b7280; margin-top:10px;">
-                    RAGEQUIT PRESS • EMAIL CAMPAIGN PREVIEW
-                  </div>
-                </div>
-
-                <div style="text-align:center;">
-                  <h1 style="margin:8px 0 8px 0; font-size:30px; line-height:38px; color:#111827; font-weight:700;">
-                    The Week in Gaming, With Zero Mercy
-                  </h1>
-                  <p style="margin:0; font-size:14px; line-height:22px; color:#374151;">
-                    Issue #02 • Click any image to toggle “Evidence Mode.”
-                  </p>
-                </div>
-              </td>
-            </tr>
-</section>
-            <!-- =========================
-                 INTERACTIVE BANNER 
-                 Purpose:
-                 - Meant to be like a magazine/site header
-                 - Show brand identity 
-                 - Reusable interaction that can be swapped without extra JS.
-                 Edit points:
-                 - Replace images/banner-a.png and images/banner-b.png at some point
-                 - Keep width at 544px to match container padding for clean alignment
-                 ========================= -->
-            <tr>
-              <td align="center" class="px" style="padding: 12px 28px 0 28px;">
-                <div style="margin:0; padding:0; text-align:center;">
-                  <img
-                    id="bannerImg"
-                    src="images/banner-a.png"
-                    data-src-a="images/banner-a.png"
-                    data-src-b="images/banner-b.png"
-                    data-toggle="swap"
-                    tabindex="0"
-                    alt="RageQuit Press banner (click to toggle glitch mode)"
-                    width="544"
-                    style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb; cursor:pointer;"
-                    class="fluid-img"
-                  />
-                  <section>
-                  <div aria-labelledby="bannerImg" style="margin-top:8px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#6b7280;">
-                    Click banner to toggle <strong>glitch mode</strong>.
-                  </div>
-                  </section>
-                </div>
-              </td>
-            </tr>
-
-            <!-- =========================
-                 HERO IMAGE
-                 Purpose:
-                 - Grab reader attention (featured cover art and familiar mascots)
-                 - “Evidence mode” swap supports the site’s theme
-                 Edit points:
-                 - Update hero images: images/hero-a.png and images/hero-b.png for real 
-                 video games that are being reviewed (these were fakes made using an Generative LLM)
-                 - Caption text is dynamically updated in JS for hero only
-                 ========================= -->
-            <tr>
-              <td align="center" class="px" style="padding: 14px 28px 0 28px;">
-                <div style="margin:0; padding:0; text-align:center;">
-                  <img
-                    id="heroImg"
-                    src="images/hero-a.png"
-                    data-src-a="images/hero-a.png"
-                    data-src-b="images/hero-b.png"
-                    data-toggle="swap"
-                    tabindex="0"
-                    alt="Hero image: featured review cover art"
-                    width="544"
-                    style="display:block; width:544px; max-width:100%; height:400px; border:1px solid #e5e7eb; cursor:pointer;"
-                    class="fluid-img"
-                  />
-                  <section>
-                  <div aria-labelledby="heroImg" id="heroCaption" style="margin-top:10px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; font-size:13px; line-height:18px; color:#6b7280;">
-                    Cover shot (click to swap to “Evidence Mode”).
-                  </div>
-                  </section>
-                </div>
-              </td>
-            </tr>
-
-            <!-- =========================
-                 CONTENT BODY
-                 - All sections (intro, feature, quick hits, CTA, forms)
-                 - Kept inside one <td> to preserve stability
-                 Edit points:
-                 - Most styling and reactivity will need to be updated later, when
-                 new features are introduced in class (or if I'm allowed to include frameworks I want
-                 to experiment with)
-                 ========================= -->
-            <tr>
-              <td id="main" class="px" style="padding: 18px 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; text-align:left;" role="main" aria-label="RageQuit Press email campaign content">
-
-                <!-- Accessibility note: left-aligned long-form text improves scanning and reduces cognitive load compared to centered paragraphs. -->
-
-                <!-- Intro callout: quick context + tone setting -->
-                <div style="border-left:4px solid #111827; padding:12px 14px; background-color:#f9fafb;">
-                  <p style="margin:0; font-size:15px; line-height:24px; color:#111827;">
-                    Welcome to <strong>RageQuit Press</strong>, a video game journalism app that reviews games the way a 90’s magazine did:
-                    brutal honesty, no agreements with companies to play nice, and what not to do in game design.
-                  </p>
-                </div>
-
-                <p style="margin:14px 0 0 0; font-size:14px; line-height:22px; color:#374151;">
-                  This page is styled like an <strong>email campaign</strong> (inline CSS, table layout, unsubscribe footer),
-                  but also includes some basic interactivity (click-to-toggle images + simple JS objects).
-                </p>
-
-                <!-- =========================
-                     FEATURED ROAST SECTION
-                     Purpose:
-                     - Primary content module (what users should read first).
-                     - **HW3 update:** converted from a 2-column table into a TRUE single-column table layout.
-                       Reasoning:
-                       * Email clients are more reliable with simple vertical flow (fewer side-by-side columns).
-                       * Accessibility: reading order is naturally top-to-bottom (image → bullets → score) for screen readers.
-                     Edit points:
-                     - Replace feature images (feature1-a/b)
-                     - Update bullet points + copy
-                     ========================= -->
-                <div style="margin-top:18px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
-                  <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">
-                    Featured Roast: “Galaxy Grind VII”
-                  </h2>
-
-                  <p style="margin:0 0 10px 0; font-size:14px; line-height:22px; color:#374151;">
-                    Marketing promised “freedom.” The tutorial is 47 minutes long and I was actively rooting 
-                    against the people I played as.
-                  </p>
-
-                  <!-- Single-column block: image first, then critique copy.
-                       Email/dev notes:
-                       - Stays within the “one column” requirement while keeping layout stable.
-                       - Uses a single <td> so Outlook and other strict clients render predictably. -->
-                  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                      <td valign="top" style="padding:0;">
-
-                        <img
-                          src="images/feature1-a.png"
-                          data-src-a="images/feature1-a.png"
-                          data-src-b="images/feature1-b.png"
-                          data-toggle="swap"
-                          tabindex="0"
-                          alt="Screenshot: review highlight"
-                          width="544"
-                          style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb; cursor:pointer;"
-                          class="fluid-img"
-                        />
-                        <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
-                          Click to toggle: “Trailer” ⇄ “In-game reality.”
-                        </div>
-
-                        <div style="margin-top:12px; padding:0;">
-
-                          <ul style="margin:0; padding:0 0 0 18px; font-size:14px; line-height:22px; color:#374151;">
-                            <li><strong>UI:</strong> Designed by someone who hates eyes.</li>
-                            <li><strong>Combat:</strong> I wish I could beat up the person I'm playing as because he's so inept.</li>
-                            <li><strong>Story:</strong> A cutscene landfill.</li>
-                          </ul>
-
-                          <!-- Score copy remains for accessibility/SEO; badge adds visual “at-a-glance” score -->
-                          <p style="margin:10px 0 0 0; font-size:14px; line-height:22px; color:#374151;">
-                            Final score: <strong>3/10</strong> — “A masterpiece of ignoring user feedback.”
-                          </p>
-
-                          <!-- =========================
-                               SCORE BADGE
-                               Purpose:
-                               - Converts the score into a scannable visual element.
-                               - Toggle demonstrates “state change” (roast vs praise) using the same swap handler.
-                               Edit points:
-                               - Swap images/score-03.png and images/score-09.png
-                               - Later: drive this from data (rating model) instead of manual swaps
-                               ========================= -->
-                          <div style="margin-top:12px;">
-                            <img
-                              id="scoreBadge"
-                              src="images/score-03.png"
-                              data-src-a="images/score-03.png"
-                              data-src-b="images/score-09.png"
-                              data-toggle="swap"
-                              tabindex="0"
-                              alt="Score badge (click to toggle score)"
-                              width="210"
-                              style="display:block; width:210px; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:10px; cursor:pointer;"
-                            />
-                            <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
-                              Click badge to toggle <strong>ROASTED</strong> ⇄ <strong>GODLIKE</strong> (web preview).
-                            </div>
-                          </div>
-
-                        </div>
-
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
-<!-- =========================
-                     QUICK HITS
-                     Purpose:
-                     - Secondary content block.
-                     - Rendered from a JS object array to demonstrate basic data-driven DOM rendering.
-                     - Includes static fallback HTML so the section still works if JS is disabled.
-                     Edit points:
-                     - Change the hits array in renderQuickHits() in the script
-                     ========================= -->
-                <div style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
-                  <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">
-                    Quick Hits
-                  </h2>
-                  <p style="margin:0 0 10px 0; font-size:14px; line-height:22px; color:#374151;">
-                    Three headlines, one mood (this block is populated by a JS array of objects):
-                  </p>
-
-                  <div id="jsReviews" style="margin:0; padding:0;">
-                    <!-- Fallback content if JS is disabled -->
-                    <div style="margin: 0 0 10px 0;">
-                      <strong style="color:#111827;">Patch Notes Apology Tour</strong>
-                      <span style="color:#6b7280;">— “We fixed the bug where the game launched.”</span>
-                    </div>
-                    <div style="margin: 0 0 10px 0;">
-                      <strong style="color:#111827;">Indie Gem: “Wicker Dungeon”</strong>
-                      <span style="color:#6b7280;">— “Suspiciously fun.”</span>
-                    </div>
-                    <div style="margin: 0;">
-                      <strong style="color:#111827;">Sequel Syndrome</strong>
-                      <span style="color:#6b7280;">— “More of the same, priced like innovation.”</span>
-                    </div>
-                  </div>
-                </div>
-
-
-                <!-- =========================
-                     BROADCAST / CROSS-MEDIA HUB
-                     Purpose:
-                     - Mirrors modern games media
-                     - Email-campaign compatible pattern: thumbnails + CTA links (no embeds), promote cross-platform content
-                     - Designed for reuse: each channel card follows the same structure and the "Latest Drops"
-                       list is populated from JS objects (with HTML fallback)
-                     Edit points:
-                     - Replace /images/media-*-a.png and /images/media-*-b.png with real thumbnails later
-                     - Replace href="#" with real channel URLs
-                     - The simulator button is web-preview only; a real implementation would be server-driven
-                     ========================= -->
-                <div id="media" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
-                  <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">
-                    Broadcast Channels: Reviews, Shorts, and Live “Game Breaking”
-                  </h2>
-
-                  <p style="margin:0 0 12px 0; font-size:14px; line-height:22px; color:#374151;">
-                    Written reviews stay mostly polite. The <strong>real roasting</strong> happens on video—where we can show the bugs,
-                    the jank, and the “feature-not-a-bug” moments in real time. Subscribers can opt in to <strong>email alerts</strong>
-                    when new uploads go live on any channel.
-                  </p>
-
-                  <!-- Channel cards: table layout keeps this block email-template-friendly -->
-                  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                      <!-- YouTube card -->
-                      <td class="stack" width="33.33%" valign="top" style="padding: 0 8px 0 0;">
-                        <div style="border:1px solid #e5e7eb; border-radius:10px; padding:10px; background-color:#f9fafb;">
-                          <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
-                            YouTube • Full Reviews
-                          </div>
-
-                          <img
-                            src="images/media-youtube-a.png"
-                            data-src-a="images/media-youtube-a.png"
-                            data-src-b="images/media-youtube-b.png"
-                            data-toggle="swap"
-                            tabindex="0"
-                            alt="YouTube review thumbnail (click to toggle)"
-                            style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px; cursor:pointer;"
-                          />
-
-                          <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
-                            Latest: <strong>“Galaxy Grind VII — Controller Funeral”</strong>
-                          </div>
-
-                          <div style="margin-top:10px;">
-                            <a href="#" style="display:inline-block; padding:8px 10px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:12px; font-weight:700;">
-                              Watch on YouTube
-                            </a>
-                          </div>
-                        </div>
-                      </td>
-
-                      <!-- TikTok card -->
-                      <td class="stack" width="33.33%" valign="top" style="padding: 0 8px;">
-                        <div style="border:1px solid #e5e7eb; border-radius: 10px; padding:10px; background-color:#f9fafb;">
-                          <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
-                            TikTok • “Bug Clips”
-                          </div>
-
-                          <img
-                            src="images/media-tiktok-a.png"
-                            data-src-a="images/media-tiktok-a.png"
-                            data-src-b="images/media-tiktok-b.png"
-                            data-toggle="swap"
-                            tabindex="0"
-                            alt="TikTok short thumbnail (click to toggle)"
-                            style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px; cursor:pointer;"
-                          />
-
-                          <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
-                            Latest: <strong>“NPC Launches Into Orbit (Any% Speedrun)”</strong>
-                          </div>
-
-                          <div style="margin-top:10px;">
-                            <a href="#" style="display:inline-block; padding:8px 10px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:12px; font-weight:700;">
-                              Watch on TikTok
-                            </a>
-                          </div>
-                        </div>
-                      </td>
-
-                      <!-- Twitch card -->
-                      <td class="stack" width="33.33%" valign="top" style="padding: 0 0 0 8px;">
-                        <div style="border:1px solid #e5e7eb; border-radius:8px; padding:10px; background-color:#f9fafb;">
-                          <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
-                            Twitch • Live “Break Tests”
-                          </div>
-
-                          <img
-                            src="images/media-twitch-a.png"
-                            data-src-a="images/media-twitch-a.png"
-                            data-src-b="images/media-twitch-b.png"
-                            data-toggle="swap"
-                            tabindex="0"
-                            alt="Twitch stream thumbnail (click to toggle)"
-                            style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px; cursor:pointer;"
-                          />
-
-                          <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">
-                            Tonight: <strong>“Patch 1.02 — Will It Crash Less?”</strong>
-                          </div>
-
-                          <div style="margin-top:10px;">
-                            <a href="#" style="display:inline-block; padding:8px 10px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:12px; font-weight:700;">
-                              Watch on Twitch
-                            </a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </table>
-
-                  <!-- Latest drops: rendered from JS objects; fallback included for non-JS environments -->
-                  <div style="margin-top:14px; padding:12px; border:1px dashed #d1d5db; background-color:#ffffff;">
-                    <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">
-                      Latest Drops (data-driven)
-                    </div>
-
-                    <div id="jsMediaDrops" style="font-size:13px; line-height:20px; color:#374151;">
-                      <!-- Fallback content if JS is disabled -->
-                      <div style="margin:0 0 6px 0;"><strong>YouTube:</strong> Galaxy Grind VII — Controller Funeral <span style="color:#6b7280;">(12:44)</span></div>
-                      <div style="margin:0 0 6px 0;"><strong>TikTok:</strong> NPC Launches Into Orbit <span style="color:#6b7280;">(0:23)</span></div>
-                      <div style="margin:0;"><strong>Twitch:</strong> Patch 1.02 Break Test <span style="color:#6b7280;">(Live)</span></div>
-                    </div>
-                  </div>
-
-                  <!-- Web preview demo: simulate an upload event -> would become an email in a real backend -->
-                  <div style="margin-top:12px; padding:12px; background-color:#f9fafb; border:1px solid #e5e7eb;">
-                    <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700;">
-                      Demo: Email Alert Trigger
-                    </div>
-                    <div style="margin-top:6px; font-size:12px; line-height:18px; color:#6b7280;">
-                      In production, a backend service would detect uploads and send emails to subscribers who opted into video alerts.
-                      Here we simulate that event in the browser.
-                    </div>
-
-                    <button
-                      id="simulateUploadBtn"
-                      type="button"
-                      style="margin-top:10px; padding:10px 12px; border:0; background-color:#7c3aed; color:#ffffff; border-radius:6px; font-size:13px; font-weight:700; cursor:pointer; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;"
-                    >
-                      Simulate “New Video Uploaded”
-                    </button>
-
-                    <div id="uploadAlertMsg" style="margin-top:10px; font-size:13px; line-height:18px; color:#374151;">
-                      <!-- JS writes simulated alert status here -->
-                    </div>
-                  </div>
-                </div>
-
-
-                <!-- =========================
-                     PRIMARY CTA
-                     Purpose:
-                     - Clear conversion action (subscribe) in layout
-                     - When this is made to work for real, this will go to an external landing page
-                     Edit points:
-                     - Change href to a real route later (signup.html / React route / etc.)
-                     ========================= -->
-                <div style="margin-top:18px; text-align:center;">
-                  <a
-                    href="signup.html"
-                    id="ctaSubscribe"
-                    style="display:inline-block; padding:12px 18px; background-color:#111827; color:#ffffff; text-decoration:none; border-radius:6px; font-size:14px; line-height:14px; font-weight:700;">
-                    Subscribe for Roasts & Alerts
-                  </a>
-                  <div style="margin-top:10px; font-size:12px; line-height:18px; color:#6b7280;">
-                    (CTA now links to signup.html — a frontend-only landing page preview.)
-                  </div>
-                </div>
-
-                <!-- =========================
-                     SUBSCRIBE FORM (WEB PREVIEW)
-                     Purpose:
-                     - Data capture UI
-                     - JS provides lightweight validation + user feedback
-                     Note:
-                     - This will need to be modified later with different frameworks
-                     ========================= -->
-                <div id="subscribe" style="margin-top:18px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
-                  <h2 style="margin:0 0 10px 0; font-size:18px; line-height:24px; color:#111827;">
-                    Subscribe / Email Alerts / Newsletter
-                  </h2>
-
-                  <form id="subscribeForm" action="#" method="post" style="margin:0;">
-                    <label for="email" style="display:block; font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">
-                      Email address
-                    </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="you@example.com"
-                      required
-                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;"
-                    />
-
-                    <div style="margin-top:12px;">
-                      <div style="font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">
-                        What do you want delivered?
-                      </div>
-
-                      <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
-                        <input type="checkbox" name="prefs" value="alerts" style="vertical-align:middle;" />
-                        <span style="vertical-align:middle;">Instant alerts (launch train-wrecks)</span>
-                      </label>
-
-                      <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
-                        <input type="checkbox" name="prefs" value="newsletter" style="vertical-align:middle;" />
-                        <span style="vertical-align:middle;">Weekly newsletter (the polite yelling)</span>
-                      </label>
-
-
-                      <!-- Video upload alerts: ties cross-platform content back to the email subscription model -->
-                      <label style="display:block; margin-bottom:6px; font-size:13px; line-height:18px; color:#374151;">
-                        <input type="checkbox" name="prefs" value="video_alerts" style="vertical-align:middle;" />
-                        <span style="vertical-align:middle;">Video upload alerts (YouTube/TikTok/Twitch)</span>
-                      </label>
-
-                      <label style="display:block; margin-bottom:0; font-size:13px; line-height:18px; color:#374151;">
-                        <input type="checkbox" name="prefs" value="deals" style="vertical-align:middle;" />
-                        <span style="vertical-align:middle;">Deals & releases (so you can avoid them faster)</span>
-                      </label>
-                    </div>
-
-                    <button
-                      type="submit"
-                      style="margin-top:12px; padding:10px 12px; border:0; background-color: #111827; color:#ffffff; border-radius:6px; font-size:14px; font-weight:700; cursor:pointer; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
-                      Sign me up
-                    </button>
-
-                    <div id="subscribeMsg" style="margin-top:10px; font-size:13px; line-height:18px; color:#374151;">
-                      <!-- JS writes validation/success state here -->
-                    </div>
-                  </form>
-                </div>
-
-                <!-- =========================
-                     CONTACT FORM (WEB PREVIEW)
-                     Purpose:
-                     - Adds a “Contact the team” pathway, either for feedback or requests
-                     - JS simulates submission + feedback (no backend yet).
-                     Note:
-                     - Later on, if its allowed, I'd like to use DJango so the forms are operational, and connect to a database to 
-                     keep a record of all submissions.
-                     ========================= -->
-                <div style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
-                  <h2 style="margin:0 0 10px 0; font-size:18px; line-height:24px; color:#111827;">
-                    Contact the Team
-                  </h2>
-
-                  <form id="contactForm" action="#" method="post" style="margin:0;">
-                    <label for="name" style="display:block; font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">
-                      Name
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      placeholder="Your name"
-                      required
-                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;"
-                    />
-
-                    <label for="contactEmail" style="display:block; font-size:13px; line-height:18px; color:#374151; margin:10px 0 6px 0;">
-                      Email
-                    </label>
-                    <input
-                      id="contactEmail"
-                      name="contactEmail"
-                      type="email"
-                      placeholder="you@example.com"
-                      required
-                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;"
-                    />
-
-                    <label for="message" style="display:block; font-size:13px; line-height:18px; color:#374151; margin:10px 0 6px 0;">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows="4"
-                      placeholder="Pitch a review, report a bug, or demand justice for your favorite franchise."
-                      required
-                      style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; resize:vertical;"
-                    ></textarea>
-
-                    <button
-                      type="submit"
-                      style="margin-top:12px; padding:10px 12px; border:0; background-color:#2563eb; color:#ffffff; border-radius:6px; font-size:14px; font-weight:700; cursor:pointer; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
-                      Send
-                    </button>
-
-                    <div id="contactMsg" style="margin-top:10px; font-size:13px; line-height:18px; color:#374151;">
-                      <!-- JS writes “sent” confirmation here -->
-                    </div>
-                  </form>
-                </div>
-
-                <!-- Internal anchors used by footer links -->
-                <div id="preferences"></div>
-                <div id="unsubscribe"></div>
-
-              </td>
-            </tr>
-
-            <!-- =========================
-                 FOOTER / COMPLIANCE BLOCK
-                 Purpose:
-                 - A regular footer with info and unsubscribe links
-                 Edit points:
-                 - Address + legal text
-                 - Footer links (real site would go to hosted preference center)
-                 ========================= -->
-            <tr>
-              <td class="px" style="padding:22px 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; background-color:#111827;">
-                <div style="color:#e5e7eb; font-size:12px; line-height:18px;">
-                  <strong style="color:#ffffff;">RageQuit Press</strong><br />
-                  1725 Slough Avenue, Scranton, PA 18503
-                </div>
-
-                <div style="margin-top:12px; font-size:12px; line-height:18px;">
-                  <a href="#unsubscribe" style="color:#93c5fd; text-decoration:underline;">Unsubscribe</a>
-                  <span style="color:#9ca3af;"> • </span>
-                  <a href="#preferences" style="color:#93c5fd; text-decoration:underline;">Update preferences</a>
-                  <span style="color:#9ca3af;"> • </span>
-                  <a href="#top" style="color:#93c5fd; text-decoration:underline;">View in browser</a>
-                </div>
-
-                <div style="margin-top:10px; color:#9ca3af; font-size:11px; line-height:16px;">
-                  Note: This file is a web preview that is styled like an email campaign for coursework.
-                </div>
-              </td>
-            </tr>
-
-          </table>
-          <!-- End inner container -->
-
-        </td>
-      </tr>
-    </table>
-
-    <!-- =========================
-         JAVASCRIPT 
-         Purpose:
-         - Provides basic interactivity (image swapping, object-based rendering, basic validation, and media alert simulation)
-         - Kept modular for easy replacements with real app logic later
-         ========================= -->
-    <script>
-      (function () {
-        "use strict";
-
-        // Lightweight in-memory state for this web preview
-        // In production, these preferences would live in a backend (I want to use Django) + database (probably Sqlite)
-        var appState = {
-          subscriber: {
-            email: null,
-            prefs: {
-              alerts: false,
-              newsletter: false,
-              deals: false,
-              video_alerts: false
-            }
-          }
-        };
-
-
-        /*
-          setupImageSwaps()
-          - Generic swap handler for any <img data-toggle="swap">
-          - Uses data-src-a / data-src-b attributes to avoid hardcoding file paths in JS
-          - Adds keyboard support (Enter / Space) for accessibility
-        */
-        function setupImageSwaps() {
-          var imgs = document.querySelectorAll('img[data-toggle="swap"]');
-
-          for (var i = 0; i < imgs.length; i++) {
-            (function (img) {
-              img.setAttribute("role", "button");
-              img.setAttribute("aria-pressed", "false");
-
-              function toggle() {
-                var a = img.getAttribute("data-src-a");
-                var b = img.getAttribute("data-src-b");
-                if (!a || !b) return;
-
-                var isA = img.getAttribute("src") === a;
-                img.setAttribute("src", isA ? b : a);
-                img.setAttribute("aria-pressed", isA ? "true" : "false");
-
-                // Only the hero has a dynamic caption; other swaps are self-explanatory
-                if (img.id === "heroImg") {
-                  var cap = document.getElementById("heroCaption");
-                  if (cap) cap.textContent = isA
-                    ? "Evidence mode (click to swap back)."
-                    : "Cover shot (click to swap to “Evidence Mode”).";
-                }
-              }
-
-              img.addEventListener("click", toggle);
-              img.addEventListener("keydown", function (e) {
-                var key = e.key || e.keyCode;
-                if (key === "Enter" || key === " " || key === 13 || key === 32) {
-                  e.preventDefault();
-                  toggle();
-                }
-              });
-            })(imgs[i]);
-          }
-        }
-
-        /*
-          renderQuickHits()
-          - Demonstrates a simple “content model” (array of objects) rendered into the DOM
-          - Keeps fallback HTML in place for non-JS environments
-        */
-        function renderQuickHits() {
-          var target = document.getElementById("jsReviews");
-          if (!target) return;
-
-          var hits = [
-            { title: "Patch Notes Apology Tour", line: "“We fixed the bug where the game launched.”" },
-            { title: "Indie Gem: “Wicker Dungeon”", line: "“Actually fun. Suspicious.”" },
-            { title: "Sequel Syndrome", line: "“More of the same, priced like innovation.”" }
-          ];
-
-          var html = "";
-          for (var i = 0; i < hits.length; i++) {
-            html +=
-              '<div style="margin: 0 0 ' + (i === hits.length - 1 ? "0" : "10px") + ' 0;">' +
-                '<strong style="color:#111827;">' + hits[i].title + '</strong> ' +
-                '<span style="color:#6b7280;">— ' + hits[i].line + '</span>' +
-              '</div>';
-          }
-
-          target.innerHTML = html;
-        }
-
-
-        /*
-          renderMediaDrops()
-          - Same pattern as Quick Hits: a small content model (array of objects) rendered into the DOM
-          - This models how a backend could supply the latest video/stream entries for a newsletter
-        */
-        function renderMediaDrops() {
-          var target = document.getElementById("jsMediaDrops");
-          if (!target) return;
-
-          var drops = [
-            { channel: "YouTube", title: "Galaxy Grind VII — Controller Funeral", meta: "12:44" },
-            { channel: "TikTok", title: "NPC Launches Into Orbit (Any% Speedrun)", meta: "0:23" },
-            { channel: "Twitch", title: "Patch 1.02 — Will It Crash Less?", meta: "Live" }
-          ];
-
-          var html = "";
-          for (var i = 0; i < drops.length; i++) {
-            html +=
-              '<div style="margin:0 0 ' + (i === drops.length - 1 ? "0" : "6px") + ' 0;">' +
-                '<strong>' + drops[i].channel + ':</strong> ' +
-                drops[i].title + ' <span style="color:#6b7280;">(' + drops[i].meta + ')</span>' +
-              '</div>';
-          }
-
-          target.innerHTML = html;
-        }
-
-        /*
-          setupUploadSimulator()
-          - Web preview only: simulates “a new upload happened” and shows what an email alert might look like
-          - The alert only "fires" if the subscriber opted into video_alerts in the Subscribe section
-          - In a real system, this logic belongs server-side (polling webhooks/APIs + sending email)
-        */
-        function setupUploadSimulator() {
-          var btn = document.getElementById("simulateUploadBtn");
-          var msg = document.getElementById("uploadAlertMsg");
-          if (!btn || !msg) return;
-
-          var sampleEvents = [
-            { channel: "YouTube", title: "Galaxy Grind VII — Boss AI Faceplant Compilation" },
-            { channel: "TikTok", title: "Physics Glitch: Car Turns Into Helicopter (0:12)" },
-            { channel: "Twitch", title: "LIVE: “Unpatched Softlock Any%” Challenge Run" }
-          ];
-
-          btn.addEventListener("click", function () {
-            var event = sampleEvents[Math.floor(Math.random() * sampleEvents.length)];
-            var prefs = (appState && appState.subscriber && appState.subscriber.prefs) ? appState.subscriber.prefs : {};
-
-            if (prefs.video_alerts) {
-              msg.textContent =
-                "Email Alert (simulated): New " + event.channel + " drop — " + event.title +
-                ". (Production version: backend would email subscribers who opted in.)";
-              msg.style.color = "#1f2937";
-            } else {
-              msg.textContent =
-                "No alert sent: enable “Video upload alerts” in the Subscribe section to receive channel notifications.";
-              msg.style.color = "#b91c1c";
-            }
-          });
-        }
-
-        /*
-          setupSubscribeForm()
-          - Lightweight web preview
-          - To do later: send to backend endpoint + show server response states
-        */
-        function setupSubscribeForm() {
-          var form = document.getElementById("subscribeForm");
-          var msg = document.getElementById("subscribeMsg");
-          if (!form || !msg) return;
-
-          form.addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            var email = (document.getElementById("email").value || "").trim();
-            var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-            if (!ok) {
-              msg.textContent = "That email looks suspicious. Try a valid address (e.g., you@example.com).";
-              msg.style.color = "#b91c1c";
-              return;
-            }
-
-            
-            // Read preference checkboxes (supports future expansion with more options)
-            var checked = form.querySelectorAll('input[type="checkbox"][name="prefs"]:checked');
-            var prefs = { alerts: false, newsletter: false, deals: false, video_alerts: false };
-
-            for (var i = 0; i < checked.length; i++) {
-              prefs[checked[i].value] = true;
-            }
-
-            // Persist state for the web preview (simulates what a backend would store)
-            appState.subscriber.email = email;
-            appState.subscriber.prefs = prefs;
-
-            var enabled = [];
-            if (prefs.video_alerts) enabled.push("video upload alerts");
-            if (prefs.newsletter) enabled.push("weekly newsletter");
-            if (prefs.alerts) enabled.push("instant alerts");
-            if (prefs.deals) enabled.push("deals & releases");
-
-            msg.textContent =
-              "Subscribed! " +
-              (enabled.length ? ("You enabled: " + enabled.join(", ") + ".") : "Choose preferences to tailor your alerts.");
-
-            msg.style.color = "#065f46";
-
-
-            var cta = document.getElementById("ctaSubscribe");
-            if (cta) cta.textContent = "Subscribed ✓";
-          });
-        }
-
-        /*
-          setupContactForm()
-          - Simulates sending a message for demo purposes (no backend)
-          - Replace with fetch() to an API route for server-side email handling later
-        */
-        function setupContactForm() {
-          var form = document.getElementById("contactForm");
-          var msg = document.getElementById("contactMsg");
-          if (!form || !msg) return;
-
-          form.addEventListener("submit", function (e) {
-            e.preventDefault();
-            msg.textContent = "Message sent (pretend our editor isn’t crying in a corner right now).";
-            msg.style.color = "#1f2937";
-            form.reset();
-          });
-        }
-
-        // Boot sequence: to be expanded later
-
-        // 5) Accessibility modes (web preview): Dark Mode + Reader Mode toggles
-        
-        /*
-          applyBannerTheme(isDark)
-          Fixes: “dark banner isn’t appearing in dark mode”
-          Root cause:
-            - The banner is an <img>, not a CSS background, so CSS background-image swaps won’t affect it.
-            - We must swap the <img> src and its data-src-* attributes so click-toggle still works in both themes.
-          Assets expected in /images:
-            Light: banner-a.png, banner-b.png
-            Dark:  banner-dark.png, banner-dark-b.png
-
-          Future note:
-            - Eventually, migrate the web app UI to a component library (e.g., MUI) to centralize theming,
-              improve accessibility primitives, and avoid inline-style override hacks like this.
-        */
-        function applyBannerTheme(isDark) {
-          var banner = document.getElementById("bannerImg");
-          if (!banner) return;
-
-          var lightA = "images/banner-a.png";
-          var lightB = "images/banner-b.png";
-          var darkA  = "images/banner-dark.png";
-          var darkB  = "images/banner-dark-b.png";
-
-          // Preserve which variant the user is currently seeing (A vs B)
-          var currentA = banner.getAttribute("data-src-a") || lightA;
-          var currentSrc = banner.getAttribute("src") || "";
-          var showingA = (currentSrc === currentA);
-
-          // Update toggle sources for the active theme
-          banner.setAttribute("data-src-a", isDark ? darkA : lightA);
-          banner.setAttribute("data-src-b", isDark ? darkB : lightB);
-
-          // Keep A/B state consistent across theme flips
-          banner.setAttribute("src", showingA ? (isDark ? darkA : lightA) : (isDark ? darkB : lightB));
-        }
-
-
-        function setupA11yToggles() {
-          var darkBtn = document.getElementById("toggleDark");
-          var readerBtn = document.getElementById("toggleReader");
-          if (!darkBtn || !readerBtn) return;
-
-          // Restore persisted preferences (optional, improves demo experience)
-          try {
-            var dark = localStorage.getItem("rq_dark") === "1";
-            var reader = localStorage.getItem("rq_reader") === "1";
-            if (dark) document.body.classList.add("dark");
-            if (reader) document.body.classList.add("reader");
-          
-            // Sync banner assets to the restored theme state.
-            applyBannerTheme(dark);
-} catch (e) {}
-
-          function toggleClass(cls, key) {
-            document.body.classList.toggle(cls);
-            try {
-              localStorage.setItem(key, document.body.classList.contains(cls) ? "1" : "0");
-            } catch (e) {}
-          }
-
-          darkBtn.addEventListener("click", function () { toggleClass("dark", "rq_dark"); applyBannerTheme(document.body.classList.contains("dark")); });
-          readerBtn.addEventListener("click", function () { toggleClass("reader", "rq_reader"); });
-
-          var imgBtn = document.getElementById("toggleImages");
-
-          // Restore image visibility preference
-          try {
-            var noImgs = localStorage.getItem("rq_no_images") === "1";
-            if (noImgs) document.body.classList.add("no-images");
-          } catch (e) {}
-
-          imgBtn.addEventListener("click", function () {
-            document.body.classList.toggle("no-images");
-            try {
-              localStorage.setItem("rq_no_images",
-                document.body.classList.contains("no-images") ? "1" : "0");
-            } catch (e) {}
-          });
-
-        }
-
-        setupImageSwaps();
-        renderQuickHits();
-        renderMediaDrops();
-        setupSubscribeForm();
-        setupContactForm();
-        setupA11yToggles();
-        setupUploadSimulator();
-      })();
-    </script>
-
   </body>
 </html>
