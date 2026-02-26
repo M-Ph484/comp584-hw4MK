@@ -4,27 +4,23 @@
   xmlns:v="urn:schemas-microsoft-com:vml"
   xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
-    <title>RageQuit Press — Signup (CSS Interactivity Preview)</title>
+    <title>RageQuit Press — Signup (Email Campaign Preview)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <style type="text/css">
       /*
-        ============================================================
-        CSS-ONLY INTERACTIVITY (Week 4 pattern set)
+        ===========================================================
 
-        This signup page is intentionally written with NO JavaScript.
-        We preview “web-app” style interactions using the lecture’s
-        CSS techniques:
+        The signup page was also changed to use CSS interactivity only, Js was removed.
+       CSS additions made: 
           - :hover for button/link feedback
           - transition + transform + box-shadow for microinteractions
           - @keyframes for simple entrance animation
           - input:checked ~ selectors for toggles and “submitted” previews
 
-        Anything that would normally require JS (validation, posting
-        to an API, rendering a real receipt) is left as a commented stub
-        in the HTML.
+    
         ============================================================
       */
       /* Baseline resets */
@@ -47,7 +43,7 @@
         .center { text-align:center !important; }
       }
 
-      /* Week 4 hover states */
+      /* hover states */
       a.button, label.button {
         display:inline-block;
         padding:12px 18px;
@@ -65,7 +61,7 @@
         transform: translateY(-1px); /* slight upward motion (“pop”) */
       }
 
-      /* Week 4 keyframes */
+      /* keyframes */
       @keyframes fade-in {
         from { opacity:0; transform: scale(0.8); }
         to   { opacity:1; transform: scale(1); }
@@ -112,14 +108,10 @@
       }
     
       /*
-        4) CSS-ONLY PREVIEW REVEALS (STUB FOR REAL JS LATER)
-
-        Instead of real form submission, we simulate “saved/submitted” states
+        Instead of real form submission,there's “saved/submitted” states
         with a checkbox:
           #saved:checked ~ #savedMsg
           #saved:checked ~ #receipt
-
-        This keeps the demo interactive while we’re not allowed to use JS.
       */
       #alertBox { display:none; }
       #previewAlert:checked ~ #alertBox { display:block; }
@@ -137,14 +129,9 @@
     <a id="top"></a>
 
     <!--
-  STATE INPUTS (CSS-only interactivity)
+  STATE INPUTS 
 
-  These hidden inputs act like “state variables” for CSS.
-  They must appear before the elements they control because we use
-  selectors like:
-      #modeDark:checked ~ .page ...
-
-  Users toggle them by clicking <label for="..."> elements.
+  These hidden inputs act like “state variables” for CSS. Users toggle them by clicking <label for="..."> elements.
 -->
     <input class="mode-input" type="checkbox" id="modeDark" />
     <input class="mode-input" type="checkbox" id="modeReader" />
@@ -161,7 +148,6 @@
     - changes theme (dark)
     - increases readability (reader)
     - hides images (no-img)
-  without any JavaScript.
 -->
     <div class="controls" style="max-width:600px; margin:0 auto; padding:12px 12px 6px 12px; text-align:center;">
       <label for="modeDark" class="button button--light" style="margin:0 6px 6px 0;">Toggle Dark</label>
@@ -170,7 +156,7 @@
       <label for="visualEvd" class="button button--light" style="margin:0 0 6px 0;">Evidence Mode</label>
 
       <div style="margin-top:8px; font-size:11px; line-height:16px; color:#6b7280;">
-        Web preview only • CSS-only interactivity (no JavaScript).
+        Web preview only 
       </div>
     </div>
 
@@ -199,9 +185,6 @@
                     <h1 style="margin:8px 0 8px 0; font-size:28px; line-height:36px; color:#111827; font-weight:700;">
                       Create Your RageQuit Press Alerts
                     </h1>
-                    <p style="margin:0; font-size:14px; line-height:22px; color:#374151;">
-                      Frontend-only: forms are preview stubs. A future backend will store preferences and send emails.
-                    </p>
 
                     <div style="margin-top:12px;">
                       <a href="index.html" class="button button--dark">← Back to Weekly Roast</a>
@@ -251,10 +234,7 @@
                     <h2 style="margin:0 0 8px 0; font-size:18px; line-height:24px; color:#111827;">
                       Sample Upload Alert Email (CSS Preview)
                     </h2>
-                    <p style="margin:0 0 10px 0; font-size:14px; line-height:22px; color:#374151;">
-                      This demonstrates a “show/hide” preview using the Week 4 checked-input approach.
-                    </p>
-
+                
                     <input class="slide-input" type="checkbox" id="previewAlert" />
                     <label for="previewAlert" class="button button--light" style="padding:8px 10px;">Preview an alert email</label>
 
@@ -265,9 +245,7 @@
                       <div style="font-size:13px; line-height:20px; color:#111827;">
                         New upload is live — “Physics Glitch: Car Turns Into Helicopter (0:12)”. (Preview only)
                       </div>
-                      <div style="margin-top:10px; font-size:12px; line-height:18px; color:#4b5563;">
-                        JS stub note: production version would build this from real upload data.
-                      </div>
+                    
                     </div>
 </div>
 
@@ -275,7 +253,7 @@
                   <div class="surface" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
                     <h2 style="margin:0 0 10px 0; font-size:18px; line-height:24px; color:#111827;">Signup Details</h2>
 
-                    <!-- NOTE: Demo-only. No JS, no backend. Checkbox simulates saved state. -->
+                    <!-- Checkbox simulates saved state. -->
                     <form action="#" method="post" style="margin:0;">
                       <label for="signupEmail" style="display:block; font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">Email address</label>
                       <input id="signupEmail" name="email" type="email" placeholder="you@example.com"
@@ -319,9 +297,7 @@
                     </form>
                   </div>
 
-                  <div style="margin-top:12px; font-size:12px; line-height:18px; color:#6b7280;">
-                    JS removed intentionally. When you’re allowed to add it back, replace the checkboxes with real form submit handlers.
-                  </div>
+                
 
                 </td>
               </tr>
@@ -333,10 +309,6 @@
                     <strong style="color:#ffffff;">RageQuit Press</strong><br />
                     Signup page preview • No real emails are sent yet
                   </div>
-
-                  <div style="margin-top:10px; color:#9ca3af; font-size:11px; line-height:16px;">
-                    Note: CSS-only Week 4 interactivity demo. JavaScript removed by design.
-                  </div>
                 </td>
               </tr>
 
@@ -345,7 +317,7 @@
         </tr>
       </table>
 
-      <!-- JS STUB (intentionally removed)
+      <!-- STUB
            Future: hook forms to Django endpoints; replace preview toggles with real network requests.
       -->
     </div>
