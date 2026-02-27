@@ -12,16 +12,25 @@
     <style type="text/css">
       /*
         ============================================================
-        Web pages were changed to align with class requirements.
-       Everything interactive is done using CSS features demonstrated
+        CSS-ONLY INTERACTIVITY (Week 4 pattern set)
+
+        This file intentionally avoids JavaScript.
+        Everything interactive is done using CSS features demonstrated
         in the lecture slides:
           1) :hover states for links/buttons
           2) transition + transform + box-shadow for “pop” feedback
           3) @keyframes animations for simple entrance effects
           4) input:checked ~ sibling selectors for toggles/sliders
+
+        Why the page looks “email-like” (tables + inline styles):
+        - It keeps the assignment consistent with the email-campaign
+          template approach, but we’re previewing the interactions in
+          a normal browser.
+        - Because inline styles are very specific, we sometimes use
+          !important in CSS so the interactive states reliably apply.
         ============================================================
       */
-      /* ===== Baseline resets ===== */
+      /* ===== Email-safe baseline resets ===== */
       body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
       table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
       img { -ms-interpolation-mode: bicubic; }
@@ -29,36 +38,72 @@
       table { border-collapse: collapse !important; }
       body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
 
-      /* Blue link overrides */
+      /* “Blue link” overrides */
       a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; font-size: inherit !important; font-family: inherit !important; font-weight: inherit !important; line-height: inherit !important; }
       u + #body a { color: inherit; text-decoration: none; font-size: inherit; font-family: inherit; font-weight: inherit; line-height: inherit; }
       #MessageViewBody a { color: inherit; text-decoration: none; font-size: inherit; font-family: inherit; font-weight: inherit; line-height: inherit; }
 
-      /* Table based responsiveness */
+      /* ============================================================
+         STEP #8 RESPONSIVE MULTI-COLUMN SUPPORT (Week 4)
+         ------------------------------------------------
+         Why this exists:
+           - Our 2-column and 3-column blocks are built with tables (classic email layout).
+           - On desktop, columns sit side-by-side via explicit width + align="left".
+           - On mobile, those same column tables need to “stack” vertically to avoid
+             tiny unreadable columns and horizontal scrolling.
+
+         How it works:
+           - Any column wrapper table gets class="stack".
+           - In this media query we force:
+               display:block + width:100% + float:none
+             so each column becomes a full-width row.
+           - We use !important because many email-style blocks use inline styles
+             (e.g., style="width:50%") that would otherwise win.
+
+         Note:
+           - Some email clients have limited media-query support, but since these are
+             campaign *web pages*, the behavior is reliable in browsers while still
+             matching the Week-4 patterns.
+         ============================================================ */
       @media screen and (max-width: 640px) {
         .container { width: 100% !important; }
         .px { padding-left: 16px !important; padding-right: 16px !important; }
-        .stack { display: block !important; width: 100% !important; }
+        /*
+          STACKING RULE (applies to Step #6 and #7 column wrapper tables)
+          - display:block forces the column table to take its own row.
+          - width/max-width:100% removes side-by-side constraints.
+          - float:none cancels legacy float alignment (helps some clients).
+          - !important overrides inline width styles used for desktop layout.
+        */
+        .stack { display: block !important; width: 100% !important; max-width: 100% !important; float: none !important; }
         .fluid-img { width: 100% !important; max-width: 100% !important; height: auto !important; }
         .center { text-align: center !important; }
+             /* Mobile type scaling (step #8 requirement: adjust text size on mobile)
+           We increase text slightly to improve readability and tap-target clarity. */
+        .page h1 { font-size: 28px !important; line-height: 34px !important; }
+        .page h2 { font-size: 20px !important; line-height: 28px !important; }
+        .page p, .page td, .page li, .page div { font-size: 16px !important; line-height: 26px !important; }
+        a.button, label.button { padding: 14px 18px !important; }
       }
 
+
       /* ============================================================
-         1) HOVER STATES + MICROINTERACTIONS 
+         1) HOVER STATES + MICROINTERACTIONS (Week 4)
 
          What this does:
          - Gives users a clear “this is clickable” cue.
          - On hover, buttons “lift” slightly and cast a shadow.
            That’s the “pop” effect you mentioned.
 
-         Why I implemented it here (CSS, replaced or removed Js):
-         - Hover feedback is a pure CSS behavior
-         - hover + transition + transform + box-shadow.
+         Why we implemented it here (CSS, not JS):
+         - Hover feedback is a pure CSS behavior (no scripting needed).
+         - This matches the lecture recommendation to use :hover +
+           transition + transform + box-shadow.
 
          Why we sometimes rely on !important:
-         - These templates use a lot of inline styles
+         - These templates use a lot of inline styles (email convention).
            Inline styles can override stylesheet rules, so using
-           !important ensures the hover styles reliably appear.
+           !important ensures our hover styles reliably appear.
          ============================================================ */
       a.button, label.button {
         display: inline-block;
@@ -79,16 +124,18 @@
       }
 
       /* ============================================================
-         2) KEYFRAME ANIMATIONS 
+         2) KEYFRAME ANIMATIONS (Week 4)
 
          What this does:
          - Applies a gentle “fade + scale in” to key elements so the
-           page feels alive when it loads
-         - Uses the exact @keyframes + animation pattern shown in the
-           lecture slides
+           page feels alive when it loads.
 
-         How to control intensity:
-         - Different durations via .fade1/.fade2/.fade3.
+         Why this is safe for the assignment:
+         - Uses the exact @keyframes + animation pattern shown in the
+           lecture slides.
+
+         How we control intensity:
+         - We apply different durations via .fade1/.fade2/.fade3.
            That staggers the entrance without requiring JavaScript.
          ============================================================ */
       @keyframes fade-in {
@@ -99,28 +146,71 @@
       .fade2 { animation: 1.3s 1 fade-in; }
       .fade3 { animation: 1.6s 1 fade-in; }
 
-      /* ============================================================
-         3) CHECKED-STATE INTERACTIVITY
+      /*
+        STEP #9 KEYFRAMES (properties other than opacity/scale)
+        ------------------------------------------------------
+        This animation uses:
+          - transform: translateY(...)  (NOT scale)
+          - box-shadow                 (depth cue)
+        Purpose:
+          - Draws attention to small “pill” labels without shifting layout.
+      */
+      @keyframes pulse-lift {
+        0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(0,0,0,0); }
+        50%      { transform: translateY(-2px); box-shadow: 0 10px 18px rgba(0,0,0,0.16); }
+      }
+      .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        border: 1px solid #e5e7eb;
+        background-color: #f9fafb;
+        color: #374151;
+      }
+      .pill--attention { animation: 1.4s 2 pulse-lift; }
 
-         Features:
-         - A hidden checkbox/radio stores UI “state”
-         - A <label for="..."> acts like the button users click
+      /* ============================================================
+         3) CHECKED-STATE INTERACTIVITY (Week 4)
+
+         Core idea:
+         - A hidden checkbox/radio stores UI “state”.
+         - A <label for="..."> acts like the button users click.
          - CSS reads that state via :checked and then shows/hides or
-           restyles parts of the page with the general-sibling selector (~)
+           restyles parts of the page with the general-sibling selector (~).
+
+         IMPORTANT DOM REQUIREMENT (why inputs are placed near the top):
          - The selector input:checked ~ .page ... only works if the
-           <input> appears before the element. That’s why all state inputs are placed above .controls and .page.
+           <input> appears BEFORE the element it affects.
+           That’s why all state inputs are placed above .controls and .page.
          ============================================================ */
       .mode-input { display: none; } /* hide state inputs; labels become the visible controls */
       .controls label { cursor: pointer; }
 
       /* Visual mode: default shows A, Evidence shows B */
-      .visB { display: none; }
+      .visB { display: none !important; }
       #visualEvd:checked ~ .page .visA { display: none !important; }
       #visualEvd:checked ~ .page .visB { display: block !important; }
+      /* Standard view explicitly re-hides Evidence visuals (prevents “stuck on” state) */
+      #visualStd:checked ~ .page .visA { display: block !important; }
+      #visualStd:checked ~ .page .visB { display: none !important; }
 
-      /* Accessibility “modes” driven by CSS now */
+      /* Accessibility “modes” driven by CSS (no JS) */
       /* Reader Mode: increases font sizes/line-heights to reduce eye strain */
       #modeNoImg:checked ~ .page img { display: none !important; } /* “Remove images” mode */
+      /*
+        IMPORTANT OVERRIDE NOTE:
+        Evidence Mode uses highly-specific rules like:
+            #visualEvd:checked ~ .page .visB { display:block !important; }
+        That selector can beat a generic 'img {display:none}' rule.
+        So we add an even-more-specific override for the hero/banner swap images.
+        Result: Toggle Images ALWAYS hides hero/banner visuals, regardless of other modes.
+      */
+      #modeNoImg:checked ~ .page img.visA,
+      #modeNoImg:checked ~ .page img.visB { display: none !important; }
+
 
       #modeReader:checked ~ .page td, /* Reader Mode: enlarge body text + spacing */
       #modeReader:checked ~ .page p,
@@ -148,6 +238,7 @@
       #modeDark:checked ~ .controls label[for="modeDark"],
       #modeReader:checked ~ .controls label[for="modeReader"],
       #modeNoImg:checked ~ .controls label[for="modeNoImg"],
+      #visualStd:checked ~ .controls label[for="visualStd"],
       #visualEvd:checked ~ .controls label[for="visualEvd"] {
         background-color: #111827;
         color: #ffffff;
@@ -155,9 +246,17 @@
       }
 
       /*
-        - 3 radios share the same name="hits" so only one can be selected
-        - Each radio toggles the visibility of one .slide
-        - Labels are styled as buttons, so users click “Slide 1/2/3”
+        4) CSS-ONLY SLIDER (Quick Hits)
+
+        Pattern:
+        - 3 radios share the same name="hits" so only ONE can be selected.
+        - Each radio toggles the visibility of one .slide.
+        - Labels are styled as buttons, so users click “Slide 1/2/3”.
+
+        Why this design:
+        - Demonstrates interactivity without JavaScript.
+        - Keeps content in the DOM (screen readers can still access it)
+          while controlling what is visually shown.
       */
       .slide-input { display: none; }
       .slide { display: none; }
@@ -166,18 +265,22 @@
       #hit3:checked ~ .hits .slide3 { display: block; }
 
       /*
-        Broadcast channels: Same pattern as Quick Hits, but for the “channel cards”.
+        5) CSS-ONLY SLIDER (Broadcast Channels)
+        Same pattern as Quick Hits, but for the “channel cards”.
       */
       #cast1:checked ~ .casts .cast1,
       #cast2:checked ~ .casts .cast2,
       #cast3:checked ~ .casts .cast3 { display: block; }
     
       /*
-        CSS-ONLY “PREVIEW SUBMIT” (STUB FOR REAL JS LATER)
+        6) CSS-ONLY “PREVIEW SUBMIT” (STUB FOR REAL JS LATER)
 
-        - For this assignment phase, instead of using Js, it's simulating a “submitted” state using
+        Why this exists:
+        - In a real web app, form submission would be handled by JS + backend.
+        - For this assignment phase, we simulate “submitted” state using
           a checkbox and reveal a success message.
 
+        This keeps the page demonstrable without writing JS.
       */
       #alertBox { display:none; }
       #alertPreview:checked ~ #alertBox { display:block; }
@@ -195,14 +298,16 @@
     <a href="#main" style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">Skip to main content</a>
 
     <!--
-  STATE INPUTS 
+  STATE INPUTS (CSS-only interactivity)
 
-  These <input> elements are intentionally placed before their UI.
-  The general-sibling selector (~) only works forward in the DOM (it can’t select “previous” elements)
+  These <input> elements are intentionally placed BEFORE the UI they control.
+  Reason: our CSS uses the general-sibling selector (~), like:
+      #modeDark:checked ~ .page ...
+  That selector only works forward in the DOM (it can’t select “previous” elements).
 
   Each input is hidden (display:none) so it does not clutter the UI.
   Users interact with the inputs through <label for="..."> elements,
-  which are styled to look like buttons
+  which we style to look like buttons.
 -->
     <input class="mode-input" type="checkbox" id="modeDark" />
     <input class="mode-input" type="checkbox" id="modeReader" />
@@ -214,7 +319,7 @@
     <!--
   CONTROLS (labels act like buttons)
 
-  It's a <label for="modeDark">...</label> instead of <button> + JS.
+  We use <label for="modeDark">...</label> instead of <button> + JS.
   Clicking the label toggles the matching checkbox/radio.
 
   The “button pop” on hover is pure CSS (:hover + transition + transform + shadow).
@@ -222,10 +327,12 @@
     #modeDark:checked ~ .controls label[for="modeDark"] { ... }
 -->
     <div class="controls" style="max-width:600px; margin:0 auto; padding:12px 12px 6px 12px; text-align:center;">
-      <label for="modeDark" class="button button--light" style="margin:0 6px 6px 0;">Toggle Dark</label>
+            <label for="modeDark" class="button button--light" style="margin:0 6px 6px 0;">Toggle Dark</label>
       <label for="modeReader" class="button button--light" style="margin:0 6px 6px 0;">Toggle Reader</label>
       <label for="modeNoImg" class="button button--light" style="margin:0 6px 6px 0;">Toggle Images</label>
+      <label for="visualStd" class="button button--light" style="margin:0 6px 6px 0;">Standard View</label>
       <label for="visualEvd" class="button button--light" style="margin:0 0 6px 0;">Evidence Mode</label>
+
 
       <div style="margin-top:8px; font-size:11px; line-height:16px; color:#6b7280;">
         Web preview only • CSS-only interactivity (no JavaScript).
@@ -273,7 +380,7 @@
                     <!--
   EVIDENCE MODE IMAGE SWAP (CSS-only)
 
-  There are two versions of the hero image:
+  We include two versions of the hero image:
     - .visA = standard visual
     - .visB = “evidence” visual
 
@@ -281,11 +388,13 @@
   CSS swaps which image is displayed:
       #visualEvd:checked ~ .page .visA { display:none }
       #visualEvd:checked ~ .page .visB { display:block }
+
+  This demonstrates Week 4’s checked-state technique without any JS.
 -->
 <img class="visA fluid-img" src="images/banner-a.png" alt="RageQuit Press banner" width="544"
                       style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
                     <img class="visB fluid-img" src="images/banner-b.png" alt="RageQuit Press banner (evidence mode)" width="544"
-                      style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
+                      style="display:none; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
 
                     <div style="margin-top:8px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#6b7280;">
                       Evidence Mode uses the Week 4 <strong>checked-input</strong> pattern (no JS).
@@ -301,7 +410,7 @@
                     <img class="visA fluid-img" src="images/hero-a.png" alt="Hero image: featured cover art" width="544"
                       style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
                     <img class="visB fluid-img" src="images/hero-b.png" alt="Hero image: evidence mode version" width="544"
-                      style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
+                      style="display:none; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
 
                     <div style="margin-top:10px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; font-size:13px; line-height:18px; color:#6b7280;">
                       Cover shot ⇄ Evidence Mode (CSS-only).
@@ -335,7 +444,7 @@
                     <img class="visA fluid-img" src="images/feature1-a.png" alt="Screenshot: trailer version" width="544"
                       style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
                     <img class="visB fluid-img" src="images/feature1-b.png" alt="Screenshot: in-game reality version" width="544"
-                      style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
+                      style="display:none; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
 
                     <div style="margin-top:12px;">
                       <ul style="margin:0; padding:0 0 0 18px; font-size:14px; line-height:22px; color:#374151;">
@@ -351,12 +460,226 @@
                         <img class="visA" src="images/score-03.png" alt="Score badge 3/10" width="210"
                           style="display:block; width:210px; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:10px;" />
                         <img class="visB" src="images/score-09.png" alt="Score badge 9/10 (evidence mode joke)" width="210"
-                          style="display:block; width:210px; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:10px;" />
+                          style="display:none; width:210px; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:10px;" />
                       </div>
                     </div>
                   </div>
 
-                  <!-- Quick Hits-->
+                  
+<!-- =========================================================
+     STEP #6: TWO-COLUMN COMPONENT (new content)
+     ---------------------------------------------------------
+     This is a classic email pattern: 2 columns side-by-side.
+     Why tables:
+       - Many email templates still use tables for layout.
+       - It also matches the Week-4 multi-column examples.
+
+     Responsive goal (step #8):
+       - Each column table has class="stack".
+       - In the mobile media query, .stack becomes 100% width,
+         so columns “stack” vertically on small screens.
+
+     Interaction tie-in:
+       - Each column includes a small “pill” badge that uses
+         our step #9 keyframe (pulse-lift) to draw attention.
+    ====
+
+     Structural notes (why this markup looks “table heavy”):
+       - Outer table = a layout grid container. We add role="presentation"
+         so screen readers don’t announce it as a data table.
+       - Each column is its own nested table with an explicit width.
+         That mirrors the Week-4 approach and stays consistent across email clients.
+       - We keep gutters using padding on the <td> (more reliable than CSS gap).
+
+     Layout stability notes:
+       - We avoid animating layout properties like width/margin for hover effects.
+         Our hover “lift” uses transform + shadow, so nearby content doesn’t jump.
+       - The stacking change happens only at the breakpoint, not on hover, so it’s
+         predictable for users.
+
+    ===================================================== -->
+<div class="surface" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
+  <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">Two-Column Spotlight</h2>
+  <p style="margin:0 0 12px 0; font-size:14px; line-height:22px; color:#374151;">
+    Two side-by-side cards. On mobile, they stack into a single column and text size increases for readability.
+  </p>
+
+  <!--
+    Layout table (role="presentation")
+    - This table creates the 2-column grid.
+    - Using role="presentation" signals “layout only” to assistive tech.
+  -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td valign="top" style="padding:0;">
+
+        <!--
+          Column 1 wrapper
+          - align="left" + width="50%" places columns side-by-side on wide screens.
+          - class="stack" opts this column into mobile stacking via the media query.
+          - max-width keeps the column readable (prevents it from getting too wide).
+        -->
+        <!-- Column 1 -->
+        <table role="presentation" align="left" width="50%" class="stack" cellpadding="0" cellspacing="0" border="0" style="width:50%; max-width:272px;">
+          <tr>
+            <td style="padding-right:8px;">
+              <div class="surface--muted" style="border:1px solid #e5e7eb; background-color:#f9fafb; padding:12px; border-radius:10px;">
+                <div style="margin-bottom:8px;">
+                  <span class="pill pill--attention">Design win</span>
+                </div>
+                <div style="font-size:14px; line-height:20px; color:#111827; font-weight:700;">Menus that don’t fight you</div>
+                <p style="margin:8px 0 0 0; font-size:13px; line-height:20px; color:#374151;">
+                  A rare UI that respects your time: clear hierarchy, obvious buttons, and zero “mystery meat” icons.
+                </p>
+                <div style="margin-top:10px;">
+                  <a href="#preferences" class="button button--light" style="padding:8px 10px;">See our UI rules</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <!--
+          Column 2 wrapper (same structure as Column 1)
+          - Matching structure keeps alignment consistent when stacking.
+          - Padding-left creates the gutter between columns.
+        -->
+        <!-- Column 2 -->
+        <table role="presentation" align="left" width="50%" class="stack" cellpadding="0" cellspacing="0" border="0" style="width:50%; max-width:272px;">
+          <tr>
+            <td style="padding-left:8px;">
+              <div class="surface--muted" style="border:1px solid #e5e7eb; background-color:#f9fafb; padding:12px; border-radius:10px;">
+                <div style="margin-bottom:8px;">
+                  <span class="pill pill--attention">Design fail</span>
+                </div>
+                <div style="font-size:14px; line-height:20px; color:#111827; font-weight:700;">Popups inside popups</div>
+                <p style="margin:8px 0 0 0; font-size:13px; line-height:20px; color:#374151;">
+                  If your tutorial interrupts the tutorial, you’ve created an enemy, not an onboarding flow.
+                </p>
+                <div style="margin-top:10px;">
+                  <a href="#unsubscribe" class="button button--light" style="padding:8px 10px;">Skip the popups</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Clear floats for older renderers -->
+        <div style="clear:both; line-height:0; font-size:0;"></div>
+
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- =========================================================
+     STEP #7: THREE-COLUMN COMPONENT (new content)
+     ---------------------------------------------------------
+     Another email staple: 3 small columns for bite-sized info.
+     Each column is its own table so it can stack on mobile.
+    ====
+
+     Structural notes:
+       - Three separate column tables (33.33%) are used instead of CSS grid/flex
+         to keep the pattern aligned with Week-4 email layout examples.
+       - Each column uses class="stack" so the same mobile rule can stack them
+         vertically (one per row).
+       - We put spacing on <td> padding (left/right) because it’s the most reliable
+         way to maintain gutters across clients.
+
+     Readability notes:
+       - On small screens the media query increases base text size and line-height
+         so stacked cards remain easy to scan and tap.
+
+    ===================================================== -->
+<div class="surface--muted" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
+  <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">Three-Column Mini Grid</h2>
+  <p style="margin:0 0 12px 0; font-size:14px; line-height:22px; color:#374151;">
+    Three columns for quick scanning. On mobile, each becomes full-width (“stacking columns”).
+  </p>
+
+    <!--
+    Layout table (role="presentation")
+    - This outer wrapper keeps the 3 columns in one controlled “row”.
+    - The inner column tables carry widths and the .stack class.
+  -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td valign="top" style="padding:0;">
+
+        <!--
+          Column 1 wrapper
+          - width="33.33%" makes a 3-up row on larger screens.
+          - class="stack" makes this column go full-width on mobile.
+          - align="left" ensures columns line up in clients that rely on alignment.
+        -->
+        <!--
+          Column 2 wrapper
+          - width="33.33%" makes a 3-up row on larger screens.
+          - class="stack" makes this column go full-width on mobile.
+          - align="left" ensures columns line up in clients that rely on alignment.
+        -->
+        <!--
+          Column 3 wrapper
+          - width="33.33%" makes a 3-up row on larger screens.
+          - class="stack" makes this column go full-width on mobile.
+          - align="left" ensures columns line up in clients that rely on alignment.
+        -->
+        <table role="presentation" align="left" width="33.33%" class="stack" cellpadding="0" cellspacing="0" border="0" style="width:33.33%; max-width:181px;">
+          <tr>
+            <td style="padding-right:8px; padding-bottom:12px;">
+              <div class="surface" style="border:1px solid #e5e7eb; background-color:#ffffff; padding:12px; border-radius:10px;">
+                <div style="font-size:12px; letter-spacing:1px; color:#6b7280;">HOT TAKE</div>
+                <div style="margin-top:6px; font-size:13px; line-height:19px; color:#111827; font-weight:700;">
+                  “More content” isn’t a feature.
+                </div>
+                <div style="margin-top:6px; font-size:12px; line-height:18px; color:#374151;">
+                  Shipping bloated menus is not the same as shipping value.
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <table role="presentation" align="left" width="33.33%" class="stack" cellpadding="0" cellspacing="0" border="0" style="width:33.33%; max-width:181px;">
+          <tr>
+            <td style="padding-left:4px; padding-right:4px; padding-bottom:12px;">
+              <div class="surface" style="border:1px solid #e5e7eb; background-color:#ffffff; padding:12px; border-radius:10px;">
+                <div style="font-size:12px; letter-spacing:1px; color:#6b7280;">BUG OF WEEK</div>
+                <div style="margin-top:6px; font-size:13px; line-height:19px; color:#111827; font-weight:700;">
+                  “Save file ate itself.”
+                </div>
+                <div style="margin-top:6px; font-size:12px; line-height:18px; color:#374151;">
+                  If it’s not tested, it’s not shipped. Period.
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <table role="presentation" align="left" width="33.33%" class="stack" cellpadding="0" cellspacing="0" border="0" style="width:33.33%; max-width:181px;">
+          <tr>
+            <td style="padding-left:8px; padding-bottom:12px;">
+              <div class="surface" style="border:1px solid #e5e7eb; background-color:#ffffff; padding:12px; border-radius:10px;">
+                <div style="font-size:12px; letter-spacing:1px; color:#6b7280;">INDIE PICK</div>
+                <div style="margin-top:6px; font-size:13px; line-height:19px; color:#111827; font-weight:700;">
+                  Wicker Dungeon
+                </div>
+                <div style="margin-top:6px; font-size:12px; line-height:18px; color:#374151;">
+                  Weird, polished, and doesn’t insult the player.
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <div style="clear:both; line-height:0; font-size:0;"></div>
+
+      </td>
+    </tr>
+  </table>
+</div>
+<!-- Quick Hits (Week 4 slideshow pattern) -->
                   <div class="surface--muted" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
                     <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">Quick Hits</h2>
                     <p style="margin:0 0 10px 0; font-size:14px; line-height:22px; color:#374151;">
@@ -364,7 +687,7 @@
                     </p>
 
                     <!--
-  QUICK HITS “SLIDESHOW” 
+  QUICK HITS “SLIDESHOW” (CSS-only)
 
   These radios share name="hits" so only one slide can be active.
   The labels below are clickable and select each radio.
@@ -396,7 +719,7 @@
                     </div>
                   </div>
 
-                  <!-- Broadcast Channels  -->
+                  <!-- Broadcast Channels (Week 4 “product view” slider) -->
                   <div class="surface" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
                     <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">
                       Broadcast Channels (CSS-only Product Slider)
@@ -420,7 +743,7 @@
                         <div style="font-size:13px; font-weight:700; color:#111827;">YouTube • Full Reviews</div>
                         <div style="margin-top:6px;">
                           <img class="visA" src="images/media-youtube-a.png" alt="YouTube thumbnail" style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
-                          <img class="visB" src="images/media-youtube-b.png" alt="YouTube thumbnail (evidence mode)" style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
+                          <img class="visB" src="images/media-youtube-b.png" alt="YouTube thumbnail (evidence mode)" style="display:none; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
                         </div>
                         <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">Latest: <strong>“Controller Funeral”</strong></div>
                         <div style="margin-top:10px;">
@@ -432,7 +755,7 @@
                         <div style="font-size:13px; font-weight:700; color:#111827;">TikTok • “Bug Clips”</div>
                         <div style="margin-top:6px;">
                           <img class="visA" src="images/media-tiktok-a.png" alt="TikTok thumbnail" style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
-                          <img class="visB" src="images/media-tiktok-b.png" alt="TikTok thumbnail (evidence mode)" style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
+                          <img class="visB" src="images/media-tiktok-b.png" alt="TikTok thumbnail (evidence mode)" style="display:none; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
                         </div>
                         <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">Latest: <strong>“NPC Launches Into Orbit”</strong></div>
                         <div style="margin-top:10px;">
@@ -444,7 +767,7 @@
                         <div style="font-size:13px; font-weight:700; color:#111827;">Twitch • Live “Break Tests”</div>
                         <div style="margin-top:6px;">
                           <img class="visA" src="images/media-twitch-a.png" alt="Twitch thumbnail" style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
-                          <img class="visB" src="images/media-twitch-b.png" alt="Twitch thumbnail (evidence mode)" style="display:block; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
+                          <img class="visB" src="images/media-twitch-b.png" alt="Twitch thumbnail (evidence mode)" style="display:none; width:100%; max-width:100%; height:auto; border:1px solid #e5e7eb; border-radius:6px;" />
                         </div>
                         <div style="margin-top:8px; font-size:12px; line-height:18px; color:#6b7280;">Tonight: <strong>“Will It Crash Less?”</strong></div>
                         <div style="margin-top:10px;">
@@ -482,7 +805,7 @@
                   <div class="surface" style="margin-top:18px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
                     <h2 style="margin:0 0 10px 0; font-size:18px; line-height:24px; color:#111827;">Subscribe / Email Alerts</h2>
 
-                    <!-- NOTE: Demo-only. No JS, no backend. A checkbox simulates “submitted” state -->
+                    <!-- NOTE: Demo-only. No JS, no backend. A checkbox simulates “submitted” state. -->
                     <form action="#" method="post" style="margin:0;">
                       <label for="email" style="display:block; font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">Email address</label>
                       <input id="email" name="email" type="email" placeholder="you@example.com"
@@ -563,7 +886,7 @@
                   </div>
 
                   <div style="margin-top:10px; color:#9ca3af; font-size:11px; line-height:16px;">
-                    
+                    Note: This file demonstrates Week 4 CSS interactivity. JavaScript removed by design.
                   </div>
                 </td>
               </tr>
