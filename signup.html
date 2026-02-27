@@ -4,7 +4,7 @@
   xmlns:v="urn:schemas-microsoft-com:vml"
   xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
-    <title>RageQuit Press — Signup (CSS Interactivity Preview)</title>
+    <title>RageQuit Press — Sign-Up</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,19 +12,11 @@
     <style type="text/css">
       /*
         ============================================================
-        CSS-ONLY INTERACTIVITY (Week 4 pattern set)
-
-        This signup page is intentionally written with NO JavaScript.
-        We preview “web-app” style interactions using the lecture’s
-        CSS techniques:
+        This signup page previews “web-app” style interactions using frontend HTML+CSS
           - :hover for button/link feedback
           - transition + transform + box-shadow for microinteractions
           - @keyframes for simple entrance animation
           - input:checked ~ selectors for toggles and “submitted” previews
-
-        Anything that would normally require JS (validation, posting
-        to an API, rendering a real receipt) is left as a commented stub
-        in the HTML.
         ============================================================
       */
       /* Baseline resets */
@@ -42,30 +34,12 @@
       @media screen and (max-width: 640px) {
         .container { width:100% !important; }
         .px { padding-left:16px !important; padding-right:16px !important; }
-        /*
-          STACKING UTILITY (Step #8 concept)
-          - This class is used on any column wrapper table we want to stack on mobile.
-          - Even though signup is mostly single-column, we keep .stack here so we can
-            reuse it for future multi-column blocks (e.g., plan comparison cards).
-          - !important is intentional because email-style markup often includes inline widths.
-        */
-        .stack { display:block !important; width:100% !important; max-width:100% !important; float:none !important; }
+        .stack { display:block !important; width:100% !important; }
         .fluid-img { width:100% !important; max-width:100% !important; height:auto !important; }
         .center { text-align:center !important; }
-        /*
-          Mobile type scaling (Step #8 requirement)
-          - When screens are narrow, small email-style type can become hard to read.
-          - We bump font sizes + line-height to improve readability *without* zooming.
-          - We also enlarge button padding to improve tap targets.
-        */
-        .page h1 { font-size: 28px !important; line-height: 34px !important; }
-        .page h2 { font-size: 20px !important; line-height: 28px !important; }
-        .page p, .page td, .page li, .page div { font-size: 16px !important; line-height: 26px !important; }
-        a.button, label.button { padding: 14px 18px !important; }
       }
 
-
-      /* Week 4 hover states */
+      /* Hover states */
       a.button, label.button {
         display:inline-block;
         padding:12px 18px;
@@ -83,34 +57,54 @@
         transform: translateY(-1px); /* slight upward motion (“pop”) */
       }
 
-      /* Week 4 keyframes */
+      /* Keyframes */
       @keyframes fade-in {
-        from { opacity:0; transform: scale(0.8); }
-        to   { opacity:1; transform: scale(1); }
+        from { opacity:0; transform: translateY(10px); }
+        to   { opacity:1; transform: translateY(0); }
       }
       .fade1 { animation: 1s 1 fade-in; }
       .fade2 { animation: 1.3s 1 fade-in; }
 
-      /* Checked-box approach */
+      
+
+      /* ============================================================
+         Keyframe animation using properties OTHER than
+         opacity and scale
+         pulse-lift animates:
+           - transform: translateY(...)  (motion without layout reflow)
+           - box-shadow                 (depth cue)
+           - letter-spacing             (subtle emphasis)
+         ============================================================ */
+      @keyframes pulse-lift {
+        0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(0,0,0,0); letter-spacing: 0px; }
+        50%      { transform: translateY(-2px); box-shadow: 0 10px 18px rgba(0,0,0,0.15); letter-spacing: 0.6px; }
+      }
+      .pill {
+        display:inline-block;
+        padding:6px 10px;
+        border-radius:999px;
+        border:1px solid #d1d5db;
+        background-color:#ffffff;
+        color:#111827;
+        font-size:11px;
+        font-weight:800;
+      }
+      .pill--attention { animation: pulse-lift 2.2s ease-in-out infinite; }
+/* Checked-box approach */
       .mode-input, .slide-input { display:none; }
       .controls label { cursor:pointer; }
 
-      .visB { display: none !important; }
+      /* Banner glitch uses a separate class pair so it can be toggled independently. */
+      .banB { display: none !important; }
+      #bannerGlitch:checked ~ .page .banA { display:none !important; }
+      #bannerGlitch:checked ~ .page .banB { display:block !important; }
+
+      .visB { display:none; }
       #visualEvd:checked ~ .page .visA { display:none !important; }
       #visualEvd:checked ~ .page .visB { display:block !important; }
 
-      #modeNoImg:checked ~ .page img { display: none !important; } /* “Remove images” mode */
-      /*
-        IMPORTANT OVERRIDE NOTE:
-        Evidence Mode uses highly-specific rules like:
-            #visualEvd:checked ~ .page .visB { display:block !important; }
-        That selector can beat a generic 'img {display:none}' rule.
-        So we add an even-more-specific override for the hero/banner swap images.
-        Result: Toggle Images ALWAYS hides hero/banner visuals, regardless of other modes.
-      */
-      #modeNoImg:checked ~ .page img.visA,
-      #modeNoImg:checked ~ .page img.visB { display: none !important; }
-#modeReader:checked ~ .page td,
+      #modeNoImg:checked ~ .page img { display:none !important; }
+      #modeReader:checked ~ .page td,
       #modeReader:checked ~ .page p,
       #modeReader:checked ~ .page li,
       #modeReader:checked ~ .page div {
@@ -135,19 +129,17 @@
       #modeDark:checked ~ .controls label[for="modeDark"],
       #modeReader:checked ~ .controls label[for="modeReader"],
       #modeNoImg:checked ~ .controls label[for="modeNoImg"],
+      #bannerGlitch:checked ~ .controls label[for="bannerGlitch"],
       #visualEvd:checked ~ .controls label[for="visualEvd"] {
         background-color:#111827; color:#ffffff; border-color:#111827;
       }
     
       /*
-        4) CSS-ONLY PREVIEW REVEALS (STUB FOR REAL JS LATER)
-
-        Instead of real form submission, we simulate “saved/submitted” states
+        PREVIEW REVEALS
+        Instead of real form submission, simulates “saved/submitted” states
         with a checkbox:
           #saved:checked ~ #savedMsg
           #saved:checked ~ #receipt
-
-        This keeps the demo interactive while we’re not allowed to use JS.
       */
       #alertBox { display:none; }
       #previewAlert:checked ~ #alertBox { display:block; }
@@ -165,39 +157,29 @@
     <a id="top"></a>
 
     <!--
-  STATE INPUTS (CSS-only interactivity)
-
-  These hidden inputs act like “state variables” for CSS.
-  They must appear before the elements they control because we use
-  selectors like:
-      #modeDark:checked ~ .page ...
-
-  Users toggle them by clicking <label for="..."> elements.
--->
+      STATE INPUTS
+      These hidden inputs act like “state variables” for CSS.
+      Users toggle them by clicking <label for="..."> elements.
+    -->
     <input class="mode-input" type="checkbox" id="modeDark" />
     <input class="mode-input" type="checkbox" id="modeReader" />
     <input class="mode-input" type="checkbox" id="modeNoImg" />
+
+    <!-- Banner A/B swap: Glitch Banner toggle (separate from Evidence Mode) -->
+    <input class="mode-input" type="checkbox" id="bannerGlitch" />
 
     <input class="mode-input" type="radio" name="visual" id="visualStd" checked />
     <input class="mode-input" type="radio" name="visual" id="visualEvd" />
 
     <!--
-  CONTROLS (labels as toggle buttons)
-
-  Clicking each label toggles a checkbox/radio.
-  CSS then:
-    - changes theme (dark)
-    - increases readability (reader)
-    - hides images (no-img)
-  without any JavaScript.
--->
+      CONTROLS (labels as toggle buttons)
+      Clicking each label toggles a checkbox/radio.
+    -->
     <div class="controls" style="max-width:600px; margin:0 auto; padding:12px 12px 6px 12px; text-align:center;">
-            <label for="modeDark" class="button button--light" style="margin:0 6px 6px 0;">Toggle Dark</label>
+      <label for="modeDark" class="button button--light" style="margin:0 6px 6px 0;">Toggle Dark</label>
       <label for="modeReader" class="button button--light" style="margin:0 6px 6px 0;">Toggle Reader</label>
       <label for="modeNoImg" class="button button--light" style="margin:0 6px 6px 0;">Toggle Images</label>
-      <label for="visualStd" class="button button--light" style="margin:0 6px 6px 0;">Standard View</label>
       <label for="visualEvd" class="button button--light" style="margin:0 0 6px 0;">Evidence Mode</label>
-
 
       <div style="margin-top:8px; font-size:11px; line-height:16px; color:#6b7280;">
         Web preview only • CSS-only interactivity (no JavaScript).
@@ -221,7 +203,10 @@
                   <div style="text-align:center; margin:0 0 10px 0;">
                     <img class="fade1" src="images/logo.png" width="84" height="84" alt="RageQuit Press logo" style="display:inline-block; border-radius:42px;" />
                     <div class="fade2" style="font-size:12px; letter-spacing:1.2px; color:#6b7280; margin-top:10px;">
-                      RAGEQUIT PRESS • SIGNUP (WEB PREVIEW)
+                      RAGEQUIT PRESS (WEB PREVIEW)
+                    </div>
+                    <div style="margin-top:8px;">
+                      <span class="pill pill--attention">SIGN UP PAGE</span>
                     </div>
                   </div>
 
@@ -243,18 +228,22 @@
               <!-- Banner + Hero (A/B) -->
               <tr>
                 <td align="center" class="px" style="padding: 6px 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
-                  <img class="visA fluid-img" src="images/banner-a.png" alt="RageQuit Press banner" width="544"
+                  <img class="banA fluid-img" src="images/banner-a.png" alt="RageQuit Press banner" width="544"
                     style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
-                  <img class="visB fluid-img" src="images/banner-b.png" alt="RageQuit Press banner (evidence mode)" width="544"
+                  <img class="banB fluid-img" src="images/banner-b.png" alt="RageQuit Press banner (glitch mode)" width="544"
                     style="display:none; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
+
+                  <div style="margin-top:10px; font-size:12px; line-height:18px; color:#4b5563;">
+                    Banner ⇄ Glitch Banner
+                  </div>
 
                   <div style="margin-top:14px;">
                     <img class="visA fluid-img" src="images/hero-a.png" alt="Featured cover art" width="544"
                       style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
                     <img class="visB fluid-img" src="images/hero-b.png" alt="Featured cover art (evidence mode)" width="544"
-                      style="display:none; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
+                      style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
                     <div style="margin-top:10px; font-size:12px; line-height:18px; color:#4b5563;">
-                      Cover ⇄ Evidence Mode (CSS-only).
+                      Cover ⇄ Evidence Mode
                     </div>
                   </div>
                 </td>
@@ -279,10 +268,10 @@
                   <!-- Sample alert preview (checkbox show/hide) -->
                   <div class="surface" style="padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
                     <h2 style="margin:0 0 8px 0; font-size:18px; line-height:24px; color:#111827;">
-                      Sample Upload Alert Email (CSS Preview)
+                      Sample Upload Alert Email (Preview)
                     </h2>
                     <p style="margin:0 0 10px 0; font-size:14px; line-height:22px; color:#374151;">
-                      This demonstrates a “show/hide” preview using the Week 4 checked-input approach.
+                      This demonstrates a “show/hide” preview 
                     </p>
 
                     <input class="slide-input" type="checkbox" id="previewAlert" />
@@ -290,125 +279,22 @@
 
                     <div id="alertBox" style="display:none; margin-top:12px; border:1px solid #e5e7eb; background-color:#f9fafb; padding:12px;">
                       <div style="font-size:12px; letter-spacing:1px; color:#6b7280; margin-bottom:6px;">
-                        RAGEQUIT PRESS • VIDEO ALERT (MOCK)
+                        RAGEQUIT PRESS • VIDEO ALERT (PREVIEW)
                       </div>
                       <div style="font-size:13px; line-height:20px; color:#111827;">
                         New upload is live — “Physics Glitch: Car Turns Into Helicopter (0:12)”. (Preview only)
                       </div>
                       <div style="margin-top:10px; font-size:12px; line-height:18px; color:#4b5563;">
-                        JS stub note: production version would build this from real upload data.
+                        No real upload data.
                       </div>
                     </div>
 </div>
 
-                  
-<!-- =========================================================
-     STEPS #6–#8: MULTI-COLUMN LAYOUT (added to signup too)
-     ---------------------------------------------------------
-     Even though this is a “signup” page, we include the same
-     multi-column email components so the assignment artifacts
-     exist on both pages.
-
-     - Two-column: “What you get”
-     - Three-column: “Delivery cadence”
-
-     On mobile, each table with class="stack" becomes 100% width.
-    ========================================================= -->
-<div class="surface--muted" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#f9fafb;">
-  <h2 style="margin:0 0 6px 0; font-size:18px; line-height:24px; color:#111827;">What You Get</h2>
-  <p style="margin:0 0 12px 0; font-size:14px; line-height:22px; color:#374151;">
-    Two-column layout for scan-friendly benefits (stacks on mobile).
-  </p>
-
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-    <tr>
-      <td valign="top" style="padding:0;">
-
-        <table role="presentation" align="left" width="50%" class="stack" cellpadding="0" cellspacing="0" border="0" style="width:50%; max-width:272px;">
-          <tr>
-            <td style="padding-right:8px; padding-bottom:12px;">
-              <div class="surface" style="border:1px solid #e5e7eb; background-color:#ffffff; padding:12px; border-radius:10px;">
-                <div style="margin-bottom:8px;"><span class="pill pill--attention">Weekly</span></div>
-                <div style="font-size:13px; line-height:19px; color:#111827; font-weight:700;">The Weekly Roast</div>
-                <div style="margin-top:6px; font-size:12px; line-height:18px; color:#374151;">
-                  One featured review + quick hits. Built for fast scanning.
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
-
-        <table role="presentation" align="left" width="50%" class="stack" cellpadding="0" cellspacing="0" border="0" style="width:50%; max-width:272px;">
-          <tr>
-            <td style="padding-left:8px; padding-bottom:12px;">
-              <div class="surface" style="border:1px solid #e5e7eb; background-color:#ffffff; padding:12px; border-radius:10px;">
-                <div style="margin-bottom:8px;"><span class="pill pill--attention">Instant</span></div>
-                <div style="font-size:13px; line-height:19px; color:#111827; font-weight:700;">Upload Alerts</div>
-                <div style="margin-top:6px; font-size:12px; line-height:18px; color:#374151;">
-                  A short notification when a new clip goes live.
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
-
-        <div style="clear:both; line-height:0; font-size:0;"></div>
-
-      </td>
-    </tr>
-  </table>
-
-  <h2 style="margin:10px 0 6px 0; font-size:18px; line-height:24px; color:#111827;">Delivery Cadence</h2>
-  <p style="margin:0 0 12px 0; font-size:14px; line-height:22px; color:#374151;">
-    Three columns (stacks on mobile). The pill uses the keyframe animation requirement.
-  </p>
-
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-    <tr>
-      <td valign="top" style="padding:0;">
-
-        <table role="presentation" align="left" width="33.33%" class="stack" cellpadding="0" cellspacing="0" border="0" style="width:33.33%; max-width:181px;">
-          <tr><td style="padding-right:8px; padding-bottom:12px;">
-            <div class="surface" style="border:1px solid #e5e7eb; background-color:#ffffff; padding:12px; border-radius:10px;">
-              <div style="margin-bottom:8px;"><span class="pill pill--attention">Friday</span></div>
-              <div style="font-size:13px; line-height:19px; color:#111827; font-weight:700;">Newsletter</div>
-              <div style="margin-top:6px; font-size:12px; line-height:18px; color:#374151;">One weekly email.</div>
-            </div>
-          </td></tr>
-        </table>
-
-        <table role="presentation" align="left" width="33.33%" class="stack" cellpadding="0" cellspacing="0" border="0" style="width:33.33%; max-width:181px;">
-          <tr><td style="padding-left:4px; padding-right:4px; padding-bottom:12px;">
-            <div class="surface" style="border:1px solid #e5e7eb; background-color:#ffffff; padding:12px; border-radius:10px;">
-              <div style="margin-bottom:8px;"><span class="pill pill--attention">As needed</span></div>
-              <div style="font-size:13px; line-height:19px; color:#111827; font-weight:700;">Alerts</div>
-              <div style="margin-top:6px; font-size:12px; line-height:18px; color:#374151;">Only when notable.</div>
-            </div>
-          </td></tr>
-        </table>
-
-        <table role="presentation" align="left" width="33.33%" class="stack" cellpadding="0" cellspacing="0" border="0" style="width:33.33%; max-width:181px;">
-          <tr><td style="padding-left:8px; padding-bottom:12px;">
-            <div class="surface" style="border:1px solid #e5e7eb; background-color:#ffffff; padding:12px; border-radius:10px;">
-              <div style="margin-bottom:8px;"><span class="pill pill--attention">Anytime</span></div>
-              <div style="font-size:13px; line-height:19px; color:#111827; font-weight:700;">Unsubscribe</div>
-              <div style="margin-top:6px; font-size:12px; line-height:18px; color:#374151;">One click opt-out.</div>
-            </div>
-          </td></tr>
-        </table>
-
-        <div style="clear:both; line-height:0; font-size:0;"></div>
-
-      </td>
-    </tr>
-  </table>
-</div>
-<!-- Signup form (CSS-only “receipt” stub) -->
+                  <!-- Signup form (CSS-only “receipt” stub) -->
                   <div class="surface" style="margin-top:16px; padding:16px; border:1px solid #e5e7eb; background-color:#ffffff;">
                     <h2 style="margin:0 0 10px 0; font-size:18px; line-height:24px; color:#111827;">Signup Details</h2>
 
-                    <!-- NOTE: Demo-only. No JS, no backend. Checkbox simulates saved state. -->
-                    <form action="#" method="post" style="margin:0;">
+                    <form action="signup.html#receipt" method="get" style="margin:0;">
                       <label for="signupEmail" style="display:block; font-size:13px; line-height:18px; color:#374151; margin-bottom:6px;">Email address</label>
                       <input id="signupEmail" name="email" type="email" placeholder="you@example.com"
                         style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:6px; font-size:14px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;" />
@@ -436,13 +322,13 @@
                       <label for="saved" class="button button--dark" style="margin-top:14px;">Create my alerts (preview)</label>
 
                       <div id="savedMsg" style="display:none; margin-top:10px; font-size:13px; line-height:18px; color:#374151;">
-                        Preferences saved (preview). JS stub: validate + send to backend + show receipt from server.
+                        Preferences saved (preview). 
                       </div>
 
                       <div id="receipt" style="display:none; margin-top:14px; padding:14px; border:1px solid #e5e7eb; background-color:#f9fafb;">
                         <div style="font-size:13px; line-height:18px; color:#111827; font-weight:700; margin-bottom:6px;">Preferences saved (preview)</div>
                         <div style="font-size:13px; line-height:20px; color:#374151;">
-                          Receipt stub — in a real app, this would reflect saved preferences from the backend.
+                          Receipt stub — saved preferences
                         </div>
                       </div>
 <div style="margin-top:10px; font-size:11px; line-height:16px; color:#6b7280;">
@@ -452,7 +338,7 @@
                   </div>
 
                   <div style="margin-top:12px; font-size:12px; line-height:18px; color:#6b7280;">
-                    JS removed intentionally. When you’re allowed to add it back, replace the checkboxes with real form submit handlers.
+                    Still in Preview Mode
                   </div>
 
                 </td>
@@ -467,7 +353,7 @@
                   </div>
 
                   <div style="margin-top:10px; color:#9ca3af; font-size:11px; line-height:16px;">
-                    Note: CSS-only Week 4 interactivity demo. JavaScript removed by design.
+                   
                   </div>
                 </td>
               </tr>
@@ -477,9 +363,7 @@
         </tr>
       </table>
 
-      <!-- JS STUB (intentionally removed)
-           Future: hook forms to Django endpoints; replace preview toggles with real network requests.
-      -->
+
     </div>
   </body>
 </html>
