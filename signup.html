@@ -94,45 +94,49 @@
       .mode-input, .slide-input { display:none; }
       .controls label { cursor:pointer; }
 
-      /* Banner glitch uses a separate class pair so it can be toggled independently. */
-      .banB { display: none !important; }
-      #bannerGlitch:checked ~ .page .banA { display:none !important; }
-      #bannerGlitch:checked ~ .page .banB { display:block !important; }
+         /*
+        IMPORTANT OVERRIDE NOTE:
+        Evidence Mode uses highly-specific rules like:
+            #visualEvd:checked ~ .page .visB { display:block !important; }
+        Result: Toggle Images hides hero/banner visuals, regardless of other modes
+      */
+      #modeNoImg:checked ~ .page img.visA,
+      #modeNoImg:checked ~ .page img.visB { display: none !important; }
 
-      .visB { display:none; }
-      #visualEvd:checked ~ .page .visA { display:none !important; }
-      #visualEvd:checked ~ .page .visB { display:block !important; }
 
-      #modeNoImg:checked ~ .page img { display:none !important; }
-      #modeReader:checked ~ .page td,
+      #modeReader:checked ~ .page td, /* Reader Mode: enlarge body text + spacing */
       #modeReader:checked ~ .page p,
       #modeReader:checked ~ .page li,
       #modeReader:checked ~ .page div {
-        font-size:16px !important;
-        line-height:26px !important;
+        font-size: 16px !important;
+        line-height: 26px !important;
       }
-      #modeReader:checked ~ .page h1 { font-size:28px !important; line-height:36px !important; }
-      #modeReader:checked ~ .page h2 { font-size:20px !important; line-height:28px !important; }
+      #modeReader:checked ~ .page h1 { font-size: 28px !important; line-height: 36px !important; }
+      #modeReader:checked ~ .page h2 { font-size: 20px !important; line-height: 28px !important; }
 
-      #modeDark:checked ~ .page .outer { background-color:#0b1220 !important; }
-      #modeDark:checked ~ .page .container { background-color:#0f172a !important; border-color:#334155 !important; }
+      #modeDark:checked ~ .page .outer { background-color: #0b1220 !important; }
+      #modeDark:checked ~ .page .container { background-color: #0f172a !important; border-color: #334155 !important; }
       #modeDark:checked ~ .page td,
       #modeDark:checked ~ .page p,
       #modeDark:checked ~ .page li,
       #modeDark:checked ~ .page div,
       #modeDark:checked ~ .page h1,
-      #modeDark:checked ~ .page h2 { color:#e5e7eb !important; }
-      #modeDark:checked ~ .page a { color:#93c5fd !important; }
-      #modeDark:checked ~ .page .surface { background-color:#111827 !important; border-color:#334155 !important; }
-      #modeDark:checked ~ .page .surface--muted { background-color:#0b1220 !important; border-color:#334155 !important; }
+      #modeDark:checked ~ .page h2 { color: #e5e7eb !important; }
+      #modeDark:checked ~ .page a { color: #93c5fd !important; }
+      #modeDark:checked ~ .page .surface { background-color: #111827 !important; border-color: #334155 !important; }
+      #modeDark:checked ~ .page .surface--muted { background-color: #0b1220 !important; border-color: #334155 !important; }
 
+      /* Make the active toggles look “pressed” */
       #modeDark:checked ~ .controls label[for="modeDark"],
       #modeReader:checked ~ .controls label[for="modeReader"],
       #modeNoImg:checked ~ .controls label[for="modeNoImg"],
-      #bannerGlitch:checked ~ .controls label[for="bannerGlitch"],
+      #visualStd:checked ~ .controls label[for="visualStd"],
       #visualEvd:checked ~ .controls label[for="visualEvd"] {
-        background-color:#111827; color:#ffffff; border-color:#111827;
+        background-color: #111827;
+        color: #ffffff;
+        border-color: #111827;
       }
+
     
       /*
         PREVIEW REVEALS
@@ -152,44 +156,48 @@
     </style>
   </head>
 
-  <body id="body" style="margin:0 !important; padding:0 !important; background-color:#f3f4f6;">
+  <body id="body" style="margin: 0 !important; padding: 0 !important; background-color: #f3f4f6;">
     <a href="#main" style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">Skip to main content</a>
-    <a id="top"></a>
 
-    <!--
-      STATE INPUTS
-      These hidden inputs act like “state variables” for CSS.
-      Users toggle them by clicking <label for="..."> elements.
+    <!-- STATE INPUTS (CSS-only interactivity)
+      These <input> elements are intentionally placed BEFORE the UI they control.
+      Reason: our CSS uses the general-sibling selector (~), like:
+          #modeDark:checked ~ .page ...
+      That selector only works forward in the DOM (it can’t select “previous” elements).
+    
+      Each input is hidden (display:none) so it does not clutter the UI.
+      Users interact with the inputs through <label for="..."> elements,
+      styled to look like button 
     -->
     <input class="mode-input" type="checkbox" id="modeDark" />
     <input class="mode-input" type="checkbox" id="modeReader" />
     <input class="mode-input" type="checkbox" id="modeNoImg" />
 
-    <!-- Banner A/B swap: Glitch Banner toggle (separate from Evidence Mode) -->
-    <input class="mode-input" type="checkbox" id="bannerGlitch" />
-
     <input class="mode-input" type="radio" name="visual" id="visualStd" checked />
     <input class="mode-input" type="radio" name="visual" id="visualEvd" />
 
-    <!--
-      CONTROLS (labels as toggle buttons)
-      Clicking each label toggles a checkbox/radio.
+    <!--CONTROLS (labels act like buttons)
+       <label for="modeDark">...</label> 
+      Clicking the label toggles the matching checkbox/radio.
+    
+      The “button pop” on hover is pure CSS (:hover + transition + transform + shadow).
+      The “active” styling (dark background) is also CSS-only:
+        #modeDark:checked ~ .controls label[for="modeDark"] { ... }
     -->
     <div class="controls" style="max-width:600px; margin:0 auto; padding:12px 12px 6px 12px; text-align:center;">
-      <label for="modeDark" class="button button--light" style="margin:0 6px 6px 0;">Toggle Dark</label>
+            <label for="modeDark" class="button button--light" style="margin:0 6px 6px 0;">Toggle Dark</label>
       <label for="modeReader" class="button button--light" style="margin:0 6px 6px 0;">Toggle Reader</label>
       <label for="modeNoImg" class="button button--light" style="margin:0 6px 6px 0;">Toggle Images</label>
+      <label for="visualStd" class="button button--light" style="margin:0 6px 6px 0;">Standard View</label>
       <label for="visualEvd" class="button button--light" style="margin:0 0 6px 0;">Evidence Mode</label>
 
+
       <div style="margin-top:8px; font-size:11px; line-height:16px; color:#6b7280;">
-        Web preview only • CSS-only interactivity (no JavaScript).
+        Web preview only • WIP
       </div>
     </div>
 
-    <div class="page">
-      <div style="display:none; font-size:1px; color:#f3f4f6; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidden;">
-        RageQuit Press signup — choose alerts, newsletters, and video upload notifications.
-      </div>
+    
 
       <table class="outer" border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation" style="background-color:#f3f4f6;">
         <tr>
@@ -198,68 +206,82 @@
               style="width:600px; max-width:600px; background-color:#ffffff; border:1px solid #e5e7eb;">
 
               <!-- Header -->
+           <div class="page">
+      <div style="display:none; font-size:1px; color:#f3f4f6; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidden;">
+        This week: one AAA flop roasted, three indie games were overhyped, and a “patch notes apology tour.”
+      </div>
+
+      <a id="top"></a>
+
+      <table class="outer" border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation" style="background-color:#f3f4f6;">
+        <tr>
+          <td align="center" style="padding: 20px 12px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="600" class="container" role="presentation"
+              style="width:600px; max-width:600px; background-color:#ffffff; border:1px solid #e5e7eb;">
+
+              <!-- Header -->
               <tr>
-                <td class="px" style="padding:22px 28px 10px 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
+                <td class="px" style="padding: 22px 28px 10px 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
                   <div style="text-align:center; margin:0 0 10px 0;">
                     <img class="fade1" src="images/logo.png" width="84" height="84" alt="RageQuit Press logo" style="display:inline-block; border-radius:42px;" />
                     <div class="fade2" style="font-size:12px; letter-spacing:1.2px; color:#6b7280; margin-top:10px;">
-                      RAGEQUIT PRESS (WEB PREVIEW)
-                    </div>
-                    <div style="margin-top:8px;">
-                      <span class="pill pill--attention">SIGN UP PAGE</span>
+                      RAGEQUIT PRESS • EMAIL CAMPAIGN PREVIEW
                     </div>
                   </div>
 
                   <div style="text-align:center;">
-                    <h1 style="margin:8px 0 8px 0; font-size:28px; line-height:36px; color:#111827; font-weight:700;">
-                      Create Your RageQuit Press Alerts
+                    <h1 class="fade3" style="margin:8px 0 8px 0; font-size:30px; line-height:38px; color:#111827; font-weight:700;">
+                      The Week in Gaming, With Zero Mercy
                     </h1>
                     <p style="margin:0; font-size:14px; line-height:22px; color:#374151;">
-                      Frontend-only: forms are preview stubs. A future backend will store preferences and send emails.
+                      Issue #02 • Switch visuals using <strong>Evidence Mode</strong>.
                     </p>
+                  </div>
+                </td>
+              </tr>
 
-                    <div style="margin-top:12px;">
-                      <a href="index.html" class="button button--dark">← Back to Weekly Roast</a>
+              <!-- Banner (A/B controlled by Evidence Mode radio) -->
+              <tr>
+                <td align="center" class="px" style="padding: 12px 28px 0 28px;">
+                  <div style="margin:0; padding:0; text-align:center;">
+<!-- EVIDENCE MODE IMAGE SWAP (CSS-only)
+   two versions of the hero image:
+    - .visA = standard visual
+    - .visB = “evidence” visual
+
+ “Evidence Mode” toggle is a radio input (#visualEvd).
+  CSS swaps which image is displayed:
+      #visualEvd:checked ~ .page .visA { display:none }
+      #visualEvd:checked ~ .page .visB { display:block }
+-->
+<img class="visA fluid-img" src="images/banner-a.png" alt="RageQuit Press banner" width="544"
+                      style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
+                    <img class="visB fluid-img" src="images/banner-b.png" alt="RageQuit Press banner (evidence mode)" width="544"
+                      style="display:none; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
+
+                    <div style="margin-top:8px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; font-size:12px; line-height:18px; color:#6b7280;">
+                      Evidence Mode uses the Week 4 <strong>checked-input</strong> pattern.
                     </div>
                   </div>
                 </td>
               </tr>
 
-              <!-- Banner + Hero (A/B) -->
+              <!-- Hero (A/B controlled by Evidence Mode radio) -->
               <tr>
-                <td align="center" class="px" style="padding: 6px 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
-                  <img class="banA fluid-img" src="images/banner-a.png" alt="RageQuit Press banner" width="544"
-                    style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
-                  <img class="banB fluid-img" src="images/banner-b.png" alt="RageQuit Press banner (glitch mode)" width="544"
-                    style="display:none; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
-
-                  <div style="margin-top:10px; font-size:12px; line-height:18px; color:#4b5563;">
-                    Banner ⇄ Glitch Banner
-                  </div>
-
-                  <div style="margin-top:14px;">
-                    <img class="visA fluid-img" src="images/hero-a.png" alt="Featured cover art" width="544"
+                <td align="center" class="px" style="padding: 14px 28px 0 28px;">
+                  <div style="margin:0; padding:0; text-align:center;">
+                    <img class="visA fluid-img" src="images/hero-a.png" alt="Hero image: featured cover art" width="544"
                       style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
-                    <img class="visB fluid-img" src="images/hero-b.png" alt="Featured cover art (evidence mode)" width="544"
-                      style="display:block; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
-                    <div style="margin-top:10px; font-size:12px; line-height:18px; color:#4b5563;">
-                      Cover ⇄ Evidence Mode
+                    <img class="visB fluid-img" src="images/hero-b.png" alt="Hero image: evidence mode version" width="544"
+                      style="display:none; width:544px; max-width:100%; height:auto; border:1px solid #e5e7eb;" />
+
+                    <div style="margin-top:10px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif; font-size:13px; line-height:18px; color:#6b7280;">
+                      Cover shot ⇄ Evidence Mode (CSS-only).
                     </div>
                   </div>
                 </td>
               </tr>
 
-              <!-- Under construction callout -->
-              <tr>
-                <td class="px" style="padding: 0 28px 0 28px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;">
-                  <div class="surface--muted" style="margin-top:10px; padding:12px 14px; border-left:4px solid #7c3aed; background-color:#f9fafb; border:1px solid #e5e7eb;">
-                    <p style="margin:0; font-size:14px; line-height:22px; color:#111827;">
-                      <strong>Under construction:</strong> In production this page will (1) create a subscriber profile,
-                      (2) store preferences, and (3) trigger emails for newsletters and uploads.
-                    </p>
-                  </div>
-                </td>
-              </tr>
 
               <!-- Main -->
               <tr>
